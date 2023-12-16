@@ -3,7 +3,7 @@
 return {
   {
     "echasnovski/mini.indentscope",
-    -- enabled = false,
+    enabled = false,
     opts = {
       draw = {
         -- delay = 0,
