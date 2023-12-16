@@ -14,6 +14,15 @@ return {
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root, hidden = true}) end,
         desc = "Find Plugin File",
       },
+      {
+        "<leader>gb",
+        function()
+          require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown())
+        end,
+        desc = "Checkout branch",
+      },
+      { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout commit" },
+      { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
     },
     -- change some options
     opts = {
@@ -22,9 +31,9 @@ return {
         --   layout_config = { prompt_position = "top" },
         --   sorting_strategy = "ascending",
         --   winblend = 0,
-        file_ignore_patterns = {
-          ".git",
-        },
+        -- file_ignore_patterns = {
+        --   ".git",
+        -- },
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,

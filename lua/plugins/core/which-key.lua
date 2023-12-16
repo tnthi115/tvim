@@ -8,4 +8,10 @@ return {
       border = "single",
     },
   },
+  -- opts = function(_, opts)
+  --   opts.window = {
+  --     border = "single",
+  --   }
+  --   opts.defaults["<leader>gh"] = nil
+  -- end,
 }

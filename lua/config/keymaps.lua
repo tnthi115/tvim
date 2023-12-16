@@ -13,9 +13,21 @@ vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = tr
 vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
 
 -- navigate git hunks like Lunarvim
-local gs = require "gitsigns"
-vim.keymap.set("n", "<leader>gj", gs.next_hunk, { desc = "Next Hunk" })
-vim.keymap.set("n", "<leader>gk", gs.prev_hunk, { desc = "Prev Hunk" })
+-- local gs = require "gitsigns"
+-- vim.keymap.set("n", "<leader>gj", gs.next_hunk, { desc = "Next Hunk" })
+-- vim.keymap.set("n", "<leader>gk", gs.prev_hunk, { desc = "Prev Hunk" })
+-- vim.keymap.del("n", "<leader>ghs")
+-- vim.keymap.del("n", "<leader>ghr")
+-- vim.keymap.del("n", "<leader>ghS")
+-- vim.keymap.del("n", "<leader>ghu")
+-- vim.keymap.del("n", "<leader>ghR")
+-- vim.keymap.del("n", "<leader>ghp")
+-- vim.keymap.del("n", "<leader>ghb")
+-- vim.keymap.del("n", "<leader>ghd")
+-- vim.keymap.del("n", "<leader>ghD")
+
+-- checkout branch
+-- vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })
 
 -- noice.nvim use <c-d> and <c-u> for lsp hover doc scrolling
 vim.keymap.set({ "n", "i", "s" }, "<c-d>", function()
