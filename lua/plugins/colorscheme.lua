@@ -1,6 +1,43 @@
 -- Full spec: https://www.lazyvim.org/plugins/colorscheme
 
 return {
+  {
+    "folke/tokyonight.nvim",
+    opts = function()
+      -- local bg_color = "#1a1b26"
+      -- vim.cmd [[hi Normal ctermbg=none guibg=none]]
+      -- vim.cmd [[hi SignColumn ctermbg=none guibg=none]]
+      -- vim.cmd [[hi NormalNC ctermbg=none guibg=none]]
+      -- vim.cmd [[hi MsgArea ctermbg=none guibg=none]]
+      -- vim.cmd [[hi TelescopeBorder ctermbg=none guibg=none]]
+      -- vim.cmd [[hi NvimTreeNormal ctermbg=none guibg=none]]
+      -- vim.cmd [[let &fcs='eob: ']]
+      -- vim.cmd [[hi NormalFloat ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi CmpMenu ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi CmpItemMenu ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi CmpDocumentation ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi link CmpMenu NormalFloat]]
+      -- vim.cmd [[hi link CmpItemMenu NormalFloat]]
+      -- vim.cmd [[hi link CmpDocumentation NormalFloat]]
+      -- vim.cmd [[hi FloatShadow ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi FloatShadowThrough ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[hi NoiceMini ctermbg=none guibg=bg_color]]
+      -- vim.cmd [[autocmd! ColorScheme * highlight NoiceMini guibg=bg_color]]
+
+      -- TODO: figure out why this doesn't work
+      -- local colors = require("tokyonight.colors").setup()
+      -- vim.cmd [[hi IndentBlanklineContextChar guifg=colors.fg]]
+      return {
+        style = "night",
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      }
+    end,
+  },
+
   -- {
   --   "LunarVim/lunar.nvim",
   --   -- lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -81,38 +118,4 @@ return {
   --     -- vim.cmd [[hi CmpItemMenu ctermbg=none guibg=bg_color]]
   --   end,
   -- },
-
-  {
-    "folke/tokyonight.nvim",
-    lazy = true,
-    opts = function()
-      -- local bg_color = "#1a1b26"
-      -- vim.cmd [[hi Normal ctermbg=none guibg=none]]
-      -- vim.cmd [[hi SignColumn ctermbg=none guibg=none]]
-      -- vim.cmd [[hi NormalNC ctermbg=none guibg=none]]
-      -- vim.cmd [[hi MsgArea ctermbg=none guibg=none]]
-      -- vim.cmd [[hi TelescopeBorder ctermbg=none guibg=none]]
-      -- vim.cmd [[hi NvimTreeNormal ctermbg=none guibg=none]]
-      -- vim.cmd [[let &fcs='eob: ']]
-      -- vim.cmd [[hi NormalFloat ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi CmpMenu ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi CmpItemMenu ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi CmpDocumentation ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi link CmpMenu NormalFloat]]
-      -- vim.cmd [[hi link CmpItemMenu NormalFloat]]
-      -- vim.cmd [[hi link CmpDocumentation NormalFloat]]
-      -- vim.cmd [[hi FloatShadow ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi FloatShadowThrough ctermbg=none guibg=bg_color]]
-      -- vim.cmd [[hi NoiceMini ctermbg=none guibg=bg_color]]
-      vim.cmd [[autocmd! ColorScheme * highlight NoiceMini guibg=bg_color]]
-      return {
-        style = "night",
-        transparent = true,
-        styles = {
-          sidebars = "transparent",
-          floats = "transparent",
-        },
-      }
-    end,
-  },
 }
