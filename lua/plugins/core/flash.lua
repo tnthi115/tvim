@@ -3,7 +3,6 @@
 -- flash.nvim - navigate code with search labels, enhanced character motions, and Treesitter integration
 return {
   "folke/flash.nvim",
-  event = "User FileOpened",
   ---@type Flash.Config
   opts = {
     modes = {
