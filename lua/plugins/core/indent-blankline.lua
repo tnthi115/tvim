@@ -1,5 +1,9 @@
 -- Full spec: https://www.lazyvim.org/plugins/ui#indent-blanklinenvim
 
+if true then
+  return {}
+end
+
 -- return {
 --   "lukas-reineke/indent-blankline.nvim",
 --   opts = {
