@@ -16,9 +16,10 @@ return {
       },
       {
         "<leader>gb",
-        function()
-          require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown())
-        end,
+        -- function()
+        --   require("telescope.builtin").git_branches()
+        -- end,
+        "<cmd>Telescope git_branches",
         desc = "Checkout branch",
       },
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout commit" },
@@ -47,6 +48,12 @@ return {
         },
         git_files = {
           hidden = true,
+        },
+        git_branches = {
+          theme = "dropdown",
+        },
+        git_commits = {
+          theme = "dropdown",
         },
       },
     },
