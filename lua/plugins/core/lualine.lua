@@ -112,15 +112,6 @@ return {
     --   "dokwork/lualine-ex",
     -- },
     event = "VeryLazy",
-    -- opts = function(_, opts)
-    --   local default = true
-    --   if default == false then
-    --     -- table.insert(opts.sections.lualine_x, "😄")
-    --     -- TODO: make lualine look more like Lunarvim
-    --     opts = {}
-    --   end
-    -- end,
-
     opts = function()
       -- PERF: we don't need this lualine require madness 🤷
       local lualine_require = require "lualine_require"
@@ -209,56 +200,6 @@ return {
             -- { Util.lualine.pretty_path() },
           },
           lualine_x = {
-            -- {
-            --   -- lsp stolen from Lunarvim
-            --   -- TODO: get this working
-            --   function()
-            --     local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
-            --     if #buf_clients == 0 then
-            --       return "LSP Inactive"
-            --     end
-            --
-            --     local buf_ft = vim.bo.filetype
-            --     local buf_client_names = {}
-            --     local copilot_active = false
-            --
-            --     -- add client
-            --     for _, client in pairs(buf_clients) do
-            --       if client.name ~= "null-ls" and client.name ~= "copilot" then
-            --         table.insert(buf_client_names, client.name)
-            --       end
-            --
-            --       if client.name == "copilot" then
-            --         copilot_active = true
-            --       end
-            --     end
-            --
-            --     -- add formatter
-            --     local formatters = require "null-ls.formatters"
-            --     local supported_formatters = formatters.list_registered(buf_ft)
-            --     vim.list_extend(buf_client_names, supported_formatters)
-            --
-            --     -- add linter
-            --     local linters = require "null-ls.linters"
-            --     local supported_linters = linters.list_registered(buf_ft)
-            --     vim.list_extend(buf_client_names, supported_linters)
-            --
-            --     local unique_client_names = table.concat(buf_client_names, ", ")
-            --     local language_servers = string.format("[%s]", unique_client_names)
-            --
-            --     if copilot_active then
-            --       -- language_servers = language_servers .. "%#SLCopilot#" .. " " .. "" .. "%*"
-            --       language_servers = language_servers .. "%#SLCopilot#" .. " " .. icons.kinds.Copilot .. "%*"
-            --     end
-            --
-            --     return language_servers
-            --   end,
-            --   cond = function()
-            --     local window_width_limit = 100
-            --     return vim.o.columns > window_width_limit
-            --   end,
-            --   color = { gui = "bold" },
-            -- },
             {
               function()
                 return require("noice").api.status.command.get()
@@ -305,31 +246,6 @@ return {
             -- {
             --   "ex.lsp.all",
             --   only_attached = true,
-            -- },
-            -- {
-            --   -- LSP clients attached to buffer
-            --   function()
-            --     local bufnr = vim.api.nvim_get_current_buf()
-            --
-            --     local clients = vim.lsp.get_active_clients { bufnr = bufnr }
-            --     if next(clients) == nil then
-            --       return ""
-            --     end
-            --
-            --     local null_ls_sources = require("null-ls").get_sources({})
-            --     if next(null_ls_sources) == nil then
-            --       return ""
-            --     end
-            --
-            --     local c = {}
-            --     for _, client in pairs(clients) do
-            --       table.insert(c, client.name)
-            --     end
-            --     for _, source in pairs(null_ls_sources) do
-            --       table.insert(c, source.name)
-            --     end
-            --     return "\u{f085}  " .. table.concat(c, ", ")
-            --   end,
             -- },
             {
               -- spaces stolen from Lunarvim
