@@ -4,27 +4,16 @@
 
 -- TODO: swap <leader>/ with comment
 -- ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
-vim.keymap.del("n", "<leader>/")
-vim.keymap.set({ "n", "v" }, "<leader>/", "gcc", { desc = "Comment toggle current line" })
+-- vim.keymap.del("n", "<leader>/")
+-- vim.keymap.set({ "n", "v" }, "<leader>/", "gcc", { desc = "Comment toggle current line" })
 
--- navigate tab completion with <c-j> and <c-k>
+-- navigate commandline tab completion with <c-j> and <c-k>
 -- runs conditionally
 vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
 vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
 
--- navigate git hunks like Lunarvim
--- local gs = require "gitsigns"
--- vim.keymap.set("n", "<leader>gj", gs.next_hunk, { desc = "Next Hunk" })
--- vim.keymap.set("n", "<leader>gk", gs.prev_hunk, { desc = "Prev Hunk" })
--- vim.keymap.del("n", "<leader>ghs")
--- vim.keymap.del("n", "<leader>ghr")
--- vim.keymap.del("n", "<leader>ghS")
--- vim.keymap.del("n", "<leader>ghu")
--- vim.keymap.del("n", "<leader>ghR")
--- vim.keymap.del("n", "<leader>ghp")
--- vim.keymap.del("n", "<leader>ghb")
--- vim.keymap.del("n", "<leader>ghd")
--- vim.keymap.del("n", "<leader>ghD")
+-- remove git status keybind
+vim.keymap.del("n", "<leader>gs")
 
 -- checkout branch
 -- vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })
