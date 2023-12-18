@@ -45,7 +45,7 @@ return {
 
     local mappings = {
       o = {
-        name = "OGPT",
+        name = "+ogpt",
         c = { "<cmd>OGPT<CR>", "OGPT" },
         a = { "<cmd>OGPTActAs<CR>", "OGPTActAs" },
         e = { "<cmd>OGPTEditWithInstruction<CR>", "Edit with instruction" },

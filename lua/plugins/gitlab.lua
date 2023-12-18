@@ -10,7 +10,6 @@ return {
       "sindrets/diffview.nvim",
       "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
       "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
-      enabled = true,
     },
     build = function()
       require("gitlab.server").build(true)
@@ -137,7 +136,7 @@ return {
 
       local mappings = {
         m = {
-          name = "GitLab",
+          name = "+gitLab",
           s = { "<cmd>lua require('gitlab').summary()<CR>", "Summary" },
           A = { "<cmd>lua require('gitlab').approve()<CR>", "Approve" },
           R = { "<cmd>lua require('gitlab').revoke()<CR>", "Revoke" },

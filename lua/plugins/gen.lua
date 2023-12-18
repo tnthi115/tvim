@@ -22,7 +22,7 @@ return {
 
     local mappings = {
       G = {
-        name = "+Gen",
+        name = "+gen",
         g = { "<cmd>Gen<CR>", "Gen" },
         a = { "<cmd>Gen Ask<CR>", "Gen Ask" },
         c = { "<cmd>Gen Change<CR>", "Gen Change" },
@@ -48,7 +48,7 @@ return {
 
     local vmappings = {
       G = {
-        name = "+Gen",
+        name = "+gen",
         g = { "<cmd>'<,'>Gen<CR>", "Gen" },
         a = { "<cmd>'<,'>Gen Ask<CR>", "Gen Ask" },
         c = { "<cmd>'<,'>Gen Change<CR>", "Gen Change" },

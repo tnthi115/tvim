@@ -57,7 +57,7 @@ return {
 
     local mappings = {
       n = {
-        name = "+Neogen",
+        name = "+neogen",
       },
     }
 
