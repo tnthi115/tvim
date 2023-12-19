@@ -41,7 +41,7 @@ return {
         "williamboman/mason.nvim",
         opts = function(_, opts)
           opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "commitlint", "codespell" })
+          vim.list_extend(opts.ensure_installed, { "commitlint", "codespell", "shellcheck" })
         end,
       },
     },
@@ -51,6 +51,9 @@ return {
         nls.builtins.diagnostics.commitlint,
         nls.builtins.diagnostics.codespell.with {
           filetypes = { "markdown", "html", "xhtml", "gitcommit" },
+        },
+        nls.builtins.diagnostics.shellcheck.with {
+          extra_args = { "--severity", "warning" },
         },
       })
     end,
