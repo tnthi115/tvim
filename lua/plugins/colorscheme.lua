@@ -34,6 +34,8 @@ return {
           sidebars = "transparent",
           floats = "transparent",
         },
+        -- TODO: add Lunarvim icons?
+        -- icons = {},
       }
     end,
   },
