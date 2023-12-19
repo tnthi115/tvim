@@ -34,26 +34,34 @@ end, { silent = true, expr = true })
 -- TODO: add <leader>s/ as search current buffer
 
 -- Utility function for setting local spacing.
-function set_spaces()
+-- function set_spaces()
+--   vim.ui.input({ prompt = "Number of spaces: " }, function(input)
+--     vim.cmd(string.format("setlocal shiftwidth=%s softtabstop=%s expandtab", input, input))
+--   end)
+--   -- vim.cmd [[redraw]]
+-- end
+
+vim.keymap.set("n", "<leader>uS", function()
   vim.ui.input({ prompt = "Number of spaces: " }, function(input)
     vim.cmd(string.format("setlocal shiftwidth=%s softtabstop=%s expandtab", input, input))
   end)
-  -- vim.cmd [[redraw]]
-end
-
-vim.keymap.set("n", "<leader>uS", "<cmd>lua set_spaces()<CR>", { desc = "Set spaces" })
+end, { desc = "Set spaces" })
 
 -- Function for live grep with file mask
 -- See :h Telescope.builtin.live_grep()
-function telescope_live_grep_with_glob_pattern()
+-- function telescope_live_grep_with_glob_pattern()
+--   vim.ui.input({ prompt = "Glob pattern: " }, function(input)
+--     vim.cmd(string.format("Telescope live_grep glob_pattern=%s", input))
+--   end)
+-- end
+
+vim.keymap.set("n", "<leader>s.", function()
   vim.ui.input({ prompt = "Glob pattern: " }, function(input)
     vim.cmd(string.format("Telescope live_grep glob_pattern=%s", input))
   end)
-end
+end, { desc = "Live grep with glob pattern" })
 
-vim.keymap.set(
-  "n",
-  "<leader>s.",
-  "<cmd>lua telescope_live_grep_with_glob_pattern()<CR>",
-  { desc = "Live grep with glob pattern" }
-)
+-- Set keymaps for diagnostics like Lunarvim.
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "<leader>cj", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+vim.keymap.set("n", "<leader>ck", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
