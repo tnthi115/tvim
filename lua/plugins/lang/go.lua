@@ -17,48 +17,48 @@ return {
     ft = go_filetypes,
     opts = {
       servers = {
-        -- gopls = {
-        --   keys = {
-        --     -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-        --     { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
-        --   },
-        --   settings = {
-        --     gopls = {
-        --       gofumpt = true,
-        --       codelenses = {
-        --         gc_details = false,
-        --         generate = true,
-        --         regenerate_cgo = true,
-        --         run_govulncheck = true,
-        --         test = true,
-        --         tidy = true,
-        --         upgrade_dependency = true,
-        --         vendor = true,
-        --       },
-        --       hints = {
-        --         assignVariableTypes = true,
-        --         compositeLiteralFields = true,
-        --         compositeLiteralTypes = true,
-        --         constantValues = true,
-        --         functionTypeParameters = true,
-        --         parameterNames = true,
-        --         rangeVariableTypes = true,
-        --       },
-        --       analyses = {
-        --         fieldalignment = true,
-        --         nilness = true,
-        --         unusedparams = true,
-        --         unusedwrite = true,
-        --         useany = true,
-        --       },
-        --       usePlaceholders = true,
-        --       completeUnimported = true,
-        --       staticcheck = true,
-        --       directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-        --       semanticTokens = true,
-        --     },
-        --   },
-        -- },
+        gopls = {
+          keys = {
+            -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
+            { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+          },
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = true,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                fieldalignment = true,
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+              semanticTokens = true,
+            },
+          },
+        },
         golangci_lint_ls = {
           init_options = {
             command = {
@@ -238,41 +238,75 @@ return {
 
       require("gopher.dap").setup()
 
-      local which_key_ok, which_key = pcall(require, "which-key")
-      if not which_key_ok then
-        return
-      end
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "go" },
+        callback = function()
+          local which_key_ok, which_key = pcall(require, "which-key")
+          if not which_key_ok then
+            return
+          end
 
-      local opts = {
-        mode = "n", -- NORMAL mode
-        prefix = "<leader>",
-        -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-        buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-        silent = true, -- use `silent` when creating keymaps
-        noremap = true, -- use `noremap` when creating keymaps
-        nowait = true, -- use `nowait` when creating keymaps
-      }
+          local opts = {
+            mode = "n", -- NORMAL mode
+            prefix = "<leader>",
+            -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+            buffer = vim.api.nvim_get_current_buf(), -- Local mappings
+            silent = true, -- use `silent` when creating keymaps
+            noremap = true, -- use `noremap` when creating keymaps
+            nowait = true, -- use `nowait` when creating keymaps
+          }
 
-      local mappings = {
-        j = {
-          name = "Go",
-          t = { "<cmd>GoMod tidy<cr>", "Tidy" },
-          a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
-          A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
-          E = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
-          g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
-          f = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
-          c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
-          e = { "<cmd>GoIfErr<Cr>", "Generate iferr" },
-          T = { "<cmd>GoTagAdd<Cr>", "Add Tags" },
-          d = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Go Test" },
-        },
-      }
+          local mappings = {
+            j = {
+              name = "Go",
+              t = { "<cmd>GoMod tidy<cr>", "Tidy" },
+              a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
+              A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
+              E = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
+              g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
+              f = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
+              c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
+              e = { "<cmd>GoIfErr<Cr>", "Generate iferr" },
+              T = { "<cmd>GoTagAdd<Cr>", "Add Tags" },
+              d = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Go Test" },
+            },
+          }
 
-      which_key.register(mappings, opts)
+          which_key.register(mappings, opts)
+        end,
+      })
     end,
     -- build = function()
     --   vim.cmd [[silent! GoInstallDeps]]
     -- end,
+  },
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+    ft = go_filetypes,
+    opts = {
+      debug_mode = true,
+    },
+    keys = {
+      { "<leader>uh", "<cmd>lua require('lsp-inlayhints').toggle()<CR>", desc = "Toggle Inlay Hints" },
+    },
+    config = function(_, options)
+      vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = "LspAttach_inlayhints",
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require("lsp-inlayhints").on_attach(client, bufnr)
+        end,
+      })
+      options.inlay_hints = {
+        highlight = "LspCodeLens",
+      }
+      require("lsp-inlayhints").setup(options)
+    end,
   },
 }
