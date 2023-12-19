@@ -65,3 +65,6 @@ end, { desc = "Live grep with glob pattern" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "<leader>cj", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 vim.keymap.set("n", "<leader>ck", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
+
+-- Save without autoformatting.
+vim.keymap.set("n", "<leader>bw", "<cmd>noautocmd w<cr>", { desc = "Save without formatting (noautocmd)" })
