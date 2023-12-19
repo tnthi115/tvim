@@ -24,6 +24,14 @@ return {
       },
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout commit" },
       { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
+      -- remove sort_lastused=true from Telescope buffers keybinds
+      -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+      {
+        "<leader>,",
+        "<cmd>Telescope buffers sort_mru=true<cr>",
+        desc = "Switch Buffer",
+      },
+      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
     },
     -- change some options
     opts = {
