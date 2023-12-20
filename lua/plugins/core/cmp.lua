@@ -56,7 +56,7 @@ return {
     },
   },
   -- Conventional commits completion in cmp
-  -- TODO: add commitlint
+  -- TODO: add create lang/gitcommit.lua
   {
     "davidsierradz/cmp-conventionalcommits",
     ft = { "gitcommit" },
