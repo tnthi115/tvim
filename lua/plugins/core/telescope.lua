@@ -19,7 +19,7 @@ return {
         -- function()
         --   require("telescope.builtin").git_branches()
         -- end,
-        "<cmd>Telescope git_branches",
+        "<cmd>Telescope git_branches<CR>",
         desc = "Checkout branch",
       },
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout commit" },
