@@ -5,6 +5,7 @@
 vim.opt.updatetime = 100
 vim.opt.pumblend = 0
 vim.opt.scrolloff = 8
+vim.opt.swapfile = false
 
 -- Options from Lunarvim
 -- local options = {
