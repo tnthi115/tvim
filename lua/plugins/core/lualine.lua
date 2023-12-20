@@ -19,7 +19,7 @@ local colors = {
 
 -- @source: https://gist.github.com/Lamarcke/36e086dd3bb2cebc593d505e2f838e07
 -- Returns a string with a list of attached LSP clients, including
--- formatters and linters from null-ls, nvim-lint and formatter.nvim
+-- formatters and linters from null-ls, nvim-lint and conform.nvim
 
 local function get_attached_clients()
   local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
@@ -37,10 +37,11 @@ local function get_attached_clients()
     end
   end
 
-  -- Generally, you should use either null-ls or nvim-lint + formatter.nvim, not both.
+  -- Generally, you should use either null-ls or nvim-lint + conform.nvim, not both.
 
   -- Add sources (from null-ls)
   -- null-ls registers each source as a separate attached client, so we need to filter for unique names down below.
+  -- TODO: when not using null-ls (none-ls), this causes the list to be empty for some reason
   local null_ls_s, null_ls = pcall(require, "null-ls")
   if null_ls_s then
     local sources = null_ls.get_sources()
@@ -73,13 +74,24 @@ local function get_attached_clients()
     end
   end
 
-  -- Add formatters (from formatter.nvim)
-  local formatter_s, _ = pcall(require, "formatter")
+  -- -- Add formatters (from formatter.nvim)
+  -- local formatter_s, _ = pcall(require, "formatter")
+  -- if formatter_s then
+  --   local formatter_util = require "formatter.util"
+  --   for _, formatter in ipairs(formatter_util.get_available_formatters_for_ft(buf_ft)) do
+  --     if formatter then
+  --       table.insert(buf_client_names, formatter)
+  --     end
+  --   end
+  -- end
+
+  -- Add formatters (from conform.nvim)
+  -- lua vim.print(require("conform").list_formatters(vim.api.nvim_get_current_buf()))
+  local formatter_s, formatters = pcall(require, "conform")
   if formatter_s then
-    local formatter_util = require "formatter.util"
-    for _, formatter in ipairs(formatter_util.get_available_formatters_for_ft(buf_ft)) do
+    for _, formatter in ipairs(formatters.list_formatters(vim.api.nvim_get_current_buf())) do
       if formatter then
-        table.insert(buf_client_names, formatter)
+        table.insert(buf_client_names, formatter.name)
       end
     end
   end
