@@ -137,7 +137,7 @@ return {
       local mappings = {
         m = {
           name = "+gitLab",
-          s = { "<cmd>lua require('gitlab').summary()<CR>", "Summary" },
+          S = { "<cmd>lua require('gitlab').summary()<CR>", "Summary" },
           A = { "<cmd>lua require('gitlab').approve()<CR>", "Approve" },
           R = { "<cmd>lua require('gitlab').revoke()<CR>", "Revoke" },
           m = {
@@ -149,8 +149,7 @@ return {
           p = { "<cmd>lua require('gitlab').pipeline()<CR>", "Pipeline" },
           o = { "<cmd>lua require('gitlab').open_in_browser()<CR>", "Open in browser" },
           r = {
-            name = "Review",
-            r = { "<cmd>lua require('gitlab').review()<CR>", "Review" },
+            name = "Reviewers",
             a = { "<cmd>lua require('gitlab').add_reviewer()<CR>", "Add reviewer" },
             d = { "<cmd>lua require('gitlab').delete_reviewer()<CR>", "Delete reviewer" },
           },
@@ -165,6 +164,8 @@ return {
             a = { "<cmd>lua require('gitlab').add_assignee()<CR>", "Add assignee" },
             d = { "<cmd>lua require('gitlab').delete_assignee()<CR>", "Delete assignee" },
           },
+          s = { "<cmd>lua require('gitlab').review()<CR>", "Start review" },
+          q = { "<cmd>DiffviewClose<CR>", "Quit review (Diffview)" },
         },
       }
 
