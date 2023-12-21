@@ -12,3 +12,4 @@ TODO:
 - [ ] refactor work mode if structure for `lang/go.lua`
 - [ ] figure out how to show all messages in noice.nvim
 - [ ] use lunarvim icons
+- [ ] figure out how to ignore gitlab codesuggestions lsp messages

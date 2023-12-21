@@ -13,6 +13,8 @@ return {
       },
     },
     opts = {
+      -- Event to trigger linters
+      -- events = { "BufWritePost", "BufReadPost", "InsertLeave", "InsertEnter" },
       linters_by_ft = {
         -- fish = { "fish" },
         -- Use the "*" filetype to run linters on all filetypes.
