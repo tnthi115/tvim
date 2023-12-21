@@ -93,6 +93,10 @@ return {
     "stevearc/conform.nvim",
     -- NOTE: For github flavored markdown use this extension: https://github.com/hukkin/mdformat-gfm/
     -- pip install mdformat-gfm
+    -- This will create the executable in /opt/homebrew/bin/mdformat.
+    -- Running the mdformat binary installed from mason will not have these features!
+    -- Asked about adding mdformat-gfm in mason-registry:
+    -- https://github.com/mason-org/mason-registry/pull/2132#issuecomment-1865412278
     opts = {
       formatters_by_ft = {
         markdown = { "mdformat" },
