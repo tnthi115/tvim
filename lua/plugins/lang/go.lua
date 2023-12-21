@@ -154,7 +154,7 @@ if work then
     -- Setup gofumpt, goimports-reviser, gomodifytags, and impl.
     {
       "nvimtools/none-ls.nvim",
-      ft = go_filetypes,
+      -- ft = go_filetypes,
       -- dependencies = {
       --   {
       --     "williamboman/mason.nvim",
@@ -169,29 +169,23 @@ if work then
         local nls = require "null-ls"
         -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
         -- TODO: this doesn't work
-        opts.sources["nls.builtins.formatting.goimports"] = nil
+        -- opts.sources["nls.builtins.formatting.goimports"] = nil
         opts.sources = vim.list_extend(opts.sources or {}, {
           nls.builtins.code_actions.gomodifytags,
           nls.builtins.code_actions.impl,
-          nls.builtins.formatting.goimports,
-          nls.builtins.formatting.gofmt,
+          -- nls.builtins.formatting.goimports,
+          -- nls.builtins.formatting.gofmt,
         })
       end,
     },
-    -- {
-    --   "stevearc/conform.nvim",
-    --   ft = go_filetypes,
-    --   opts = function(_, opts)
-    --     opts.formatters_by_ft = {
-    --       go = { "goimports-reviser", "gofumpt" },
-    --     }
-    --     opts.formatters = {
-    --       goimports_reviser = {
-    --         args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
-    --       },
-    --     }
-    --   end,
-    -- },
+    {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters_by_ft = {
+          go = { "goimports", "gofmt" },
+        },
+      },
+    },
     {
       "nvim-neotest/neotest",
       ft = go_filetypes,
@@ -255,16 +249,17 @@ if work then
             local mappings = {
               j = {
                 name = "Go",
-                t = { "<cmd>GoMod tidy<cr>", "Tidy" },
-                a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
-                A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
-                E = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
-                g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
-                f = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
-                c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
-                e = { "<cmd>GoIfErr<Cr>", "Generate iferr" },
-                T = { "<cmd>GoTagAdd proto<Cr>", "Add Protobuf Tags" },
-                d = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Go Test" },
+                t = { "<cmd>GoMod tidy<CR>", "Tidy" },
+                a = { "<cmd>GoTestAdd<CR>", "Add Test" },
+                A = { "<cmd>GoTestsAll<CR>", "Add All Tests" },
+                E = { "<cmd>GoTestsExp<CR>", "Add Exported Tests" },
+                g = { "<cmd>GoGenerate<CR>", "Go Generate" },
+                f = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
+                c = { "<cmd>GoCmt<CR>", "Generate Comment" },
+                e = { "<cmd>GoIfErr<CR>", "Generate iferr" },
+                T = { "<cmd>GoTagAdd proto<CR>", "Add Protobuf Tags" },
+                d = { "<cmd>lua require('dap-go').debug_test()<CR>", "Debug Go Test" },
+                i = { "<cmd>GoImpl<CR>", "Impl" },
               },
             }
 
@@ -454,56 +449,55 @@ return {
   --   },
   -- },
   -- Setup gofumpt, goimports-reviser, gomodifytags, and impl.
-  {
-    "nvimtools/none-ls.nvim",
-    ft = go_filetypes,
-    -- dependencies = {
-    --   {
-    --     "williamboman/mason.nvim",
-    --     opts = function(_, opts)
-    --       opts.ensure_installed = opts.ensure_installed or {}
-    --       vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
-    --     end,
-    --   },
-    -- },
-    opts = function(_, opts)
-      -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-      local nls = require "null-ls"
-      -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
-      -- TODO: this doesn't work
-      opts.sources["nls.builtins.formatting.goimports"] = nil
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.code_actions.gomodifytags,
-        nls.builtins.code_actions.impl,
-        nls.builtins.formatting.goimports_reviser.with {
-          extra_args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
-        },
-        nls.builtins.formatting.gofumpt,
-      })
-      -- opts.sources = {
-      --   nls.builtins.code_actions.gomodifytags,
-      --   nls.builtins.code_actions.impl,
-      --   nls.builtins.formatting.goimports_reviser.with {
-      --     extra_args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
-      --   },
-      --   nls.builtins.formatting.gofumpt,
-      -- }
-    end,
-  },
   -- {
-  --   "stevearc/conform.nvim",
+  --   "nvimtools/none-ls.nvim",
   --   ft = go_filetypes,
+  --   -- dependencies = {
+  --   --   {
+  --   --     "williamboman/mason.nvim",
+  --   --     opts = function(_, opts)
+  --   --       opts.ensure_installed = opts.ensure_installed or {}
+  --   --       vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
+  --   --     end,
+  --   --   },
+  --   -- },
   --   opts = function(_, opts)
-  --     opts.formatters_by_ft = {
-  --       go = { "goimports-reviser", "gofumpt" },
-  --     }
-  --     opts.formatters = {
-  --       goimports_reviser = {
-  --         args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
+  --     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+  --     local nls = require "null-ls"
+  --     -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
+  --     -- TODO: this doesn't work
+  --     opts.sources["nls.builtins.formatting.goimports"] = nil
+  --     opts.sources = vim.list_extend(opts.sources or {}, {
+  --       nls.builtins.code_actions.gomodifytags,
+  --       nls.builtins.code_actions.impl,
+  --       nls.builtins.formatting.goimports_reviser.with {
+  --         extra_args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
   --       },
-  --     }
+  --       nls.builtins.formatting.gofumpt,
+  --     })
+  --     -- opts.sources = {
+  --     --   nls.builtins.code_actions.gomodifytags,
+  --     --   nls.builtins.code_actions.impl,
+  --     --   nls.builtins.formatting.goimports_reviser.with {
+  --     --     extra_args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
+  --     --   },
+  --     --   nls.builtins.formatting.gofumpt,
+  --     -- }
   --   end,
   -- },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports-reviser", "gofumpt" },
+      },
+      formatters = {
+        goimports_reviser = {
+          prepend_args = { "-company-prefixes=gopkg.volterra.us", "-set-alias", "-use-cache" },
+        },
+      },
+    },
+  },
   -- {
   --   "nvim-neotest/neotest",
   --   ft = go_filetypes,
@@ -567,16 +561,17 @@ return {
           local mappings = {
             j = {
               name = "Go",
-              t = { "<cmd>GoMod tidy<cr>", "Tidy" },
-              a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
-              A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
-              E = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
-              g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
-              f = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
-              c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
-              e = { "<cmd>GoIfErr<Cr>", "Generate iferr" },
-              T = { "<cmd>GoTagAdd proto<Cr>", "Add Protobuf Tags" },
-              d = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Go Test" },
+              t = { "<cmd>GoMod tidy<CR>", "Tidy" },
+              a = { "<cmd>GoTestAdd<CR>", "Add Test" },
+              A = { "<cmd>GoTestsAll<CR>", "Add All Tests" },
+              E = { "<cmd>GoTestsExp<CR>", "Add Exported Tests" },
+              g = { "<cmd>GoGenerate<CR>", "Go Generate" },
+              f = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
+              c = { "<cmd>GoCmt<CR>", "Generate Comment" },
+              e = { "<cmd>GoIfErr<CR>", "Generate iferr" },
+              T = { "<cmd>GoTagAdd proto<CR>", "Add Protobuf Tags" },
+              d = { "<cmd>lua require('dap-go').debug_test()<CR>", "Debug Go Test" },
+              i = { "<cmd>GoImpl<CR>", "Impl" },
             },
           }
 

@@ -68,26 +68,40 @@ return {
   --     end)
   --   end,
   -- },
-  {
-    "nvimtools/none-ls.nvim",
-    ft = { "markdown" },
-    opts = function(_, opts)
-      local nls = require "null-ls"
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.diagnostics.markdownlint,
-        nls.builtins.formatting.mdformat.with {
-          extra_args = { "--number" },
-        },
-      })
-    end,
-  },
   -- {
-  --   "mfussenegger/nvim-lint",
-  --   optional = true,
-  --   opts = {
-  --     linters_by_ft = {
-  --       markdown = { "markdownlint" },
-  --     },
-  --   },
+  --   "nvimtools/none-ls.nvim",
+  --   ft = { "markdown" },
+  --   opts = function(_, opts)
+  --     local nls = require "null-ls"
+  --     opts.sources = vim.list_extend(opts.sources or {}, {
+  --       nls.builtins.diagnostics.markdownlint,
+  --       nls.builtins.formatting.mdformat.with {
+  --         extra_args = { "--number" },
+  --       },
+  --     })
+  --   end,
   -- },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        markdown = { "markdownlint", "codespell" },
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    -- NOTE: For github flavored markdown use this extension: https://github.com/hukkin/mdformat-gfm/
+    -- pip install mdformat-gfm
+    opts = {
+      formatters_by_ft = {
+        markdown = { "mdformat" },
+      },
+      formatters = {
+        mdformat = {
+          prepend_args = { "--number" },
+        },
+      },
+    },
+  },
 }

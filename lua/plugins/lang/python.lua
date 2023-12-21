@@ -54,38 +54,74 @@ return {
       },
     },
   },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   ft = { "python" },
+  --   dependencies = {
+  --     {
+  --       "williamboman/mason.nvim",
+  --       ft = { "python" },
+  --       opts = function(_, opts)
+  --         opts.ensure_installed = opts.ensure_installed or {}
+  --         vim.list_extend(opts.ensure_installed, {
+  --           "usort",
+  --           "mypy",
+  --           "pylint",
+  --         })
+  --       end,
+  --     },
+  --   },
+  --   opts = function(_, opts)
+  --     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+  --     local nls = require "null-ls"
+  --     -- opts.sources = opts.sources or {}
+  --     -- table.insert(opts.sources, nls.builtins.formatting.black)
+  --     opts.sources = vim.list_extend(opts.sources or {}, {
+  --       -- Provided by lazyvim.plugins.extras.formatting.black
+  --       nls.builtins.formatting.black,
+  --       nls.builtins.formatting.usort,
+  --       nls.builtins.diagnostics.mypy.with {
+  --         extra_args = { "--strict", "--python-executable=" .. io.popen("which python"):read("*a"):gsub("[\n\r]", "") },
+  --       },
+  --       nls.builtins.diagnostics.pylint,
+  --     })
+  --   end,
+  -- },
   {
-    "nvimtools/none-ls.nvim",
-    ft = { "python" },
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        ft = { "python" },
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, {
-            "usort",
-            "mypy",
-            "pylint",
-          })
-        end,
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        python = { "black", "usort" },
+
+      }
+    }
+    -- opts = function(_, opts)
+    --   opts.formatters_by_ft = {
+    --   }
+    -- end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        python = { "pylint", "mypy" },
       },
+      linters = {
+        mypy = {
+          args = {
+            "--show-column-numbers",
+            "--show-error-end",
+            -- "--hide-error-codes",
+            -- "--hide-error-context",
+            "--no-color-output",
+            "--no-error-summary",
+            "--no-pretty",
+            "--strict",
+            "--python-executable=" .. io.popen("which python"):read("*a"):gsub("[\n\r]", "")
+          },
+        }
+      }
     },
-    opts = function(_, opts)
-      -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-      local nls = require "null-ls"
-      -- opts.sources = opts.sources or {}
-      -- table.insert(opts.sources, nls.builtins.formatting.black)
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        -- Provided by lazyvim.plugins.extras.formatting.black
-        nls.builtins.formatting.black,
-        nls.builtins.formatting.usort,
-        nls.builtins.diagnostics.mypy.with {
-          extra_args = { "--strict", "--python-executable=" .. io.popen("which python"):read("*a"):gsub("[\n\r]", "") },
-        },
-        nls.builtins.diagnostics.pylint,
-      })
-    end,
   },
   -- {
   --   "nvim-neotest/neotest-python",
@@ -124,9 +160,9 @@ return {
             prefix = "<leader>",
             -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
             buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = true, -- use `nowait` when creating keymaps
+            silent = true,                           -- use `silent` when creating keymaps
+            noremap = true,                          -- use `noremap` when creating keymaps
+            nowait = true,                           -- use `nowait` when creating keymaps
           }
 
           local mappings = {
@@ -199,9 +235,9 @@ return {
             prefix = "<leader>",
             -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
             buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = true, -- use `nowait` when creating keymaps
+            silent = true,                           -- use `silent` when creating keymaps
+            noremap = true,                          -- use `noremap` when creating keymaps
+            nowait = true,                           -- use `nowait` when creating keymaps
           }
 
           local mappings = {
