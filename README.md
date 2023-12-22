@@ -17,3 +17,4 @@ TODO
 - [ ] use lunarvim icons
 - [ ] figure out how to ignore gitlab codesuggestions lsp messages
 - [ ] make background for fold highlight group transparent
+- [ ] add tmux navigator
