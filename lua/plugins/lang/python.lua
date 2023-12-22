@@ -92,9 +92,8 @@ return {
     opts = {
       formatters_by_ft = {
         python = { "black", "usort" },
-
-      }
-    }
+      },
+    },
     -- opts = function(_, opts)
     --   opts.formatters_by_ft = {
     --   }
@@ -117,10 +116,10 @@ return {
             "--no-error-summary",
             "--no-pretty",
             "--strict",
-            "--python-executable=" .. io.popen("which python"):read("*a"):gsub("[\n\r]", "")
+            "--python-executable=" .. io.popen("which python"):read("*a"):gsub("[\n\r]", ""),
           },
-        }
-      }
+        },
+      },
     },
   },
   -- {
@@ -160,9 +159,9 @@ return {
             prefix = "<leader>",
             -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
             buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true,                           -- use `silent` when creating keymaps
-            noremap = true,                          -- use `noremap` when creating keymaps
-            nowait = true,                           -- use `nowait` when creating keymaps
+            silent = true, -- use `silent` when creating keymaps
+            noremap = true, -- use `noremap` when creating keymaps
+            nowait = true, -- use `nowait` when creating keymaps
           }
 
           local mappings = {
@@ -230,14 +229,14 @@ return {
             return
           end
 
-          local which_key_opts = {
+          local nopts = {
             mode = "n", -- NORMAL mode
             prefix = "<leader>",
             -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
             buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true,                           -- use `silent` when creating keymaps
-            noremap = true,                          -- use `noremap` when creating keymaps
-            nowait = true,                           -- use `nowait` when creating keymaps
+            silent = true, -- use `silent` when creating keymaps
+            noremap = true, -- use `noremap` when creating keymaps
+            nowait = true, -- use `nowait` when creating keymaps
           }
 
           local mappings = {
@@ -256,7 +255,7 @@ return {
             },
           }
 
-          which_key.register(mappings, which_key_opts)
+          which_key.register(mappings, nopts)
         end,
       })
 
