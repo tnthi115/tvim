@@ -1,4 +1,5 @@
 -- gitlab integration
+-- https://github.com/harrisoncramer/gitlab.nvim
 
 return {
   {
@@ -34,22 +35,32 @@ return {
           note = nil,
           pipeline = nil,
           reply = nil,
+          squash_message = nil,
         },
         discussion_tree = { -- The discussion tree that holds all comments
+          auto_open = true, -- Automatically open when the reviewer is opened
+          -- switch_view = "T", -- Toggles between the notes and discussions views
+          switch_view = "<Tab>", -- Toggles between the notes and discussions views
+          default_view = "notes", -- Show "discussions" or "notes" by default
           blacklist = {}, -- List of usernames to remove from tree (bots, CI, etc)
           jump_to_file = "o", -- Jump to comment location in file
           jump_to_reviewer = "m", -- Jump to the location in the reviewer window
           edit_comment = "e", -- Edit comment
           delete_comment = "dd", -- Delete comment
           reply = "r", -- Reply to comment
-          toggle_node = "t", -- Opens or closes the discussion
+          -- toggle_node = "t", -- Opens or closes the discussion
+          toggle_node = "<CR>", -- Opens or closes the discussion
           toggle_resolved = "x", -- Toggles the resolved status of the whole discussion
           position = "bottom", -- "top", "right", "bottom" or "left"
+          open_in_browser = "b", -- Jump to the URL of the current note/discussion
           size = "20%", -- Size of split
           relative = "editor", -- Position of tree split relative to "editor" or "window"
           resolved = "✓", -- Symbol to show next to resolved discussions
-          unresolved = "✖", -- Symbol to show next to unresolved discussions
+          -- unresolved = "✖", -- Symbol to show next to unresolved discussions
+          unresolved = "-", -- Symbol to show next to unresolved discussions
           tree_type = "simple", -- Type of discussion tree - "simple" means just list of discussions, "by_file_name" means file tree with discussions under file
+          winbar = nil, -- Custom function to return winbar title, should return a string. Provided with WinbarTable (defined in annotations.lua)
+          -- If using lualine, please add "gitlab" to disabled file types, otherwise you will not see the winbar.
         },
         info = { -- Show additional fields in the summary pane
           enabled = true,
@@ -69,7 +80,7 @@ return {
         },
         discussion_sign_and_diagnostic = {
           skip_resolved_discussion = false,
-          skip_old_revision_discussion = true,
+          skip_old_revision_discussion = false,
         },
         discussion_sign = {
           -- See :h sign_define for details about sign configuration.
@@ -108,6 +119,14 @@ return {
           success = "✓",
           failed = "",
         },
+        merge = { -- The default behaviors when merging an MR, see "Merging an MR"
+          squash = true,
+          delete_branch = true,
+        },
+        create_mr = {
+          target = nil, -- Default branch to target when creating an MR
+          template_file = nil, -- Default MR template in .gitlab/merge_request_templates
+        },
         colors = {
           discussion_tree = {
             username = "Keyword",
@@ -136,7 +155,7 @@ return {
 
       local mappings = {
         m = {
-          name = "+gitLab",
+          name = "+gitlab",
           S = { "<cmd>lua require('gitlab').summary()<CR>", "Summary" },
           A = { "<cmd>lua require('gitlab').approve()<CR>", "Approve" },
           R = { "<cmd>lua require('gitlab').revoke()<CR>", "Revoke" },
@@ -166,6 +185,11 @@ return {
           },
           s = { "<cmd>lua require('gitlab').review()<CR>", "Start review" },
           q = { "<cmd>DiffviewClose<CR>", "Quit review (Diffview)" },
+          M = {
+            name = "+MR",
+            m = { "<cmd>lua require('gitlab').merge()<CR>", "Merge MR" },
+            c = { "<cmd>lua require('gitlab').create_mr()", "Create MR" },
+          },
         },
       }
 
