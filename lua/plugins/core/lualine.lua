@@ -253,6 +253,27 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
+            -- new component added as per my request: https://github.com/dokwork/lualine-ex/issues/25
+            -- {
+            --   "ex.lsp.null_ls",
+            --
+            --   -- The table or function that returns the table with the source query.
+            --   -- By default it shows only actual sorces. To show all registered sources
+            --   -- you can use just empty table:
+            --   query = {},
+            --   -- query = function()
+            --   --   return { filetype = vim.bo.filetype }
+            --   -- end,
+            --
+            --   -- The string separator between names
+            --   source_names_separator = ",",
+            --
+            --   -- The color for the disabled component:
+            --   disabled_color = { fg = "grey" },
+            --
+            --   -- The color for the icon of the disabled component:
+            --   disabled_icon_color = { fg = "grey" },
+            -- },
             -- lsps, linters, formatters
             attached_clients,
             -- {
