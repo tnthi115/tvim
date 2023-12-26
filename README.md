@@ -6,6 +6,17 @@ This is my [Lunarvim](https://www.lunarvim.org/)-inspired config for [LazyVim](h
 
 TODO
 
+Follow the LazyVim Installation instructions, but clone this repo instead of
+the LazyVim starter repo.
+
+```sh
+mv $HOME/.config/nvim/ $HOME/.config/nvim.bak
+```
+
+```sh
+git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
+```
+
 ## TODO
 
 - [ ] flesh out README
@@ -18,3 +29,7 @@ TODO
 - [ ] figure out how to ignore gitlab codesuggestions lsp messages
 - [ ] make background for fold highlight group transparent
 - [ ] add tmux navigator
+- [ ] steal plugins from quarto-nvim-kickstarter
+  - [x] https://youtu.be/iNe88IZplYM?si=CENBMEgi64OdXrSQ
+  - [ ] https://github.com/jmbuhr/quarto-nvim-kickstarter
+  - [x] https://github.com/3rd/image.nvim/
