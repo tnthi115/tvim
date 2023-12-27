@@ -1,3 +1,4 @@
+-- https://github.com/huynle/ogpt.nvim
 -- opgt - fork of jackMort/ChatGPT.nvim that uses ollama
 
 return {

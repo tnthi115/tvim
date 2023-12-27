@@ -1,8 +1,10 @@
+-- https://github.com/NvChad/nvim-colorizer.lua
 -- View colors from color codes
 -- {
 --   "norcalli/nvim-colorizer.lua",
 --   cmd = "ColorizerToggle",
 -- },
+
 return {
   "NvChad/nvim-colorizer.lua",
   cmd = "ColorizerToggle",

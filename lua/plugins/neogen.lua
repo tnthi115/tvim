@@ -1,3 +1,4 @@
+-- https://github.com/danymat/neogen
 -- neogen - docstring/annotation toolkit for multiple languages using treesitter
 
 return {

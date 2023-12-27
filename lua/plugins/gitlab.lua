@@ -1,5 +1,5 @@
--- gitlab integration
 -- https://github.com/harrisoncramer/gitlab.nvim
+-- gitlab integration
 
 return {
   {
@@ -216,6 +216,7 @@ return {
     -- },
   },
 
+  -- https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim
   -- gitlab duo code suggestions
   -- for some reason I get a warning when there are other language servers active (e.g. doesn't work when pyright is active):
   --   warning: multiple different client offset_encodings detected for buffer, this is not supported yet

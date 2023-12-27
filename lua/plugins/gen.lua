@@ -1,3 +1,4 @@
+-- https://github.com/David-Kunz/gen.nvim
 -- ollama integration
 
 return {

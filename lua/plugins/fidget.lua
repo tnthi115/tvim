@@ -1,4 +1,6 @@
--- fidget - lsp progress info
+-- https://github.com/j-hui/fidget.nvim
+-- lsp progress info
+
 return {
   "j-hui/fidget.nvim",
   enabled = false,

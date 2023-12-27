@@ -1,3 +1,4 @@
+-- https://github.com/Eandrju/cellular-automaton.nvim
 -- cellular-automaton for fun animations
 
 return {
