@@ -68,3 +68,6 @@ vim.keymap.set("n", "<leader>ck", vim.diagnostic.goto_prev, { desc = "Prev Diagn
 
 -- Save without autoformatting.
 vim.keymap.set("n", "<leader>bw", "<cmd>noautocmd w<cr>", { desc = "Save without formatting (noautocmd)" })
+
+-- Show full path of current buffer
+vim.keymap.set("n", "<leader>bP", "<cmd>echo expand('%:p)')<CR>", { desc = "Show Buffer Path" })
