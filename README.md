@@ -43,7 +43,9 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   - [ ] whichkey register mapping
 - [ ] look at more plugins from https://github.com/rockerBOO/awesome-neovim
   - [ ] https://github.com/kawre/leetcode.nvim
-  - [ ] look at https://github.com/soulis-1256/hoverhints.nvim
+  - [x] look at https://github.com/soulis-1256/hoverhints.nvim
+    - doesn't work
 - [ ] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without breadcrumbs
+  - [x] using https://github.com/utilyre/barbecue.nvim for now
 - [ ] look at https://github.com/ibhagwan/fzf-lua
 - [ ] configure cmp to give cmdline completion

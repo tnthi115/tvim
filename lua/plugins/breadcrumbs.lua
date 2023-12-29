@@ -5,6 +5,7 @@
 return {
   {
     "LunarVim/breadcrumbs.nvim",
+    enabled = false,
     dependencies = {
       "SmiteshP/nvim-navic",
       init = function()
