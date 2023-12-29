@@ -3,5 +3,7 @@
 return {
   "ThePrimeagen/vim-be-good",
   cmd = "VimBeGood",
-  keys = { { "<leader>uv", "<cmd>VimBeGood<CR>", { desc = "VimBeGood" } } },
+  keys = {
+    { "<leader>uv", "<cmd>VimBeGood<CR>", desc = "VimBeGood" },
+  },
 }
