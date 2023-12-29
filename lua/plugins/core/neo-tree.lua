@@ -2,7 +2,44 @@
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  -- dependencies = {
+  --   {
+  --     "nvim-tree/nvim-web-devicons",
+  --     opts = {
+  --       override = {
+  --         toml = {
+  --           icon = "",
+  --           color = "#ffffff",
+  --           cterm_color = "231",
+  --           name = "Toml",
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   opts = {
+    enable_normal_mode_for_inputs = true, -- Enable normal mode for input dialogs.
+    default_component_configs = {
+      icon = {
+        default = "", -- The default "*" is ugly.
+        highlight = "Normal",
+      },
+      git_status = {
+        symbols = {
+          -- Change type
+          added = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
+          modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+          deleted = "✖", -- this can only be used in the git_status source
+          renamed = "󰁕", -- this can only be used in the git_status source
+          -- Status type
+          untracked = "",
+          ignored = "",
+          unstaged = "󰄱",
+          staged = "",
+          conflict = "",
+        },
+      },
+    },
     window = {
       width = 35,
       mappings = {
@@ -12,7 +49,10 @@ return {
     },
     filesystem = {
       filtered_items = {
-        visible = true,
+        visible = true, -- when true, they will just be displayed differently than normal items
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_hidden = true, -- only works on Windows for hidden files/directories
       },
       follow_current_file = {
         enabled = true, -- This will find and focus the file in the active buffer every time
