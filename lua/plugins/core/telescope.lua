@@ -20,9 +20,9 @@ return {
         --   require("telescope.builtin").git_branches()
         -- end,
         "<cmd>Telescope git_branches<CR>",
-        desc = "Checkout branch",
+        desc = "Checkout Branch",
       },
-      { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout commit" },
+      { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout Commit" },
       { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
       -- remove sort_lastused=true from Telescope buffers keybinds
       -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },

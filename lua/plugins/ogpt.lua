@@ -49,7 +49,7 @@ return {
         name = "+ogpt",
         c = { "<cmd>OGPT<CR>", "OGPT" },
         a = { "<cmd>OGPTActAs<CR>", "OGPTActAs" },
-        e = { "<cmd>OGPTEditWithInstruction<CR>", "Edit with instruction" },
+        e = { "<cmd>OGPTEditWithInstruction<CR>", "Edit With Instruction" },
         C = { "<cmd>OGPTRun complete_code<CR>", "Complete Code" },
         G = { "<cmd>OGPTRun grammar_correction<CR>", "Grammar Correction" },
         t = { "<cmd>OGPTRun translate<CR>", "Translate" },

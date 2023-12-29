@@ -7,11 +7,11 @@ return {
   dependencies = "nvim-treesitter/nvim-treesitter",
     -- stylua: ignore
     keys = {
-      { "<leader>nn", "<cmd>lua require('neogen').generate()<CR>", desc = "Generate annotation" },
-      { "<leader>nf", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>", desc = "Generate function annotation" },
-      { "<leader>nc", "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", desc = "Generate class annotation" },
-      { "<leader>nt", "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", desc = "Generate type annotation" },
-      { "<leader>nF", "<cmd>lua require('neogen').generate({ type = 'file' })<CR>", desc = "Generate file annotation" },
+      { "<leader>nn", "<cmd>lua require('neogen').generate()<CR>", desc = "Generate Annotation" },
+      { "<leader>nf", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>", desc = "Generate Function Annotation" },
+      { "<leader>nc", "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", desc = "Generate Class Annotation" },
+      { "<leader>nt", "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", desc = "Generate Type Annotation" },
+      { "<leader>nF", "<cmd>lua require('neogen').generate({ type = 'file' })<CR>", desc = "Generate File Annotation" },
     },
   config = function()
     require("neogen").setup {
