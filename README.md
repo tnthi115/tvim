@@ -42,7 +42,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   - [ ] lazy.nvim keys table
   - [ ] whichkey register mapping
 - [ ] look at more plugins from https://github.com/rockerBOO/awesome-neovim
-  - [ ] https://github.com/kawre/leetcode.nvim
+  - [x] https://github.com/kawre/leetcode.nvim
   - [x] look at https://github.com/soulis-1256/hoverhints.nvim
     - doesn't work
 - [ ] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without breadcrumbs
