@@ -28,7 +28,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] use lunarvim icons
 - [ ] figure out how to ignore gitlab codesuggestions lsp messages
 - [ ] make background for fold highlight group transparent
-- [ ] add tmux navigator
+- [x] add tmux navigator
 - [ ] tmux sessionX plugin https://github.com/omerxx/tmux-sessionx
 - [ ] steal plugins from quarto-nvim-kickstarter
   - [x] https://youtu.be/iNe88IZplYM?si=CENBMEgi64OdXrSQ
