@@ -13,7 +13,7 @@ vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = tr
 vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
 
 -- remove git status keybind
-vim.keymap.del("n", "<leader>gs")
+-- vim.keymap.del("n", "<leader>gs")
 
 -- checkout branch
 -- vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })

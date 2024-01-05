@@ -24,6 +24,8 @@ return {
       },
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout Commit" },
       { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
+      -- remove git status keybind
+      { "<leader>gs", false },
       -- remove sort_lastused=true from Telescope buffers keybinds
       -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       {
