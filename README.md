@@ -37,7 +37,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] configure obsidian.nvim more
 - [ ] configure image.nvim more
 - [ ] figure out why hardtime.nvim doesn't work immediately when opening a file on the commandline (i.e `nvim <file>` or `vf`) and only works after opening another file
-- [ ] look at updates for [ogpt.nvim](https://github.com/huynle/ogpt.nvim)
+- [x] look at updates for [ogpt.nvim](https://github.com/huynle/ogpt.nvim)
 - [ ] create custom snippets
   - [ ] lazy.nvim keys table
   - [ ] whichkey register mapping
@@ -45,7 +45,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   - [x] https://github.com/kawre/leetcode.nvim
   - [x] look at https://github.com/soulis-1256/hoverhints.nvim
     - doesn't work
-- [ ] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without breadcrumbs
+- [x] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without breadcrumbs
   - [x] using https://github.com/utilyre/barbecue.nvim for now
 - [ ] look at https://github.com/ibhagwan/fzf-lua
 - [ ] configure cmp to give cmdline completion
