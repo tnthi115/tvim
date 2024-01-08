@@ -33,6 +33,14 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   opts = {
+    ---Whether to replace file icon with the modified symbol when buffer is
+    ---modified.
+    ---
+    ---@type boolean
+    show_modified = true,
+    theme = {
+      modified = { fg = require("tokyonight.colors").default.green },
+    },
     -- kinds = {
     --   File = "",
     --   Module = "",
