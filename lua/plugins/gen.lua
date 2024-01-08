@@ -6,13 +6,22 @@ return {
   event = "LazyFile",
   config = function()
     -- require("gen").model = "mistral:latest"
+    local opts = {
+      model = "mistral", -- The default model to use.
+      display_mode = "float", -- The display mode. Can be "float" or "split".
+      show_prompt = true, -- Shows the Prompt submitted to Ollama.
+      show_model = true, -- Displays which model you are using at the beginning of your chat session.
+      no_auto_close = false, -- Never closes the window automatically.
+    }
+
+    require("gen").setup(opts)
 
     local which_key_ok, which_key = pcall(require, "which-key")
     if not which_key_ok then
       return
     end
 
-    local opts = {
+    local nopts = {
       mode = "n", -- NORMAL mode
       prefix = "<leader>",
       buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -64,7 +73,7 @@ return {
       },
     }
 
-    which_key.register(mappings, opts)
+    which_key.register(mappings, nopts)
     which_key.register(vmappings, vopts)
   end,
 }
