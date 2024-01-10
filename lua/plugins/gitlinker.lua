@@ -4,9 +4,6 @@ return {
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
-      opts.window = {
-        border = "single",
-      }
       opts.defaults["<leader>gL"] = { name = "+gitlinker" }
     end,
   },
