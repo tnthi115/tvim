@@ -1,28 +1,42 @@
 -- https://github.com/ThePrimeagen/refactoring.nvim
 
 return {
-  "ThePrimeagen/refactoring.nvim",
-  event = "LazyFile",
-  -- stylua: ignore
-  keys = {
-    -- visual mode
-    { "<leader>re", "<Esc><cmd>lua require('refactoring').refactor('Extract Function')<CR>", mode = "v", desc = "Extract Function" },
-    { "<leader>rf", "<Esc><cmd>lua require('refactoring').refactor('Extract Function To File')<CR>", mode = "v", desc = "Extract Function To File" },
-    { "<leader>rv", "<Esc><cmd>lua require('refactoring').refactor('Extract Variable')<CR>", mode = "v", desc = "Extract Variable" },
-    { "<leader>ri", "<Esc><cmd>lua require('refactoring').refactor('Inline Variable')<CR>", mode = "v", desc = "Inline Variable" },
-    -- normal mode
-    -- Inline variable can also pick up the identifier currently under the cursor without visual mode
-    { "<leader>ri", "<cmd>lua require('refactoring').refactor('Inline Variable')<CR>", mode = "n", desc = "Inline Variable" },
-    { "<leader>rb", "<cmd>lua require('refactoring').refactor('Extract Block')<CR>", mode = "n", desc = "Extract Block" },
-    -- Extract block doesn't need visual mode
-    { "<leader>rB", "<cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", mode = "n", desc = "Extract Block To File" },
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      opts.defaults["<leader>r"] = { name = "+refactoring" }
+    end,
   },
-  dependencies = {
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-treesitter/nvim-treesitter" },
-  },
-  config = function()
-    require("refactoring").setup {
+  {
+    "ThePrimeagen/refactoring.nvim",
+    -- event = "LazyFile",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+    cmd = "Refactor",
+    -- stylua: ignore
+    keys = {
+      -- Refactoring Operations
+      -- Prompt for a refactor to apply when the remap is triggered.
+      ---@diagnostic disable-next-line: missing-parameter
+      { mode = {"n", "x"}, "<leader>rr", function() require('refactoring').select_refactor() end, desc = "Select Refactor" },
+      { mode = "x", "<leader>re", function() require('refactoring').refactor('Extract Function') end, desc = "Extract Function" },
+      { mode = "x", "<leader>rf", function() require('refactoring').refactor('Extract Function To File') end, desc = "Extract Function To File" },
+      { mode = "x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end, desc = "Extract Variable" },
+      { mode = "x", "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, desc = "Inline Variable" },
+      { mode = "n", "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, desc = "Inline Variable" },
+      { mode = "n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end, desc = "Extract Block" },
+      { mode = "n", "<leader>rB", function() require('refactoring').refactor('Extract Block To File') end, desc = "Extract Block To File" },
+      -- Debug Operations
+      ---@diagnostic disable-next-line: missing-fields
+      { mode = "n", "<leader>rP", function() require('refactoring').debug.printf({below = false}) end, desc = "Printf" },
+      ---@diagnostic disable-next-line: missing-parameter
+      { mode = {"x", "n"}, "<leader>rp", function() require('refactoring').debug.print_var() end, desc = "Print Variable" },
+      ---@diagnostic disable-next-line: missing-fields
+      { mode = "n", "<leader>rc", function() require('refactoring').debug.cleanup({}) end, desc = "Cleanup Print Statements" },
+    },
+    opts = {
       prompt_func_return_type = {
         go = true,
         java = true,
@@ -43,28 +57,8 @@ return {
       },
       printf_statements = {},
       print_var_statements = {},
-    }
-
-    local status_ok, which_key = pcall(require, "which-key")
-    if not status_ok then
-      return
-    end
-
-    local opts = {
-      mode = { "n", "v" }, -- NORMAL mode
-      prefix = "<leader>",
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
-      noremap = true, -- use `noremap` when creating keymaps
-      nowait = true, -- use `nowait` when creating keymaps
-    }
-
-    local mappings = {
-      r = {
-        name = "+refactoring",
-      },
-    }
-
-    which_key.register(mappings, opts)
-  end,
+      show_success_message = true, -- shows a message with information about the refactor on success
+      --                           -- i.e. [Refactor] Inlined 3 variable occurrences
+    },
+  },
 }
