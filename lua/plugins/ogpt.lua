@@ -2,16 +2,62 @@
 -- opgt - fork of jackMort/ChatGPT.nvim that uses ollama
 
 return {
-  "huynle/ogpt.nvim",
-  event = "LazyFile",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "nvim-lua/plenary.nvim",
-    -- "nvim-telescope/telescope.nvim",
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      opts.defaults["<leader>o"] = { name = "+ogpt" }
+    end,
   },
-  config = function()
-    local opts = {
-      api_host_cmd = "echo http://localhost:11434",
+  {
+    "huynle/ogpt.nvim",
+    -- event = "LazyFile",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      -- "nvim-telescope/telescope.nvim",
+    },
+    cmd = { "OGPT", "OGPTActAs", "OGPTCompleteCode", "OGPTFocus", "OGPTRun" },
+    keys = {
+      { mode = { "n", "v" }, "<leader>oo", "<cmd>OGPT<CR>", desc = "OGPT" },
+      { mode = { "n", "v" }, "<leader>of", "<cmd>OGPTFocus<CR>", desc = "OGPTFocus" },
+      { mode = { "n", "v" }, "<leader>oa", "<cmd>OGPTActAs<CR>", desc = "OGPTActAs" },
+      { mode = { "n", "v" }, "<leader>oe", "<cmd>OGPTRun edit_with_instructions<CR>", desc = "Edit With Instruction" },
+      {
+        mode = { "n", "v" },
+        "<leader>oc",
+        "<cmd>OGPTRun edit_code_with_instructions<CR>",
+        desc = "Edit Code With Instruction",
+      },
+      { mode = { "n", "v" }, "<leader>oC", "<cmd>OGPTCompleteCode<CR>", desc = "Complete Code" },
+      { mode = { "n", "v" }, "<leader>oE", "<cmd>OGPTRun evaluate<CR>", desc = "Evaluate" },
+      { mode = { "n", "v" }, "<leader>oi", "<cmd>OGPTRun get_info<CR>", desc = "Info" },
+      { mode = { "n", "v" }, "<leader>oG", "<cmd>OGPTRun grammar_correction<CR>", desc = "Grammar Correction" },
+      { mode = { "n", "v" }, "<leader>ot", "<cmd>OGPTRun translate<CR>", desc = "Translate" },
+      { mode = { "n", "v" }, "<leader>ok", "<cmd>OGPTRun keywords<CR>", desc = "Keywords" },
+      { mode = { "n", "v" }, "<leader>od", "<cmd>OGPTRun docstring<CR>", desc = "Docstring" },
+      { mode = { "n", "v" }, "<leader>oA", "<cmd>OGPTRun add_tests<CR>", desc = "Add Tests" },
+      { mode = { "n", "v" }, "<leader>oO", "<cmd>OGPTRun optimize_code<CR>", desc = "Optimize Code" },
+      { mode = { "n", "v" }, "<leader>os", "<cmd>OGPTRun summarize<CR>", desc = "Summarize" },
+      { mode = { "n", "v" }, "<leader>oF", "<cmd>OGPTRun fix_bugs<CR>", desc = "Fix Bugs" },
+      { mode = { "n", "v" }, "<leader>ox", "<cmd>OGPTRun explain_code<CR>", desc = "Explain Code" },
+      { mode = { "n", "v" }, "<leader>or", "<cmd>OGPTRun roxygen_edit<CR>", desc = "Roxygen Edit" },
+      {
+        mode = { "n", "v" },
+        "<leader>ol",
+        "<cmd>OGPTRun code_readability_analysis<CR>",
+        desc = "Code Readability Analysis",
+      },
+      { mode = { "n" }, "<leader>oq", "<cmd>OGPTRun quick_question<CR>", desc = "Quick Question" },
+      { mode = { "n", "v" }, "<leader>oI", "<cmd>OGPTRun custom_input<CR>", desc = "Custom Input" },
+    },
+    opts = {
+      default_provider = {
+        -- can also support `textgenui`
+        name = "ollama",
+        -- api_host = os.getenv "OLLAMA_API_HOST",
+        api_host = "http://localhost:11434",
+        api_key = os.getenv "OLLAMA_API_KEY",
+      },
       edit_with_instructions = {
         keymaps = {
           use_output_as_input = "<C-a>",
@@ -23,48 +69,59 @@ return {
       api_edit_params = {
         model = "mistral:7b-instruct",
       },
+      actions = {
+        code_completion = {
+          opts = {
+            params = {
+              model = "mistral:7b-instruct",
+            },
+          },
+        },
+        edit_code_with_instructions = {
+          opts = {
+            params = {
+              model = "mistral:7b-instruct",
+            },
+          },
+        },
+        quick_question = {
+          type = "chat",
+          args = {
+            question = {
+              type = "string",
+              optional = "true",
+              default = function()
+                return vim.fn.input "question: "
+              end,
+            },
+          },
+          opts = {
+            system = "You are a helpful assistant",
+            template = "{{question}}",
+            strategy = "display",
+          },
+        },
+        custom_input = {
+          type = "chat",
+          args = {
+            instruction = {
+              type = "string",
+              optional = "true",
+              default = function()
+                return vim.fn.input "instruction: "
+              end,
+            },
+          },
+          opts = {
+            system = "You are a helpful assistant",
+            template = "Given the follow snippet, {{instruction}}.\n\nsnippet:\n```{{filetype}}\n{{input}}\n```",
+            strategy = "display",
+          },
+        },
+      },
       -- show_quickfixes_cmd = "copen",
       -- add custom actions.json
       actions_paths = {},
-    }
-
-    require("ogpt").setup(opts)
-
-    local which_key_ok, which_key = pcall(require, "which-key")
-    if not which_key_ok then
-      return
-    end
-
-    opts = {
-      mode = { "n", "v" }, -- NORMAL and VISUAL mode
-      prefix = "<leader>",
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
-      noremap = true, -- use `noremap` when creating keymaps
-      nowait = true, -- use `nowait` when creating keymaps
-    }
-
-    local mappings = {
-      o = {
-        name = "+ogpt",
-        c = { "<cmd>OGPT<CR>", "OGPT" },
-        a = { "<cmd>OGPTActAs<CR>", "OGPTActAs" },
-        e = { "<cmd>OGPTRun edit_with_instructions<CR>", "Edit With Instruction" },
-        C = { "<cmd>OGPTRun edit_code_with_instructions<CR>", "Edit Code With Instruction" },
-        G = { "<cmd>OGPTRun grammar_correction<CR>", "Grammar Correction" },
-        t = { "<cmd>OGPTRun translate<CR>", "Translate" },
-        k = { "<cmd>OGPTRun keywords<CR>", "Keywords" },
-        d = { "<cmd>OGPTRun docstring<CR>", "Docstring" },
-        A = { "<cmd>OGPTRun add_tests<CR>", "Add Tests" },
-        o = { "<cmd>OGPTRun optimize_code<CR>", "Optimize Code" },
-        s = { "<cmd>OGPTRun summarize<CR>", "Summarize" },
-        f = { "<cmd>OGPTRun fix_bugs<CR>", "Fix Bugs" },
-        x = { "<cmd>OGPTRun explain_code<CR>", "Explain Code" },
-        r = { "<cmd>OGPTRun roxygen_edit<CR>", "Roxygen Edit" },
-        l = { "<cmd>OGPTRun code_readability_analysis<CR>", "Code Readability Analysis" },
-      },
-    }
-
-    which_key.register(mappings, opts)
-  end,
+    },
+  },
 }
