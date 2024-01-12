@@ -103,7 +103,7 @@ return {
         },
         opts = {
           system = "You are a helpful assistant",
-          template = "Given the follow snippet, {{instruction}}.\n\nsnippet:\n```{{filetype}}\n{{input}}\n```",
+          template = "Given the following snippet, {{instruction}}.\n\nsnippet:\n```{{filetype}}\n{{input}}\n```",
           strategy = "display",
         },
       },
