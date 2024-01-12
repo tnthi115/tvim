@@ -3,77 +3,70 @@
 
 return {
   "David-Kunz/gen.nvim",
-  event = "LazyFile",
+  dependencies = {
+    {
+      "folke/which-key.nvim",
+      opts = function(_, opts)
+        opts.defaults["<leader>G"] = { name = "+gen" }
+      end,
+    },
+  },
+  cmd = "Gen",
+  -- stylua: ignore
+  keys = {
+    { mode = { "n" }, "<leader>Gm", "<cmd>lua require('gen').select_model()<CR>", desc = "Select Model" },
+    -- I'm not sure why yet, but using : instead of <cmd> allows for the visual selection to work.
+    { mode = { "n", "v" }, "<leader>Gg", ":Gen<CR>", desc = "Gen" },
+    { mode = { "n", "v" }, "<leader>Ga", ":Gen Ask<CR>", desc = "Gen Ask" },
+    { mode = { "n", "v" }, "<leader>GC", ":Gen Change<CR>", desc = "Gen Change" },
+    { mode = { "n", "v" }, "<leader>Gc", ":Gen Change_Code<CR>", desc = "Change Code" },
+    { mode = { "n", "v" }, "<leader>Go", ":Gen Chat<CR>", desc = "Chat" },
+    { mode = { "n", "v" }, "<leader>Ge", ":Gen Enhance_Code<CR>", desc = "Enhance Code" },
+    { mode = { "n", "v" }, "<leader>GG", ":Gen Enhance_Grammar_Spelling<CR>", desc = "Enhance Grammar Spelling" },
+    { mode = { "n", "v" }, "<leader>Gw", ":Gen Enhance_Wording<CR>", desc = "Enhance Wording" },
+    { mode = { "n", "v" }, "<leader>GG", ":Gen Generate<CR>", desc = "Generate" },
+    { mode = { "n", "v" }, "<leader>Gs", ":Gen Make_Consice<CR>", desc = "Make Consice" },
+    { mode = { "n", "v" }, "<leader>Gl", ":Gen Make_List<CR>", desc = "Make List" },
+    { mode = { "n", "v" }, "<leader>Gt", ":Gen Make_Table<CR>", desc = "Make Table" },
+    { mode = { "n", "v" }, "<leader>Gr", ":Gen Review_Code<CR>", desc = "Review Code" },
+    { mode = { "n", "v" }, "<leader>GS", ":Gen Summarize<CR>", desc = "Summarize" },
+    -- Custom prompts
+    { mode = { "n", "v" }, "<leader>GE", ":Gen Elaborate_Text<CR>", desc = "Elaborate Text" },
+    { mode = { "n", "v" }, "<leader>Gf", ":Gen Fix_Code<CR>", desc = "Fix Code" },
+  },
   config = function()
-    -- require("gen").model = "mistral:latest"
+    local gen = require "gen"
+
     local opts = {
-      model = "mistral", -- The default model to use.
+      model = "mistral:7b-instruct", -- The default model to use.
       display_mode = "float", -- The display mode. Can be "float" or "split".
       show_prompt = true, -- Shows the Prompt submitted to Ollama.
       show_model = true, -- Displays which model you are using at the beginning of your chat session.
       no_auto_close = false, -- Never closes the window automatically.
+      init = function(options)
+        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
+      end,
+      -- Function to initialize Ollama
+      command = "curl --silent --no-buffer -X POST http://localhost:11434/api/generate -d $body",
+      -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+      -- This can also be a lua function returning a command string, with options as the input parameter.
+      -- The executed command must return a JSON object with { response, context }
+      -- (context property is optional).
+      -- list_models = "<omitted lua function>", -- Retrieves a list of model names
+      debug = false, -- Prints errors and the command which is run.
     }
 
-    require("gen").setup(opts)
+    gen.setup(opts)
 
-    local which_key_ok, which_key = pcall(require, "which-key")
-    if not which_key_ok then
-      return
-    end
-
-    local nopts = {
-      mode = "n", -- NORMAL mode
-      prefix = "<leader>",
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
-      noremap = true, -- use `noremap` when creating keymaps
-      nowait = true, -- use `nowait` when creating keymaps
+    -- Custom prompts: https://github.com/David-Kunz/gen.nvim#custom-prompts
+    gen.prompts["Elaborate_Text"] = {
+      prompt = "Elaborate the following text:\n$text",
+      replace = true,
     }
-
-    local mappings = {
-      G = {
-        name = "+gen",
-        g = { "<cmd>Gen<CR>", "Gen" },
-        a = { "<cmd>Gen Ask<CR>", "Gen Ask" },
-        c = { "<cmd>Gen Change<CR>", "Gen Change" },
-        G = { "<cmd>Gen Enhance_Grammar_Spelling<CR>", "Gen Enhance_Grammar_Spelling" },
-        w = { "<cmd>Gen Enhance_Wording<CR>", "Gen Enhance_Wording" },
-        s = { "<cmd>Gen Make_Consice<CR>", "Gen Make_Consice" },
-        l = { "<cmd>Gen Make_List<CR>", "Gen Make_List" },
-        t = { "<cmd>Gen Make_Table<CR>", "Gen Make_Table" },
-        r = { "<cmd>Gen Review_Code<CR>", "Gen Review_Code" },
-        e = { "<cmd>Gen Enhance_Code<CR>", "Gen Enhance_Code" },
-        C = { "<cmd>Gen Change_Code<CR>", "Gen Change_Code" },
-      },
+    gen.prompts["Fix_Code"] = {
+      prompt = "Fix the following code. Only ouput the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+      replace = true,
+      extract = "```$filetype\n(.-)```",
     }
-
-    local vopts = {
-      mode = "v", -- NORMAL mode
-      prefix = "<leader>",
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
-      noremap = true, -- use `noremap` when creating keymaps
-      nowait = true, -- use `nowait` when creating keymaps
-    }
-
-    local vmappings = {
-      G = {
-        name = "+gen",
-        g = { "<cmd>'<,'>Gen<CR>", "Gen" },
-        a = { "<cmd>'<,'>Gen Ask<CR>", "Gen Ask" },
-        c = { "<cmd>'<,'>Gen Change<CR>", "Gen Change" },
-        G = { "<cmd>'<,'>Gen Enhance_Grammar_Spelling<CR>", "Gen Enhance_Grammar_Spelling" },
-        w = { "<cmd>'<,'>Gen Enhance_Wording<CR>", "Gen Enhance_Wording" },
-        s = { "<cmd>'<,'>Gen Make_Consice<CR>", "Gen Make_Consice" },
-        l = { "<cmd>'<,'>Gen Make_List<CR>", "Gen Make_List" },
-        t = { "<cmd>'<,'>Gen Make_Table<CR>", "Gen Make_Table" },
-        r = { "<cmd>'<,'>Gen Review_Code<CR>", "Gen Review_Code" },
-        e = { "<cmd>'<,'>Gen Enhance_Code<CR>", "Gen Enhance_Code" },
-        C = { "<cmd>'<,'>Gen Change_Code<CR>", "Gen Change_Code" },
-      },
-    }
-
-    which_key.register(mappings, nopts)
-    which_key.register(vmappings, vopts)
   end,
 }
