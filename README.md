@@ -24,6 +24,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] add more treesitter textobjects
 - [x] use conform.nvim and nvim-lint
 - [ ] refactor work mode if structure for `lang/go.lua`
+  - [ ] use https://stackoverflow.com/a/72021612
 - [ ] figure out how to show all messages in noice.nvim
 - [ ] use lunarvim icons
 - [ ] figure out how to ignore gitlab codesuggestions lsp messages
