@@ -1,7 +1,10 @@
 --  https://github.com/kawre/leetcode.nvim
 
+local leet_arg = "leetcode.nvim"
+
 return {
   "kawre/leetcode.nvim",
+  lazy = leet_arg ~= vim.fn.argv()[1],
   event = "BufEnter leetcode.nvim",
   build = ":TSUpdate html",
   dependencies = {
@@ -14,7 +17,7 @@ return {
     "rcarriga/nvim-notify",
     "nvim-tree/nvim-web-devicons",
   },
-  opts = function()
+  config = function()
     local which_key_ok, which_key = pcall(require, "which-key")
     if which_key_ok then
       local opts = {
@@ -57,9 +60,9 @@ return {
       which_key.register(mappings, opts)
     end
 
-    return {
+    require("leetcode").setup {
       ---@type string
-      arg = "leetcode.nvim",
+      arg = leet_arg,
 
       ---@type lc.lang
       lang = "golang",
@@ -71,10 +74,25 @@ return {
       },
 
       ---@type string
-      directory = vim.fn.stdpath "data" .. "/leetcode/",
+      -- directory = vim.fn.stdpath "data" .. "/leetcode/",
+      directory = vim.fn.expand "$HOME/leetcode/",
 
       ---@type boolean
       logging = true,
+
+      ---@type table<lc.lang, lc.inject>
+      injector = {
+        ["cpp"] = {
+          before = { "#include <bits/stdc++.h>", "using namespace std;" },
+          after = "int main() {}",
+        },
+        ["java"] = {
+          before = "import java.util.*;",
+        },
+        ["golang"] = {
+          before = "package leetcode",
+        },
+      },
 
       cache = {
         update_interval = 60 * 60 * 24 * 7, ---@type integer 7 days
@@ -117,9 +135,6 @@ return {
         LeetQuestionNew = {},
       },
 
-      ---@type boolean
-      image_support = true, -- setting this to `true` will disable question description wrap
-
       keys = {
         toggle = { "q", "<Esc>" }, ---@type string|string[]
         confirm = { "<CR>" }, ---@type string|string[]
@@ -129,6 +144,9 @@ return {
         focus_testcases = "H", ---@type string
         focus_result = "L", ---@type string
       },
+
+      ---@type boolean
+      image_support = true, -- setting this to `true` will disable question description wrap
     }
   end,
 }
