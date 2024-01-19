@@ -39,6 +39,7 @@ return {
       "oil",
       "undotree",
       "gitlab", -- disable for gitlab.nvim discussion window
+      "git", -- disable for gitlab.nvim commit log panel
       "leetcode.nvim",
     },
   },
