@@ -67,4 +67,106 @@ return {
       }
     end,
   },
+  -- better cmdline completion using cmp
+  {
+    "hrsh7th/cmp-cmdline",
+    event = "CmdlineEnter",
+    config = function()
+      -- `:` cmdline setup.
+      cmp.setup.cmdline(":", {
+        -- mapping = cmp.mapping.preset.cmdline(),
+        mapping = {
+          ["<Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ["<S-Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ["<C-j>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-k>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-n>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-p>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-a>"] = {
+            c = cmp.abort(),
+          },
+          ["<C-y>"] = {
+            c = cmp.confirm { select = false },
+          },
+        },
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          {
+            name = "cmdline",
+          },
+        }),
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
+        ---@diagnostic disable-next-line: missing-fields
+        -- formatting = {
+        --   format = function(_, item)
+        --     local icons = require("lazyvim.config").icons.kinds
+        --     if icons[item.kind] then
+        --       item.kind = icons[item.kind] .. item.kind
+        --     end
+        --     return item
+        --   end,
+        -- },
+        ---@diagnostic disable-next-line: missing-fields
+        formatting = {
+          format = function(_, item)
+            -- Remove kind so only the word is displayed.
+            item.kind = nil
+            return item
+          end,
+        },
+      })
+    end,
+  },
 }
