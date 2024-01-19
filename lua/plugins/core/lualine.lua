@@ -288,7 +288,7 @@ return {
               end,
               padding = 1,
             },
-            { "filetype", icon_only = false, separator = "" },
+            { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 2 } },
           },
           lualine_y = {
             { "location" },
