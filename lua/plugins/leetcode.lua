@@ -73,9 +73,11 @@ return {
         translate_problems = true, ---@type boolean
       },
 
-      ---@type string
-      -- directory = vim.fn.stdpath "data" .. "/leetcode/",
-      directory = vim.fn.expand "$HOME/leetcode/",
+      ---@type lc.storage
+      storage = {
+        home = vim.fn.expand "$HOME/leetcode/",
+        cache = vim.fn.stdpath "cache" .. "/leetcode",
+      },
 
       ---@type boolean
       logging = true,
