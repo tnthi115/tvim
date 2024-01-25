@@ -49,5 +49,6 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without breadcrumbs
   - [x] using https://github.com/utilyre/barbecue.nvim for now
 - [ ] look at https://github.com/ibhagwan/fzf-lua
-- [ ] configure cmp to give cmdline completion
+- [x] configure cmp to give cmdline completion
+  - [x] done, but fix the selection confirmation
 - [ ] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI

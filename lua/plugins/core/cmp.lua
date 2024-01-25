@@ -166,6 +166,9 @@ return {
             return item
           end,
         },
+        completion = {
+          completeopt = "menu,menuone,noinsert,noselect",
+        },
       })
     end,
   },
