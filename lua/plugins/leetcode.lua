@@ -6,6 +6,7 @@ return {
   "kawre/leetcode.nvim",
   lazy = leet_arg ~= vim.fn.argv()[1],
   event = "BufEnter leetcode.nvim",
+  cmd = "Leet",
   build = ":TSUpdate html",
   dependencies = {
     "nvim-telescope/telescope.nvim",
@@ -30,7 +31,7 @@ return {
       }
 
       local mappings = {
-        L = {
+        k = {
           name = "+leetcode",
           m = { "<cmd>Leet menu<CR>", "Menu" },
           c = { "<cmd>Leet console<CR>", "Console" },
