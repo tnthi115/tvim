@@ -51,4 +51,4 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] look at https://github.com/ibhagwan/fzf-lua
 - [x] configure cmp to give cmdline completion
   - [x] done, but fix the selection confirmation
-- [ ] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI
+- [x] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI
