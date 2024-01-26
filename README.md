@@ -4,8 +4,6 @@ This is my [Lunarvim](https://www.lunarvim.org/)-inspired config for [LazyVim](h
 
 ## Installation
 
-TODO
-
 Follow the LazyVim Installation instructions, but clone this repo instead of
 the LazyVim starter repo.
 
