@@ -170,6 +170,78 @@ return {
           completeopt = "menu,menuone,noinsert,noselect",
         },
       })
+
+      -- `/` cmdline setup.
+      cmp.setup.cmdline("/", {
+        mapping = {
+          ["<Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ["<S-Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ["<C-j>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-k>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-n>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-p>"] = {
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<C-a>"] = {
+            c = cmp.abort(),
+          },
+          ["<C-y>"] = {
+            c = cmp.confirm { select = false },
+          },
+        },
+        sources = {
+          { name = "buffer" },
+        },
+        completion = {
+          completeopt = "menu,menuone,noinsert,noselect",
+        },
+      })
     end,
   },
 }
