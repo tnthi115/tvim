@@ -2,6 +2,7 @@
 
 return {
   "f-person/git-blame.nvim",
+  enabled = false,
   cmd = { "GitBlameToggle", "GitBlameEnable", "GitBlameDisable" },
   keys = {
     { "<leader>uB", "<cmd>GitBlameToggle<CR>", desc = "Toggle Git Blame Virtual Text" },
