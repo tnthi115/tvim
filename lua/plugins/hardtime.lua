@@ -26,6 +26,8 @@ return {
       "lazy",
       "NeogitStatus",
       "NeogitLogView",
+      "NeogitPopup",
+      "NeogitCommitView",
       "mason",
       "neotest-summary",
       "minifiles",
