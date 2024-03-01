@@ -51,3 +51,4 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   - [x] done, but fix the selection confirmation
 - [x] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI
 - [ ] update leetcode.nvim keybinds with new commands and update config if needed
+- [ ] checkout [`markdown-oxide`](https://github.com/Feel-ix-343/markdown-oxide)

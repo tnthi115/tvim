@@ -185,6 +185,32 @@ return {
       formatters_by_ft = {
         -- go = { "goimports", "gofmt" },
         go = function()
+          local which_key_ok, which_key = pcall(require, "which-key")
+          if which_key_ok then
+            local opts = {
+              mode = "n", -- NORMAL mode
+              prefix = "<leader>",
+              -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+              buffer = vim.api.nvim_get_current_buf(), -- Local mappings
+              silent = true, -- use `silent` when creating keymaps
+              noremap = true, -- use `noremap` when creating keymaps
+              nowait = true, -- use `nowait` when creating keymaps
+            }
+
+            local mappings = {
+              j = {
+                name = "Go",
+                g = {
+                  mode = { "n", "v" },
+                  "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
+                  "Format With Golines",
+                },
+              },
+            }
+
+            which_key.register(mappings, opts)
+          end
+
           local current_dir = vim.fn.expand "%:p:h"
           local target_dir = vim.fn.glob "$HOME/go/src/*"
           local is_in_work_dir = false
@@ -199,7 +225,7 @@ return {
           if is_in_work_dir then
             return { "goimports", "gofmt" }
           else
-            return { "goimports-reviser", "gofumpt" }
+            return { "goimports-reviser", "gofumpt", "golines" }
           end
         end,
       },
@@ -272,7 +298,7 @@ return {
               a = { "<cmd>GoTestAdd<CR>", "Add Test" },
               A = { "<cmd>GoTestsAll<CR>", "Add All Tests" },
               E = { "<cmd>GoTestsExp<CR>", "Add Exported Tests" },
-              g = { "<cmd>GoGenerate<CR>", "Go Generate" },
+              G = { "<cmd>GoGenerate<CR>", "Go Generate" },
               f = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
               c = { "<cmd>GoCmt<CR>", "Generate Comment" },
               e = { "<cmd>GoIfErr<CR>", "Generate iferr" },
