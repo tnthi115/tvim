@@ -121,6 +121,7 @@ return {
         "golangci-lint-langserver",
         "gofumpt",
         "goimports-reviser",
+        "golines",
         "gomodifytags",
         "gotests",
         "impl",

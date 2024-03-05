@@ -33,7 +33,7 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   - [x] https://youtu.be/iNe88IZplYM?si=CENBMEgi64OdXrSQ
   - [ ] https://github.com/jmbuhr/quarto-nvim-kickstarter
   - [x] https://github.com/3rd/image.nvim/
-- [ ] configure obsidian.nvim more
+- [ ] update obsidian.nvim config after all the updates
 - [ ] configure image.nvim more
 - [ ] figure out why hardtime.nvim doesn't work immediately when opening a file on the commandline (i.e `nvim <file>` or `vf`) and only works after opening another file
 - [x] look at updates for [ogpt.nvim](https://github.com/huynle/ogpt.nvim)
