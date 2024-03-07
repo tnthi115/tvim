@@ -39,6 +39,12 @@ return {
         inlay_hints = {
           enabled = true,
         },
+        -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+        -- Be aware that you also will need to properly configure your LSP server to
+        -- provide the code lenses.
+        codelens = {
+          enabled = true,
+        },
         -- add any global capabilities here
         -- capabilities = {},
         -- options for vim.lsp.buf.format
