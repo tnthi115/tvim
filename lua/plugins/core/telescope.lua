@@ -59,6 +59,11 @@ return {
         git_files = {
           hidden = true,
         },
+        live_grep = {
+          additional_args = function(opts)
+            return { "--hidden" }
+          end,
+        },
         git_branches = {
           theme = "dropdown",
         },
