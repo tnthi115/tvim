@@ -7,6 +7,7 @@ return {
   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   keys = { { "<leader>uH", "<cmd>Hardtime toggle<CR>", desc = "Toggle Hardtime" } },
   opts = {
+    enabled = false,
     disable_mouse = false,
     disabled_filetypes = {
       "NvimTree",
