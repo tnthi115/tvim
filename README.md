@@ -52,3 +52,5 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI
 - [ ] update leetcode.nvim keybinds with new commands and update config if needed
 - [ ] checkout [`markdown-oxide`](https://github.com/Feel-ix-343/markdown-oxide)
+- [ ] change tokyonight highlights for git diffs in diffview
+- [ ] figure out why breadcrumbs don't work for [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
