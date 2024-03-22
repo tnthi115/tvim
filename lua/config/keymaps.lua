@@ -71,3 +71,6 @@ vim.keymap.set("n", "<leader>bw", "<cmd>noautocmd w<cr>", { desc = "Save without
 
 -- Show full path of current buffer
 vim.keymap.set("n", "<leader>bP", "<cmd>echo expand('%:p)')<CR>", { desc = "Show Buffer Path" })
+
+vim.keymap.set("n", "<leader>b,", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
+vim.keymap.set("n", "<leader>b.", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
