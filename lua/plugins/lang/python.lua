@@ -3,6 +3,17 @@
 -- https://www.lazyvim.org/extras/formatting/black
 
 return {
+  -- Install mason packages.
+  {
+    "williamboman/mason.nvim",
+    ft = { "python" },
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "basedpyright",
+      })
+    end,
+  },
   -- {
   --   "nvim-treesitter/nvim-treesitter",
   --   opts = function(_, opts)
@@ -16,23 +27,24 @@ return {
     ft = { "python" },
     opts = {
       servers = {
-        pyright = {},
+        -- pyright = {},
+        -- basedpyright = {},
         ruff_lsp = {
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                }
-              end,
-              desc = "Organize Imports",
-            },
-          },
+          -- keys = {
+          --   {
+          --     "<leader>co",
+          --     function()
+          --       vim.lsp.buf.code_action {
+          --         apply = true,
+          --         context = {
+          --           only = { "source.organizeImports" },
+          --           diagnostics = {},
+          --         },
+          --       }
+          --     end,
+          --     desc = "Organize Imports",
+          --   },
+          -- },
           init_options = {
             settings = {
               -- Any extra CLI arguments for `ruff` go here.
@@ -42,16 +54,16 @@ return {
           },
         },
       },
-      setup = {
-        ruff_lsp = function()
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "ruff_lsp" then
-              -- Disable hover in favor of Pyright
-              client.server_capabilities.hoverProvider = false
-            end
-          end)
-        end,
-      },
+      -- setup = {
+      --   ruff_lsp = function()
+      --     require("lazyvim.util").lsp.on_attach(function(client, _)
+      --       if client.name == "ruff_lsp" then
+      --         -- Disable hover in favor of Pyright
+      --         client.server_capabilities.hoverProvider = false
+      --       end
+      --     end)
+      --   end,
+      -- },
     },
   },
   -- {

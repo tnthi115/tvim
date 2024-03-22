@@ -8,6 +8,10 @@ vim.opt.scrolloff = 8
 vim.opt.swapfile = false
 vim.opt.conceallevel = 1
 
+-- LSP Server to use for Python.
+-- Set to "basedpyright" to use basedpyright instead of pyright.
+vim.g.lazyvim_python_lsp = "basedpyright"
+
 -- Options from Lunarvim
 -- local options = {
 --   background = "dark",
