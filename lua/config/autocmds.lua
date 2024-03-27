@@ -50,10 +50,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.lsp.codelens.refresh()
   end,
 })
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = lsp_cmds,
-  desc = "Code Lens Action Keybind",
-  callback = function()
-    vim.keymap.set("n", "<leader>cL", "<cmd>lua vim.lsp.codelens.run()<cr>", { desc = "CodeLens Action" })
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = lsp_cmds,
+--   desc = "Code Lens Action Keybind",
+--   callback = function()
+--     vim.keymap.set("n", "<leader>cL", "<cmd>lua vim.lsp.codelens.run()<cr>", { desc = "CodeLens Action" })
+--   end,
+-- })

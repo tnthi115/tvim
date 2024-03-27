@@ -54,3 +54,5 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] checkout [`markdown-oxide`](https://github.com/Feel-ix-343/markdown-oxide)
 - [ ] change tokyonight highlights for git diffs in diffview
 - [ ] figure out why breadcrumbs don't work for [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
+- [ ] figure out why obsidian.nvim syntax highlight doesn't work anymore
+- [ ] figure out why image.nvim doesn't work anymore

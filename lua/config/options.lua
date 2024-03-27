@@ -12,6 +12,13 @@ vim.opt.conceallevel = 1
 -- Set to "basedpyright" to use basedpyright instead of pyright.
 vim.g.lazyvim_python_lsp = "basedpyright"
 
+-- LazyVim automatically configures lazygit:
+--  * theme, based on the active colorscheme.
+--  * editorPreset to nvim-remote
+--  * enables nerd font icons
+-- Set to false to disable.
+vim.g.lazygit_config = false
+
 -- Options from Lunarvim
 -- local options = {
 --   background = "dark",
