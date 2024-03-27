@@ -2,7 +2,7 @@
 
 return {
   "3rd/image.nvim",
-  -- enabled = false,
+  enabled = false,
   event = "BufEnter  *.png, *.jpg, *.jpeg, *.gif, *.webp",
   ft = { "markdown", "norg" },
   -- build = "brew install imagemagick luarocks && luarocks --local --lua-version=5.1 install magick",

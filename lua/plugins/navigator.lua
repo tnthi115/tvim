@@ -2,6 +2,7 @@
 
 return {
   "numToStr/Navigator.nvim",
+  enabled = false,
   keys = {
     { mode = { "n", "t" }, "<C-h>", "<cmd>NavigatorLeft<CR>" },
     { mode = { "n", "t" }, "<C-j>", "<cmd>NavigatorDown<CR>" },
