@@ -361,6 +361,7 @@ return {
   -- for some reason I get a warning when there are other language servers active (e.g. doesn't work when pyright is active):
   --   warning: multiple different client offset_encodings detected for buffer, this is not supported yet
   -- but it still works I guess?
+  -- this is now a paid feature as part of Duo Pro :(
   {
     "git@gitlab.com:gitlab-org/editor-extensions/gitlab.vim.git",
     enabled = false,
