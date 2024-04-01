@@ -157,7 +157,9 @@ return {
         --  * "notes_subdir" - put new notes in the default notes subdirectory.
         new_notes_location = "notes_subdir",
 
-        -- Optional, customize how names/IDs for new notes are created.
+        -- Optional, customize how note IDs are generated given an optional title.
+        ---@param title string|?
+        ---@return string
         note_id_func = function(title)
           -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
           -- In this case a note with the title 'My new note' will be given an ID that looks
@@ -362,23 +364,14 @@ return {
           -- img_folder = "assets/imgs", -- This is the default
           img_folder = "attachments",
           -- A function that determines the text to insert in the note when pasting an image.
-          -- It takes two arguments, the `obsidian.Client` and a plenary `Path` to the image file.
+          -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
           -- This is the default implementation.
           ---@param client obsidian.Client
-          ---@param path Path the absolute path to the image file
+          ---@param path obsidian.Path the absolute path to the image file
           ---@return string
           img_text_func = function(client, path)
-            local link_path
-            local vault_relative_path = client:vault_relative_path(path)
-            if vault_relative_path ~= nil then
-              -- Use relative path if the image is saved in the vault dir.
-              link_path = vault_relative_path
-            else
-              -- Otherwise use the absolute path.
-              link_path = tostring(path)
-            end
-            local display_name = vim.fs.basename(link_path)
-            return string.format("![%s](%s)", display_name, link_path)
+            path = client:vault_relative_path(path) or path
+            return string.format("![%s](%s)", path.name, path)
           end,
         },
       }
