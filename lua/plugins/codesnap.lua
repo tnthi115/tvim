@@ -6,8 +6,8 @@ return {
   version = "^1",
   cmd = { "CodeSnap", "CodeSnapSave" },
   keys = {
-    { mode = { "v" }, "<leader>cs", "<cmd>'<,'>CodeSnap<CR>", desc = "Copy Code Snapshot" },
-    { mode = { "v" }, "<leader>cS", "<cmd>'<,'>CodeSnapSave<CR>", desc = "Save Code Snapshot" },
+    { mode = { "n", "v" }, "<leader>cs", ":CodeSnap<CR>", desc = "Copy Code Snapshot" },
+    { mode = { "n", "v" }, "<leader>cS", ":CodeSnapSave<CR>", desc = "Save Code Snapshot" },
   },
   -- config = function()
   --   require("codesnap").setup {
