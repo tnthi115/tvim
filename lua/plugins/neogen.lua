@@ -2,9 +2,12 @@
 -- neogen - docstring/annotation toolkit for multiple languages using treesitter
 
 return {
-  "danymat/neogen",
-  event = "LspAttach",
-  dependencies = "nvim-treesitter/nvim-treesitter",
+  {
+    "danymat/neogen",
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
+    event = "LspAttach",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     -- stylua: ignore
     keys = {
       { "<leader>nn", "<cmd>lua require('neogen').generate()<CR>", desc = "Generate Annotation" },
@@ -13,8 +16,7 @@ return {
       { "<leader>nt", "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", desc = "Generate Type Annotation" },
       { "<leader>nF", "<cmd>lua require('neogen').generate({ type = 'file' })<CR>", desc = "Generate File Annotation" },
     },
-  config = function()
-    require("neogen").setup {
+    opts = {
       enabled = true,
       input_after_comment = true,
       snippet_engine = "luasnip",
@@ -40,30 +42,12 @@ return {
           },
         },
       },
-    }
-
-    local status_ok, which_key = pcall(require, "which-key")
-    if not status_ok then
-      return
-    end
-
-    local opts = {
-      mode = "n", -- NORMAL mode
-      prefix = "<leader>",
-      buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-      silent = true, -- use `silent` when creating keymaps
-      noremap = true, -- use `noremap` when creating keymaps
-      nowait = true, -- use `nowait` when creating keymaps
-    }
-
-    local mappings = {
-      n = {
-        name = "+neogen",
-      },
-    }
-
-    which_key.register(mappings, opts)
-  end,
-  -- Uncomment next line if you want to follow only stable versions
-  -- version = "*"
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      opts.defaults["<leader>n"] = { name = "+neogen" }
+    end,
+  },
 }
