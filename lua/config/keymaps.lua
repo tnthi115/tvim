@@ -74,3 +74,17 @@ vim.keymap.set("n", "<leader>bP", "<cmd>echo expand('%:p)')<CR>", { desc = "Show
 
 vim.keymap.set("n", "<leader>b,", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
 vim.keymap.set("n", "<leader>b.", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
+
+-- Lazyvim Group
+local lazyvim_util = require "lazyvim.util"
+-- Delete LazyVim default bindings for meta information
+vim.keymap.del("n", "<leader>l")
+vim.keymap.del("n", "<leader>L")
+
+-- vim.keymap.set("n", "<leader>lp", "<cmd>Mason<CR>", { desc = "Package Manager (Mason)" })
+vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<CR>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader>le", "<cmd>LazyExtras<CR>", { desc = "LazyExtras" })
+-- vim.keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>", { desc = "Lsp Info" })
+vim.keymap.set("n", "<leader>lc", lazyvim_util.news.changelog, { desc = "Changelog" })
+vim.keymap.set("n", "<leader>lr", lazyvim_util.root.info, { desc = "Root Info" })
+vim.keymap.set("n", "<leader>lM", vim.cmd.messages, { desc = "Display messages" })

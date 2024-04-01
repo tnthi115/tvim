@@ -31,7 +31,7 @@ return {
       }
 
       local mappings = {
-        k = {
+        L = {
           name = "+leetcode",
           m = { "<cmd>Leet menu<CR>", "Menu" },
           c = { "<cmd>Leet console<CR>", "Console" },

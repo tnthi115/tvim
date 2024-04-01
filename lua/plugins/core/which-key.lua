@@ -7,5 +7,8 @@ return {
     window = {
       border = "single",
     },
+    defaults = {
+      ["<leader>l"] = { name = "LazyVim" },
+    },
   },
 }
