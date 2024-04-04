@@ -9,6 +9,7 @@
 return {
   {
     "stevearc/conform.nvim",
+    ft = "rust",
     opts = {
       formatters_by_ft = {
         rust = { "rustfmt" },

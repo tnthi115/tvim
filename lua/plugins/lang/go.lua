@@ -182,6 +182,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    ft = go_filetypes,
     opts = {
       formatters_by_ft = {
         -- go = { "goimports", "gofmt" },

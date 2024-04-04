@@ -7,6 +7,7 @@ end
 return {
   {
     "stevearc/conform.nvim",
+    ft = "yaml",
     opts = {
       formatters_by_ft = {
         yaml = { "yamlfmt" },
