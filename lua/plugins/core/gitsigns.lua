@@ -33,10 +33,12 @@ return {
     -- Time format reference: https://github.com/f-person/git-blame.nvim?tab=readme-ov-file#date-format
     -- current_line_blame_formatter = "<author>, <author_time:%c> - <summary>",
     -- current_line_blame_formatter = "<author> • <author_time:%a, %d %b %Y %X> • <summary>",
-    current_line_blame_formatter = "<author> • <author_time:%c> • <summary>",
-    current_line_blame_formatter_opts = {
-      relative_time = false,
-    },
+    -- current_line_blame_formatter = "    <author> • <author_time:%c (%Y-%m-%d)> • <summary>",
+    -- current_line_blame_formatter_opts = {
+    --   relative_time = true,
+    -- },
+    current_line_blame_formatter = "    <author> • <author_time:%c> • <summary>",
+    current_line_blame_formatter_nc = "    <author>",
     current_line_blame_opts = {
       delay = 0,
     },
