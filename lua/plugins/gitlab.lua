@@ -27,8 +27,6 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>ms", "<cmd>lua require('gitlab').review()<CR>", desc = "Start Review" },
-      { "<leader>mra", "<cmd>lua require('gitlab').add_reviewer()<CR>", desc = "Add reviewer" },
-      { "<leader>mrd", "<cmd>lua require('gitlab').delete_reviewer()<CR>", desc = "Delete reviewer" },
       { "<leader>mS", "<cmd>lua require('gitlab').summary()<CR>", desc = "Summary" },
       { "<leader>mA", "<cmd>lua require('gitlab').approve()<CR>", desc = "Approve" },
       { "<leader>mR", "<cmd>lua require('gitlab').revoke()<CR>", desc = "Revoke" },
@@ -40,6 +38,10 @@ return {
       { "<leader>md", "<cmd>lua require('gitlab').toggle_discussions()<CR>", desc = "Toggle discussions" },
       { "<leader>maa", "<cmd>lua require('gitlab').add_assignee()<CR>", desc = "Add assignee" },
       { "<leader>mad", "<cmd>lua require('gitlab').delete_assignee()<CR>", desc = "Delete assignee" },
+      { "<leader>mla", "<cmd>lua require('gitlab').add_label()<CR>", desc = "Add label" },
+      { "<leader>mld", "<cmd>lua require('gitlab').delete_label()<CR>", desc = "Delete label" },
+      { "<leader>mra", "<cmd>lua require('gitlab').add_reviewer()<CR>", desc = "Add reviewer" },
+      { "<leader>mrd", "<cmd>lua require('gitlab').delete_reviewer()<CR>", desc = "Delete reviewer" },
       { "<leader>mp", "<cmd>lua require('gitlab').pipeline()<CR>", desc = "Pipeline" },
       { "<leader>mo", "<cmd>lua require('gitlab').open_in_browser()<CR>", desc = "Open in browser" },
       { "<leader>mMm", "<cmd>lua require('gitlab').merge()<CR>", desc = "Merge MR" },
