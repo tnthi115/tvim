@@ -1,5 +1,9 @@
 -- Full spec: https://www.lazyvim.org/extras/lang/typescript
 
+if true then
+  return {}
+end
+
 local ts_filetypes = { "typescript", "javascript" }
 
 return {
