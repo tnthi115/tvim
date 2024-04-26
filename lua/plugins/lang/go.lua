@@ -205,7 +205,12 @@ return {
                 g = {
                   mode = { "n", "v" },
                   "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
-                  "Format With Golines",
+                  "Format with golines",
+                },
+                f = {
+                  mode = { "n", "v" },
+                  "<cmd>lua require('conform').format({formatters = {'gofumpt', 'goimports-reviser'}})<CR>",
+                  "Format with gofumpt and goimports-reviser",
                 },
               },
             }
@@ -301,7 +306,7 @@ return {
               A = { "<cmd>GoTestsAll<CR>", "Add All Tests" },
               E = { "<cmd>GoTestsExp<CR>", "Add Exported Tests" },
               G = { "<cmd>GoGenerate<CR>", "Go Generate" },
-              f = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
+              F = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
               c = { "<cmd>GoCmt<CR>", "Generate Comment" },
               e = { "<cmd>GoIfErr<CR>", "Generate iferr" },
               T = { "<cmd>GoTagAdd proto<CR>", "Add Protobuf Tags" },
