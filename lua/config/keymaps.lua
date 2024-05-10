@@ -70,7 +70,13 @@ vim.keymap.set("n", "<leader>ck", vim.diagnostic.goto_prev, { desc = "Prev Diagn
 vim.keymap.set("n", "<leader>bw", "<cmd>noautocmd w<cr>", { desc = "Save without formatting (noautocmd)" })
 
 -- Show full path of current buffer
-vim.keymap.set("n", "<leader>bP", "<cmd>echo expand('%:p)')<CR>", { desc = "Show Buffer Path" })
+local function echo_and_copy_buffer_path()
+  local path = vim.fn.expand "%:p"
+  print(path) -- Echo the path
+  vim.fn.setreg("+", path) -- Copy the path to the clipboard
+end
+-- vim.keymap.set("n", "<leader>bP", "<cmd>echo expand('%:p)')<CR>", { desc = "Show Buffer Path" })
+vim.keymap.set("n", "<leader>bP", echo_and_copy_buffer_path, { desc = "Show Buffer Path" })
 
 vim.keymap.set("n", "<leader>b,", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
 vim.keymap.set("n", "<leader>b.", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
