@@ -24,17 +24,15 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] refactor work mode if structure for `lang/go.lua`
   - [ ] use https://stackoverflow.com/a/72021612
 - [ ] figure out how to show all messages in noice.nvim
-- [ ] use lunarvim icons
 - [ ] figure out how to ignore gitlab codesuggestions lsp messages
-- [ ] make background for fold highlight group transparent
 - [x] add tmux navigator
 - [ ] tmux sessionX plugin https://github.com/omerxx/tmux-sessionx
 - [ ] steal plugins from quarto-nvim-kickstarter
   - [x] https://youtu.be/iNe88IZplYM?si=CENBMEgi64OdXrSQ
   - [ ] https://github.com/jmbuhr/quarto-nvim-kickstarter
   - [x] https://github.com/3rd/image.nvim/
-- [ ] update obsidian.nvim config after all the updates
-- [ ] configure image.nvim more
+- [x] update obsidian.nvim config after all the updates
+- [x] configure image.nvim more
 - [ ] figure out why hardtime.nvim doesn't work immediately when opening a file on the commandline (i.e `nvim <file>` or `vf`) and only works after opening another file
 - [x] look at updates for [ogpt.nvim](https://github.com/huynle/ogpt.nvim)
 - [ ] create custom snippets
@@ -50,9 +48,9 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] configure cmp to give cmdline completion
   - [x] done, but fix the selection confirmation
 - [x] add https://github.com/LunarVim/bigfile.nvim or manual https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI
-- [ ] update leetcode.nvim keybinds with new commands and update config if needed
+- [x] update leetcode.nvim keybinds with new commands and update config if needed
 - [ ] checkout [`markdown-oxide`](https://github.com/Feel-ix-343/markdown-oxide)
 - [ ] change tokyonight highlights for git diffs in diffview
-- [ ] figure out why breadcrumbs don't work for [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
+- [x] figure out why breadcrumbs don't work for [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
 - [ ] figure out why obsidian.nvim syntax highlight doesn't work anymore
 - [ ] figure out why image.nvim doesn't work anymore
