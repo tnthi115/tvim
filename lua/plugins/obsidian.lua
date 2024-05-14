@@ -37,7 +37,7 @@ return {
       -- Required.
       "nvim-lua/plenary.nvim",
     },
-    opts = function(_, opts)
+    config = function()
       -- TODO: whichkey
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "markdown" },
@@ -85,7 +85,7 @@ return {
         end,
       })
 
-      return {
+      require("obsidian").setup {
         -- A list of vault names and paths.
         -- Each path should be the path to the vault root. If you use the Obsidian app,
         -- the vault root is the parent directory of the `.obsidian` folder.
