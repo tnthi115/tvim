@@ -4,10 +4,18 @@ return {
   "mistricky/codesnap.nvim",
   build = "make",
   version = "^1",
+  dependencies = {
+    {
+      "folke/which-key.nvim",
+      opts = function(_, opts)
+        opts.defaults["<leader>cz"] = { name = "+codesnap" }
+      end,
+    },
+  },
   cmd = { "CodeSnap", "CodeSnapSave" },
   keys = {
-    { mode = { "n", "v" }, "<leader>cs", ":CodeSnap<CR>", desc = "Copy Code Snapshot" },
-    { mode = { "n", "v" }, "<leader>cS", ":CodeSnapSave<CR>", desc = "Save Code Snapshot" },
+    { mode = { "n", "v" }, "<leader>czs", ":CodeSnap<CR>", desc = "Copy Code Snapshot" },
+    { mode = { "n", "v" }, "<leader>czS", ":CodeSnapSave<CR>", desc = "Save Code Snapshot" },
   },
   -- config = function()
   --   require("codesnap").setup {
