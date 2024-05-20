@@ -5,16 +5,16 @@
 
 return {
   "ThePrimeagen/refactoring.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        opts.defaults["<leader>r"] = { name = "+refactoring" }
-      end,
-    },
-  },
+  -- dependencies = {
+  --   "nvim-lua/plenary.nvim",
+  --   "nvim-treesitter/nvim-treesitter",
+  --   {
+  --     "folke/which-key.nvim",
+  --     opts = function(_, opts)
+  --       opts.defaults["<leader>r"] = { name = "+refactoring" }
+  --     end,
+  --   },
+  -- },
   cmd = "Refactor",
   -- stylua: ignore
   -- keys = {
