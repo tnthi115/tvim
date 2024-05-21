@@ -54,3 +54,4 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [x] figure out why breadcrumbs don't work for [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
 - [ ] figure out why obsidian.nvim syntax highlight doesn't work anymore
 - [ ] figure out why image.nvim doesn't work anymore
+- [ ] replace nvim-colorizer with mini.hipatterns
