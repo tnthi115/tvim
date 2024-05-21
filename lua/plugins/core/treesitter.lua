@@ -78,14 +78,14 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>tna"] = "@parameter.inner", -- swap parameters/argument with next
-            ["<leader>tnp"] = "@property.outer", -- swap object property with next
-            ["<leader>tnf"] = "@function.outer", -- swap function with next
+            ["<leader>Tna"] = "@parameter.inner", -- swap parameters/argument with next
+            ["<leader>Tnp"] = "@property.outer", -- swap object property with next
+            ["<leader>Tnf"] = "@function.outer", -- swap function with next
           },
           swap_previous = {
-            ["<leader>tpa"] = "@parameter.inner", -- swap parameters/argument with prev
-            ["<leader>tpp"] = "@property.outer", -- swap object property with prev
-            ["<leader>tpf"] = "@function.outer", -- swap function with previous
+            ["<leader>Tpa"] = "@parameter.inner", -- swap parameters/argument with prev
+            ["<leader>Tpp"] = "@property.outer", -- swap object property with prev
+            ["<leader>Tpf"] = "@function.outer", -- swap function with previous
           },
         },
         --   move = {
@@ -153,7 +153,7 @@ return {
       }
 
       local mappings = {
-        t = {
+        T = {
           name = "+treesitter",
           n = {
             name = "+next",
