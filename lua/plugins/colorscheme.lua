@@ -10,6 +10,12 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      on_highlights = function(hl, c)
+        hl.LspInlayHint = {
+          bg = "none",
+          fg = "#545c7e",
+        }
+      end,
     },
   },
 
