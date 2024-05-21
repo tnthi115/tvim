@@ -4,16 +4,16 @@
 
 return {
   -- Install mason packages.
-  {
-    "williamboman/mason.nvim",
-    ft = { "python" },
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "basedpyright",
-      })
-    end,
-  },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   ft = { "python" },
+  --   opts = function(_, opts)
+  --     opts.ensure_installed = opts.ensure_installed or {}
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "basedpyright",
+  --     })
+  --   end,
+  -- },
   -- {
   --   "nvim-treesitter/nvim-treesitter",
   --   opts = function(_, opts)
@@ -201,94 +201,94 @@ return {
     -- keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
     keys = { { "<leader>cv", false } },
   },
-  {
-    "nvim-neotest/neotest",
-    ft = { "python" },
-    dependencies = {
-      "nvim-neotest/neotest-python",
-      ft = { "python" },
-      -- keys = {
-      --   -- Testing
-      --   { "<leader>ct", "<cmd>lua require('neotest').run.run()<cr>", desc = "Test Method" },
-      --   { "<leader>cc", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", desc = "Test Class" },
-      --   { "<leader>cs", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Test Summary" },
-      --   -- Dap
-      --   { "<leader>cT", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Test Method DAP" },
-      --   {
-      --     "<leader>cC",
-      --     "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), desc = strategy = 'dap'})<cr>",
-      --     desc = "Test Class DAP",
-      --   },
-      -- -- Testing
-      -- { "<leader>jm", "<cmd>lua require('neotest').run.run()<cr>", desc = "Test Method" },
-      -- { "<leader>jc", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", desc = "Test Class" },
-      -- { "<leader>js", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Test Summary" },
-      -- -- Dap
-      -- { "<leader>jM", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Test Method DAP" },
-      -- {
-      --   "<leader>jC",
-      --   "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), desc = strategy = 'dap'})<cr>",
-      --   "Test Class DAP",
-      -- },
-      -- },
-    },
-    opts = function(_, opts)
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "python" },
-        callback = function()
-          local status_ok, which_key = pcall(require, "which-key")
-          if not status_ok then
-            return
-          end
-
-          local nopts = {
-            mode = "n", -- NORMAL mode
-            prefix = "<leader>",
-            -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-            buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = true, -- use `nowait` when creating keymaps
-          }
-
-          local mappings = {
-            j = {
-              name = "+Python",
-              -- Testing
-              m = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" },
-              c = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" },
-              s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" },
-              -- Dap
-              M = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" },
-              C = {
-                "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
-                "Test Class DAP",
-              },
-            },
-          }
-
-          which_key.register(mappings, nopts)
-        end,
-      })
-
-      opts.adapters = {
-        ["neotest-python"] = {
-          -- Here you can specify the settings for the adapter, i.e.
-          -- runner = "pytest",
-          -- python = ".venv/bin/python",
-
-          -- Extra arguments for nvim-dap configuration
-          -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
-          dap = {
-            justMyCode = false,
-            console = "integratedTerminal",
-          },
-          args = { "--log-level", "DEBUG", "--quiet" },
-          runner = "pytest",
-        },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-neotest/neotest",
+  --   ft = { "python" },
+  --   dependencies = {
+  --     "nvim-neotest/neotest-python",
+  --     ft = { "python" },
+  --     -- keys = {
+  --     --   -- Testing
+  --     --   { "<leader>ct", "<cmd>lua require('neotest').run.run()<cr>", desc = "Test Method" },
+  --     --   { "<leader>cc", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", desc = "Test Class" },
+  --     --   { "<leader>cs", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Test Summary" },
+  --     --   -- Dap
+  --     --   { "<leader>cT", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Test Method DAP" },
+  --     --   {
+  --     --     "<leader>cC",
+  --     --     "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), desc = strategy = 'dap'})<cr>",
+  --     --     desc = "Test Class DAP",
+  --     --   },
+  --     -- -- Testing
+  --     -- { "<leader>jm", "<cmd>lua require('neotest').run.run()<cr>", desc = "Test Method" },
+  --     -- { "<leader>jc", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", desc = "Test Class" },
+  --     -- { "<leader>js", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Test Summary" },
+  --     -- -- Dap
+  --     -- { "<leader>jM", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Test Method DAP" },
+  --     -- {
+  --     --   "<leader>jC",
+  --     --   "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), desc = strategy = 'dap'})<cr>",
+  --     --   "Test Class DAP",
+  --     -- },
+  --     -- },
+  --   },
+  --   opts = function(_, opts)
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       pattern = { "python" },
+  --       callback = function()
+  --         local status_ok, which_key = pcall(require, "which-key")
+  --         if not status_ok then
+  --           return
+  --         end
+  --
+  --         local nopts = {
+  --           mode = "n", -- NORMAL mode
+  --           prefix = "<leader>",
+  --           -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  --           buffer = vim.api.nvim_get_current_buf(), -- Local mappings
+  --           silent = true, -- use `silent` when creating keymaps
+  --           noremap = true, -- use `noremap` when creating keymaps
+  --           nowait = true, -- use `nowait` when creating keymaps
+  --         }
+  --
+  --         local mappings = {
+  --           j = {
+  --             name = "+Python",
+  --             -- Testing
+  --             m = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" },
+  --             c = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" },
+  --             s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" },
+  --             -- Dap
+  --             M = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" },
+  --             C = {
+  --               "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+  --               "Test Class DAP",
+  --             },
+  --           },
+  --         }
+  --
+  --         which_key.register(mappings, nopts)
+  --       end,
+  --     })
+  --
+  --     opts.adapters = {
+  --       ["neotest-python"] = {
+  --         -- Here you can specify the settings for the adapter, i.e.
+  --         -- runner = "pytest",
+  --         -- python = ".venv/bin/python",
+  --
+  --         -- Extra arguments for nvim-dap configuration
+  --         -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+  --         dap = {
+  --           justMyCode = false,
+  --           console = "integratedTerminal",
+  --         },
+  --         args = { "--log-level", "DEBUG", "--quiet" },
+  --         runner = "pytest",
+  --       },
+  --     }
+  --   end,
+  -- },
   -- {
   --   "mfussenegger/nvim-dap",
   --   optional = true,

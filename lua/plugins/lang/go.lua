@@ -22,7 +22,7 @@ return {
         gopls = {
           keys = {
             -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-            { "<leader>jd", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+            { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
           },
           settings = {
             gopls = {
@@ -131,22 +131,22 @@ return {
     end,
   },
   -- Setup nvim-dap-go.
-  {
-    "leoluz/nvim-dap-go",
-    ft = go_filetypes,
-    config = true,
-  },
+  -- {
+  --   "leoluz/nvim-dap-go",
+  --   ft = go_filetypes,
+  --   config = true,
+  -- },
   {
     "mfussenegger/nvim-dap",
     optional = true,
     dependencies = {
-      -- {
-      --   "williamboman/mason.nvim",
-      --   opts = function(_, opts)
-      --     opts.ensure_installed = opts.ensure_installed or {}
-      --     vim.list_extend(opts.ensure_installed, { "delve" })
-      --   end,
-      -- },
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "delve" })
+        end,
+      },
       {
         "leoluz/nvim-dap-go",
         config = true,
@@ -243,13 +243,18 @@ return {
     ft = go_filetypes,
     dependencies = {
       "nvim-neotest/neotest-go",
+      -- neotest-golang
+      -- "antoinemadec/FixCursorHold.nvim",
+      -- "fredrikaverpil/neotest-golang",
     },
     opts = {
       adapters = {
         ["neotest-go"] = {
           -- Here we can set options for neotest-go, e.g.
           -- args = { "-tags=integration" }
+          recursive_run = true,
         },
+        -- ["neotest-golang"] = {},
       },
     },
   },
