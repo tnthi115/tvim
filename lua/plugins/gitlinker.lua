@@ -6,20 +6,20 @@ return {
     {
       "folke/which-key.nvim",
       opts = function(_, opts)
-        opts.defaults["<leader>gL"] = { name = "+gitlinker" }
+        opts.defaults["<leader>gk"] = { name = "+gitlinker" }
       end,
     },
   },
   cmd = "GitLink",
   keys = {
-    { mode = { "n", "v" }, "<leader>gLl", "<cmd>GitLink<CR>", desc = "Copy /blob URL to Clipboard" },
-    { mode = { "n", "v" }, "<leader>gLL", "<cmd>GitLink!<CR>", desc = "Open /blob URL in Browser" },
-    { mode = { "n", "v" }, "<leader>gLb", "<cmd>GitLink blame<CR>", desc = "Copy /blame URL to Clipboard" },
-    { mode = { "n", "v" }, "<leader>gLB", "<cmd>GitLink! blame<CR>", desc = "Open /blame URL in Browser" },
-    { mode = { "n", "v" }, "<leader>gLB", "<cmd>GitLink! blame<CR>", desc = "Open /blame URL in Browser" },
+    { mode = { "n", "v" }, "<leader>gkl", "<cmd>GitLink<CR>", desc = "Copy /blob URL to Clipboard" },
+    { mode = { "n", "v" }, "<leader>gkL", "<cmd>GitLink!<CR>", desc = "Open /blob URL in Browser" },
+    { mode = { "n", "v" }, "<leader>gkb", "<cmd>GitLink blame<CR>", desc = "Copy /blame URL to Clipboard" },
+    { mode = { "n", "v" }, "<leader>gkB", "<cmd>GitLink! blame<CR>", desc = "Open /blame URL in Browser" },
+    { mode = { "n", "v" }, "<leader>gkB", "<cmd>GitLink! blame<CR>", desc = "Open /blame URL in Browser" },
     {
       mode = { "n", "v" },
-      "<leader>gLd",
+      "<leader>gkd",
       function()
         require("gitlinker").link { router_type = "default_branch" }
       end,
@@ -27,7 +27,7 @@ return {
     },
     {
       mode = { "n", "v" },
-      "<leader>gLD",
+      "<leader>gkD",
       function()
         require("gitlinker").link {
           router_type = "default_branch",
@@ -38,7 +38,7 @@ return {
     },
     {
       mode = { "n", "v" },
-      "<leader>gLc",
+      "<leader>gkc",
       function()
         require("gitlinker").link { router_type = "current_branch" }
       end,
@@ -46,7 +46,7 @@ return {
     },
     {
       mode = { "n", "v" },
-      "<leader>gLC",
+      "<leader>gkC",
       function()
         require("gitlinker").link {
           router_type = "current_branch",
