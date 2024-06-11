@@ -14,18 +14,18 @@ return {
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root, hidden = true}) end,
         desc = "Find Plugin File",
       },
-      {
-        "<leader>gB",
-        -- function()
-        --   require("telescope.builtin").git_branches()
-        -- end,
-        "<cmd>Telescope git_branches<CR>",
-        desc = "Checkout Branch",
-      },
-      { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout Commit" },
-      { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
+      -- {
+      --   "<leader>gB",
+      --   -- function()
+      --   --   require("telescope.builtin").git_branches()
+      --   -- end,
+      --   "<cmd>Telescope git_branches<CR>",
+      --   desc = "Checkout Branch",
+      -- },
+      -- { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Checkout Commit" },
+      -- { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Status" },
       -- remove git status keybind
-      { "<leader>gs", false },
+      -- { "<leader>gs", false },
       -- remove sort_lastused=true from Telescope buffers keybinds
       -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       {
