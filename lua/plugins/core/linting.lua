@@ -8,7 +8,7 @@ return {
         "williamboman/mason.nvim",
         opts = function(_, opts)
           opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "commitlint", "codespell", "shellcheck" })
+          vim.list_extend(opts.ensure_installed, { "codespell", "shellcheck" })
         end,
       },
     },
@@ -21,7 +21,7 @@ return {
         -- ['*'] = { 'global linter' },
         -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
         -- ['_'] = { 'fallback linter' },
-        gitcommit = { "commitlint", "codespell" },
+        -- gitcommit = { "commitlint", "codespell" },
         html = { "codespell" },
         xthml = { "codespell" },
         sh = { "shellcheck" },

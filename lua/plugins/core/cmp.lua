@@ -55,18 +55,6 @@ return {
       },
     },
   },
-  -- Conventional commits completion in cmp
-  -- TODO: add create lang/gitcommit.lua
-  {
-    "davidsierradz/cmp-conventionalcommits",
-    ft = { "gitcommit" },
-    dependencies = "hrsh7th/nvim-cmp",
-    config = function()
-      cmp.setup.buffer {
-        sources = cmp.config.sources({ { name = "conventionalcommits" } }, { { name = "buffer" } }),
-      }
-    end,
-  },
   -- better cmdline completion using cmp
   {
     "hrsh7th/cmp-cmdline",
