@@ -162,6 +162,15 @@ return {
               color = {},
               cond = nil,
             },
+            -- nvim-remote
+            {
+              function()
+                -- return vim.g.remote_neovim_host and ("Remote: %s"):format(vim.uv.os_gethostname()) or ""
+                return vim.g.remote_neovim_host and ("SSH: %s"):format(vim.uv.os_gethostname()) or ""
+              end,
+              padding = { right = 1, left = 1 },
+              separator = { left = "", right = "" },
+            },
           },
           lualine_b = {
             "branch",
