@@ -18,7 +18,6 @@ return {
   --   },
   -- },
   opts = {
-    enable_normal_mode_for_inputs = true, -- Enable normal mode for input dialogs.
     default_component_configs = {
       icon = {
         default = "", -- The default "*" is ugly.
@@ -34,18 +33,18 @@ return {
           -- Status type
           untracked = "",
           ignored = "",
-          unstaged = "󰄱",
-          staged = "",
+          -- unstaged = "󰄱", -- in LazyVim
+          -- staged = "", -- in LazyVim
           conflict = "",
         },
       },
     },
     window = {
       width = 35,
-      mappings = {
-        ["l"] = "open",
-        ["h"] = "close_node",
-      },
+      -- mappings = {
+      --   ["l"] = "open",
+      --   ["h"] = "close_node",
+      -- },
     },
     filesystem = {
       filtered_items = {

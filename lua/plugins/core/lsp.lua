@@ -21,9 +21,9 @@ return {
           border = "rounded",
         },
       },
-      codelens = {
-        enabled = true,
-      },
+      -- codelens = {
+      --   enabled = true,
+      -- },
     },
     -- opts = function(_, opts)
     --   require("lspconfig.ui.windows").default_options.border = "single"
