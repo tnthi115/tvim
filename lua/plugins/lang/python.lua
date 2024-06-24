@@ -178,7 +178,7 @@ return {
 
           local mappings = {
             j = {
-              name = "+Python",
+              name = "+python",
               v = { "<cmd>:VenvSelect<CR>", "Select VirtualEnv" },
             },
           }

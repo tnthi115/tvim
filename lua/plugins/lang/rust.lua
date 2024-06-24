@@ -32,7 +32,7 @@ return {
         }
         local mappings = {
           j = {
-            name = "Crates",
+            name = "+crates",
             t = { mode = "n", "<cmd>Crates toggle<CR>", "Toggle" },
             r = { mode = "n", "<cmd>Crates reload<CR>", "Reload" },
             s = { mode = "n", "<cmd>Crates show_popup<CR>", "Show Popup" },
@@ -81,7 +81,7 @@ return {
             }
             local mappings = {
               j = {
-                name = "Rust",
+                name = "+rust",
                 a = {
                   mode = "n",
                   function()

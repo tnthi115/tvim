@@ -8,7 +8,7 @@ return {
       border = "single",
     },
     defaults = {
-      ["<leader>l"] = { name = "LazyVim" },
+      ["<leader>l"] = { name = "+lazyvim" },
     },
   },
 }

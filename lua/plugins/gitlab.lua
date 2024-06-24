@@ -17,7 +17,7 @@ return {
           opts.defaults["<leader>mr"] = { name = "+reviewers" }
           opts.defaults["<leader>mc"] = { name = "+comment" }
           opts.defaults["<leader>ma"] = { name = "+assignee" }
-          opts.defaults["<leader>mM"] = { name = "+MR" }
+          opts.defaults["<leader>mM"] = { name = "+mr" }
           opts.defaults["<leader>ml"] = { name = "+labels" }
         end,
       },

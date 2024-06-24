@@ -61,7 +61,7 @@ return {
           -- see: https://github.com/epwalsh/obsidian.nvim#commands
           local mappings = {
             j = {
-              name = "+Obsidian",
+              name = "+obsidian",
               O = { "<cmd>ObsidianOpen<CR>", "Open" },
               n = { "<cmd>ObsidianNew<CR>", "New" },
               o = { "<cmd>ObsidianQuickSwitch<CR>", "Quick Switch" },

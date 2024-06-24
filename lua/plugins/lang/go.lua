@@ -201,7 +201,7 @@ return {
 
             local mappings = {
               j = {
-                name = "Go",
+                name = "+go",
                 g = {
                   mode = { "n", "v" },
                   "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
