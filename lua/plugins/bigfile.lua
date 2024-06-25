@@ -1,5 +1,9 @@
 -- https://github.com/LunarVim/bigfile.nvim
 
+if true then
+  return {}
+end
+
 return {
   "LunarVim/bigfile.nvim",
   event = "BufReadPre",
