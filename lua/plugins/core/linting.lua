@@ -22,6 +22,7 @@ return {
         -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
         -- ['_'] = { 'fallback linter' },
         -- gitcommit = { "commitlint", "codespell" },
+        markdown = { "codespell" },
         html = { "codespell" },
         xthml = { "codespell" },
         sh = { "shellcheck" },
