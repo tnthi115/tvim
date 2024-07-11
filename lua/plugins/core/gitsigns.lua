@@ -2,6 +2,9 @@
 
 return {
   "lewis6991/gitsigns.nvim",
+  keys = {
+    { mode = "n", "<leader>uB", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "Toggle Git Blame Virtual Text" },
+  },
   opts = {
     -- on_attach = function(buffer)
     --   local gs = package.loaded.gitsigns
