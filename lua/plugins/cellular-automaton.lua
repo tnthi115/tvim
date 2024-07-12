@@ -8,12 +8,14 @@ return {
     {
       "folke/which-key.nvim",
       opts = function(_, opts)
-        opts.defaults["<leader>ua"] = { name = "+cellular automaton" }
+        local wk = require "which-key"
+        wk.add { "<leader>ua", group = "cellular automaton" }
       end,
     },
   },
   cmd = "CellularAutomaton",
   keys = {
+    { "<leader>ua", group = "cellular automaton" },
     { "<leader>uar", "<cmd>CellularAutomaton make_it_rain<CR>", mode = "n", desc = "Make it Rain" },
     { "<leader>uag", "<cmd>CellularAutomaton game_of_life<CR>", mode = "n", desc = "Game of Life" },
     { "<leader>uas", "<cmd>CellularAutomaton scramble<CR>", mode = "n", desc = "Scramble" },

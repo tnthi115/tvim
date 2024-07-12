@@ -143,28 +143,13 @@ return {
         return
       end
 
-      local nopts = {
-        mode = "n",
-        prefix = "<leader>",
-        buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-        silent = true, -- use `silent` when creating keymaps
-        noremap = true, -- use `noremap` when creating keymaps
-        nowait = true, -- use `nowait` when creating keymaps
-      }
-
       local mappings = {
-        T = {
-          name = "+treesitter",
-          n = {
-            name = "+next",
-          },
-          p = {
-            name = "+previous",
-          },
-        },
+        { "<leader>T", group = "treesitter", nowait = true, remap = false },
+        { "<leader>Tn", group = "next", nowait = true, remap = false },
+        { "<leader>Tp", group = "previous", nowait = true, remap = false },
       }
 
-      which_key.register(mappings, nopts)
+      which_key.add(mappings)
     end,
   },
 }

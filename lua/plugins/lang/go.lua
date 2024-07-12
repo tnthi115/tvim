@@ -305,6 +305,11 @@ return {
           }
 
           which_key.register(mappings, opts)
+          which_key.add {
+            "<leader>j",
+            group = "go",
+            icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
+          }
         end,
       })
     end,

@@ -57,6 +57,11 @@ return {
         }
 
         which_key.register(mappings, which_key_opts)
+        which_key.add {
+          "<leader>j",
+          group = "crates",
+          icon = { icon = require("mini.icons").get("filetype", "toml"), color = "orange" },
+        }
       end
 
       opts.popup = {
@@ -100,6 +105,11 @@ return {
             }
 
             which_key.register(mappings, opts)
+            which_key.add {
+              "<leader>j",
+              group = "rust",
+              icon = { icon = require("mini.icons").get("filetype", "rust"), color = "orange" },
+            }
           end
         end,
       },

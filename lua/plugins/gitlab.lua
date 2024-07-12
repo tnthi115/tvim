@@ -13,12 +13,13 @@ return {
       {
         "folke/which-key.nvim",
         opts = function(_, opts)
-          opts.defaults["<leader>m"] = { name = "+gitlab" }
-          opts.defaults["<leader>mr"] = { name = "+reviewers" }
-          opts.defaults["<leader>mc"] = { name = "+comment" }
-          opts.defaults["<leader>ma"] = { name = "+assignee" }
-          opts.defaults["<leader>mM"] = { name = "+mr" }
-          opts.defaults["<leader>ml"] = { name = "+labels" }
+          local wk = require "which-key"
+          wk.add { "<leader>m", group = "gitlab" }
+          wk.add { "<leader>mr", group = "reviewers" }
+          wk.add { "<leader>mc", group = "comment" }
+          wk.add { "<leader>ma", group = "assignee" }
+          wk.add { "<leader>mM", group = "mr" }
+          wk.add { "<leader>ml", group = "labels" }
         end,
       },
     },

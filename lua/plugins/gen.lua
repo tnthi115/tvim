@@ -7,7 +7,8 @@ return {
     {
       "folke/which-key.nvim",
       opts = function(_, opts)
-        opts.defaults["<leader>G"] = { name = "+gen" }
+        local wk = require "which-key"
+        wk.add { "<leader>G", group = "gen", mode = { "n", "v" } }
       end,
     },
   },

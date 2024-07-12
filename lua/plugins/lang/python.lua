@@ -184,6 +184,11 @@ return {
           }
 
           which_key.register(mappings, which_key_opts)
+          which_key.add {
+            "<leader>j",
+            group = "python",
+            icon = { icon = require("mini.icons").get("filetype", "python"), color = "yellow" },
+          }
         end,
       })
 
