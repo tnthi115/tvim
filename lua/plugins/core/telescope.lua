@@ -34,6 +34,8 @@ return {
         desc = "Switch Buffer",
       },
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
+      -- { "<leader><space>", LazyVim.pick "auto", desc = "Find Files (Root Dir)" },
+      { "<leader><space>", "<cmd>Telescope git_files<CR>", desc = "Find Files (git-files)" },
     },
     -- change some options
     opts = {
@@ -69,9 +71,10 @@ return {
           hidden = true,
         },
         live_grep = {
-          additional_args = function(opts)
-            return { "--hidden" }
-          end,
+          additional_args = { "--hidden" },
+        },
+        grep_string = {
+          additional_args = { "--hidden" },
         },
         git_branches = {
           theme = "dropdown",
