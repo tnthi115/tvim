@@ -20,6 +20,10 @@ return {
     opts = {
       servers = {
         gopls = {
+          keys = {
+            -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
+            { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+          },
           settings = {
             gopls = {
               gofumpt = true,
@@ -72,7 +76,7 @@ return {
               -- "deadcode,depguard,exhaustivestruct,gci,gofmt,gofumpt,golint,interfacer,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
               "--disable-all",
               "--enable",
-              "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,execinquery,exhaustive,exhaustruct,exportloopref,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomnd,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
+              "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
               "--out-format",
               "json",
               "--issues-exit-code=1",
@@ -133,7 +137,10 @@ return {
     dependencies = {
       {
         "williamboman/mason.nvim",
-        opts = { ensure_installed = { "delve" } },
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "delve" })
+        end,
       },
       {
         "leoluz/nvim-dap-go",
@@ -204,6 +211,11 @@ return {
             }
 
             which_key.register(mappings, opts)
+            which_key.add {
+              "<leader>j",
+              group = "go",
+              icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
+            }
           end
 
           local current_dir = vim.fn.expand "%:p:h"
@@ -228,17 +240,21 @@ return {
   },
   {
     "nvim-neotest/neotest",
-    optional = true,
+    ft = go_filetypes,
     dependencies = {
-      "fredrikaverpil/neotest-golang",
+      "nvim-neotest/neotest-go",
+      -- neotest-golang
+      -- "antoinemadec/FixCursorHold.nvim",
+      -- "fredrikaverpil/neotest-golang",
     },
     opts = {
       adapters = {
-        ["neotest-golang"] = {
-          -- Here we can set options for neotest-golang, e.g.
-          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
-          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
+        ["neotest-go"] = {
+          -- Here we can set options for neotest-go, e.g.
+          -- args = { "-tags=integration" }
+          recursive_run = true,
         },
+        -- ["neotest-golang"] = {},
       },
     },
   },
