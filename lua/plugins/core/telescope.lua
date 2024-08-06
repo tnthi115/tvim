@@ -35,7 +35,7 @@ return {
       },
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
       -- { "<leader><space>", LazyVim.pick "auto", desc = "Find Files (Root Dir)" },
-      { "<leader><space>", "<cmd>Telescope git_files<CR>", desc = "Find Files (git-files)" },
+      -- { "<leader><space>", "<cmd>Telescope git_files<CR>", desc = "Find Files (git-files)" },
     },
     -- change some options
     opts = {
