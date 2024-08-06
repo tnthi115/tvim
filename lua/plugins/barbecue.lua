@@ -1,5 +1,9 @@
 -- https://github.com/utilyre/barbecue.nvim
 
+if true then
+  return {}
+end
+
 return {
   "utilyre/barbecue.nvim",
   event = "LazyFile",
@@ -7,7 +11,7 @@ return {
   version = "*",
   dependencies = {
     "SmiteshP/nvim-navic",
-    "nvim-tree/nvim-web-devicons",
+    -- "nvim-tree/nvim-web-devicons",
   },
   opts = {
     ---Whether to replace file icon with the modified symbol when buffer is
