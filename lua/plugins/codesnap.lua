@@ -9,7 +9,7 @@ return {
       "folke/which-key.nvim",
       opts = function(_, opts)
         local wk = require "which-key"
-        wk.add { "<leader>cz", group = "codesnap" }
+        wk.add { "<leader>cz", group = "codesnap", mode = { "n", "v" } }
       end,
     },
   },
