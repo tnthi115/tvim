@@ -18,7 +18,9 @@ return {
   },
   {
     "Saecki/crates.nvim",
+    -- enabled = false,
     event = { "BufRead Cargo.toml" },
+    cmd = { "Crates" },
     opts = function(_, opts)
       local which_key_ok, which_key = pcall(require, "which-key")
       if which_key_ok then
