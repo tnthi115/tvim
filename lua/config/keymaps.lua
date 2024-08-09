@@ -95,3 +95,7 @@ vim.keymap.del("n", "<leader>L")
 -- vim.keymap.set("n", "<leader>lc", lazyvim_util.news.changelog, { desc = "Changelog" })
 -- vim.keymap.set("n", "<leader>lr", lazyvim_util.root.info, { desc = "Root Info" })
 -- vim.keymap.set("n", "<leader>lM", vim.cmd.messages, { desc = "Display messages" })
+
+-- Deleting and pasting over with the _ register
+vim.keymap.set("x", "<leader>P", [["_dP]])
+vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
