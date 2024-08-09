@@ -176,48 +176,44 @@ return {
     end,
   },
   {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      local wk = require "which-key"
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "go" },
+        callback = function()
+          wk.add {
+            "<leader>j",
+            mode = { "n", "v" },
+            group = "go",
+            icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
+          }
+        end,
+      })
+    end,
+  },
+  {
     "stevearc/conform.nvim",
     ft = go_filetypes,
+    keys = {
+      {
+        "<leader>jg",
+        mode = { "n", "v" },
+        ft = go_filetypes,
+        "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
+        desc = "Format with gofumpt and goimports-reviser",
+      },
+      {
+        "<leader>jf",
+        mode = { "n", "v" },
+        ft = go_filetypes,
+        "<cmd>lua require('conform').format({formatters = {'gofumpt', 'goimports-reviser'}})<CR>",
+        desc = "Format with gofumpt and goimports-reviser",
+      },
+    },
     opts = {
       formatters_by_ft = {
-        -- go = { "goimports", "gofmt" },
         go = function()
-          local which_key_ok, which_key = pcall(require, "which-key")
-          if which_key_ok then
-            local opts = {
-              mode = "n", -- NORMAL mode
-              prefix = "<leader>",
-              -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-              buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-              silent = true, -- use `silent` when creating keymaps
-              noremap = true, -- use `noremap` when creating keymaps
-              nowait = true, -- use `nowait` when creating keymaps
-            }
-
-            local mappings = {
-              j = {
-                name = "+go",
-                g = {
-                  mode = { "n", "v" },
-                  "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
-                  "Format with golines",
-                },
-                f = {
-                  mode = { "n", "v" },
-                  "<cmd>lua require('conform').format({formatters = {'gofumpt', 'goimports-reviser'}})<CR>",
-                  "Format with gofumpt and goimports-reviser",
-                },
-              },
-            }
-
-            which_key.register(mappings, opts)
-            which_key.add {
-              "<leader>j",
-              group = "go",
-              icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
-            }
-          end
-
           local current_dir = vim.fn.expand "%:p:h"
           local target_dir = vim.fn.glob "$HOME/go/src/*"
           local is_in_work_dir = false
@@ -266,6 +262,24 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
+    keys = {
+      { "<leader>jt", ft = go_filetypes, "<cmd>GoMod tidy<CR>", desc = "Tidy" },
+      { "<leader>ja", ft = go_filetypes, "<cmd>GoTestAdd<CR>", desc = "Add Test" },
+      { "<leader>jA", ft = go_filetypes, "<cmd>GoTestsAll<CR>", desc = "Add All Tests" },
+      { "<leader>jE", ft = go_filetypes, "<cmd>GoTestsExp<CR>", desc = "Add Exported Tests" },
+      { "<leader>jG", ft = go_filetypes, "<cmd>GoGenerate<CR>", desc = "Go Generate" },
+      { "<leader>jF", ft = go_filetypes, "<cmd>GoGenerate %<CR>", desc = "Go Generate File" },
+      { "<leader>jc", ft = go_filetypes, "<cmd>GoCmt<CR>", desc = "Generate Comment" },
+      { "<leader>je", ft = go_filetypes, "<cmd>GoIfErr<CR>", desc = "Generate iferr" },
+      { "<leader>jT", ft = go_filetypes, "<cmd>GoTagAdd proto<CR>", desc = "Add Protobuf Tags" },
+      {
+        "<leader>jd",
+        ft = go_filetypes,
+        "<cmd>lua require('dap-go').debug_test()<CR>",
+        desc = "Debug Go Test",
+      },
+      { "<leader>ji", ft = go_filetypes, "<cmd>GoImpl<CR>", desc = "Impl" },
+    },
     config = function()
       local gopher_ok, gopher = pcall(require, "gopher")
       if not gopher_ok then
@@ -284,50 +298,6 @@ return {
       }
 
       require("gopher.dap").setup()
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "go" },
-        callback = function()
-          local which_key_ok, which_key = pcall(require, "which-key")
-          if not which_key_ok then
-            return
-          end
-
-          local opts = {
-            mode = "n", -- NORMAL mode
-            prefix = "<leader>",
-            -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-            buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = true, -- use `nowait` when creating keymaps
-          }
-
-          local mappings = {
-            j = {
-              name = "+go",
-              t = { "<cmd>GoMod tidy<CR>", "Tidy" },
-              a = { "<cmd>GoTestAdd<CR>", "Add Test" },
-              A = { "<cmd>GoTestsAll<CR>", "Add All Tests" },
-              E = { "<cmd>GoTestsExp<CR>", "Add Exported Tests" },
-              G = { "<cmd>GoGenerate<CR>", "Go Generate" },
-              F = { "<cmd>GoGenerate %<CR>", "Go Generate File" },
-              c = { "<cmd>GoCmt<CR>", "Generate Comment" },
-              e = { "<cmd>GoIfErr<CR>", "Generate iferr" },
-              T = { "<cmd>GoTagAdd proto<CR>", "Add Protobuf Tags" },
-              d = { "<cmd>lua require('dap-go').debug_test()<CR>", "Debug Go Test" },
-              i = { "<cmd>GoImpl<CR>", "Impl" },
-            },
-          }
-
-          which_key.register(mappings, opts)
-          which_key.add {
-            "<leader>j",
-            group = "go",
-            icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
-          }
-        end,
-      })
     end,
     -- build = function()
     --   vim.cmd [[silent! GoInstallDeps]]
