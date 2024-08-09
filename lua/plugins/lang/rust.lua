@@ -17,104 +17,122 @@ return {
     },
   },
   {
-    "Saecki/crates.nvim",
-    -- enabled = false,
-    event = { "BufRead Cargo.toml" },
-    cmd = { "Crates" },
+    "folke/which-key.nvim",
     opts = function(_, opts)
-      local which_key_ok, which_key = pcall(require, "which-key")
-      if which_key_ok then
-        local which_key_opts = {
-          mode = "n", -- NORMAL mode
-          prefix = "<leader>",
-          buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-          silent = true, -- use `silent` when creating keymaps
-          noremap = true, -- use `noremap` when creating keymaps
-          nowait = true, -- use `nowait` when creating keymaps
-        }
-        local mappings = {
-          j = {
-            name = "+crates",
-            t = { mode = "n", "<cmd>Crates toggle<CR>", "Toggle" },
-            r = { mode = "n", "<cmd>Crates reload<CR>", "Reload" },
-            s = { mode = "n", "<cmd>Crates show_popup<CR>", "Show Popup" },
-            c = { mode = "n", "<cmd>Crates show_crate_popup<CR>", "Show Popup" },
-            v = { mode = "n", "<cmd>Crates show_versions_popup<CR>", "Show Versions" },
-            f = { mode = "n", "<cmd>Crates show_features_popup<CR>", "Show Features" },
-            d = { mode = "n", "<cmd>Crates show_dependencies_popup<CR>", "Show Dependencies" },
-            u = { mode = { "n", "v" }, "<cmd>Crates update_crate<CR>", "Update Crate" },
-            U = { mode = { "n", "v" }, "<cmd>Crates update_crates<CR>", "Update Crates" },
-            a = { mode = { "n", "v" }, "<cmd>Crates update_all_crates<CR>", "Update All Crates" },
-            x = {
-              mode = "n",
-              "<cmd>Crates expand_plain_crate_to_inline_table<CR>",
-              "Expand Plain Crate to Inline Table",
-            },
-            X = { mode = "n", "<cmd>Crates extract_crate_into_table<CR>", "Extract Crate Into Table" },
-            H = { mode = "n", "<cmd>Crates open_homepage<CR>", "Open Homepage" },
-            R = { mode = "n", "<cmd>Crates open_repository<CR>", "Open Repository" },
-            D = { mode = "n", "<cmd>Crates open_documentation<CR>", "Open Documentation" },
-            C = { mode = "n", "<cmd>Crates open_crates_io<CR>", "Open crates.io" },
-          },
-        }
-
-        which_key.register(mappings, which_key_opts)
-        which_key.add {
-          "<leader>j",
-          group = "crates",
-          icon = { icon = require("mini.icons").get("filetype", "toml"), color = "orange" },
-        }
-      end
-
-      opts.popup = {
-        border = "rounded",
-      }
+      local wk = require "which-key"
+      vim.api.nvim_create_autocmd("BufRead", {
+        pattern = { "Cargo.toml" },
+        callback = function()
+          wk.add {
+            "<leader>j",
+            mode = { "n", "v" },
+            group = "crates",
+            icon = { icon = require("mini.icons").get("filetype", "toml"), color = "orange" },
+          }
+        end,
+      })
+      -- vim.api.nvim_create_autocmd("FileType", {
+      --   pattern = { "rust" },
+      --   callback = function()
+      --     wk.add {
+      --       "<leader>j",
+      --       ft = { "rust" },
+      --       group = "rust",
+      --       icon = { icon = require("mini.icons").get("filetype", "rust"), color = "orange" },
+      --     }
+      --   end,
+      -- })
     end,
   },
   {
-    "mrcjkb/rustaceanvim",
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    cmd = { "Crates" },
+    keys = {
+      {
+        "<leader>j",
+        mode = { "n", "v" },
+        -- ft = { "toml" },
+        group = "crates",
+        icon = { icon = require("mini.icons").get("filetype", "toml"), color = "orange" },
+      },
+      { "<leader>jt", mode = "n", ft = { "toml" }, "<cmd>Crates toggle<CR>", desc = "Toggle" },
+      { "<leader>jr", mode = "n", ft = { "toml" }, "<cmd>Crates reload<CR>", desc = "Reload" },
+      { "<leader>js", mode = "n", ft = { "toml" }, "<cmd>Crates show_popup<CR>", desc = "Show Popup" },
+      { "<leader>jc", mode = "n", ft = { "toml" }, "<cmd>Crates show_crate_popup<CR>", desc = "Show Popup" },
+      { "<leader>jv", mode = "n", ft = { "toml" }, "<cmd>Crates show_versions_popup<CR>", desc = "Show Versions" },
+      { "<leader>jf", mode = "n", ft = { "toml" }, "<cmd>Crates show_features_popup<CR>", desc = "Show Features" },
+      {
+        "<leader>jd",
+        mode = "n",
+        ft = { "toml" },
+        "<cmd>Crates show_dependencies_popup<CR>",
+        desc = "Show Dependencies",
+      },
+      { "<leader>ju", mode = { "n", "v" }, ft = { "toml" }, "<cmd>Crates update_crate<CR>", desc = "Update Crate" },
+      { "<leader>jU", mode = { "n", "v" }, ft = { "toml" }, "<cmd>Crates update_crates<CR>", desc = "Update Crates" },
+      {
+        "<leader>ja",
+        mode = { "n", "v" },
+        ft = { "toml" },
+        "<cmd>Crates update_all_crates<CR>",
+        desc = "Update All Crates",
+      },
+      {
+        "<leader>jx",
+        mode = "n",
+        ft = { "toml" },
+        "<cmd>Crates expand_plain_crate_to_inline_table<CR>",
+        desc = "Expand Plain Crate to Inline Table",
+      },
+      {
+        "<leader>jX",
+        mode = "n",
+        ft = { "toml" },
+        "<cmd>Crates extract_crate_into_table<CR>",
+        desc = "Extract Crate Into Table",
+      },
+      { "<leader>jH", mode = "n", ft = { "toml" }, "<cmd>Crates open_homepage<CR>", desc = "Open Homepage" },
+      { "<leader>jR", mode = "n", ft = { "toml" }, "<cmd>Crates open_repository<CR>", desc = "Open Repository" },
+      { "<leader>jD", mode = "n", ft = { "toml" }, "<cmd>Crates open_documentation<CR>", desc = "Open Documentation" },
+      { "<leader>jC", mode = "n", ft = { "toml" }, "<cmd>Crates open_crates_io<CR>", desc = "Open crates.io" },
+    },
+    -- opts = function(_, opts)
+    --   opts.popup = {
+    --     border = "rounded",
+    --   }
+    -- end,
     opts = {
-      server = {
-        on_attach = function(_, bufnr)
-          local which_key_ok, which_key = pcall(require, "which-key")
-          if which_key_ok then
-            local opts = {
-              mode = "n", -- NORMAL mode
-              prefix = "<leader>",
-              buffer = bufnr, -- Local mappings
-              silent = true, -- use `silent` when creating keymaps
-              noremap = true, -- use `noremap` when creating keymaps
-              nowait = true, -- use `nowait` when creating keymaps
-            }
-            local mappings = {
-              j = {
-                name = "+rust",
-                a = {
-                  mode = "n",
-                  function()
-                    vim.cmd.RustLsp "codeAction"
-                  end,
-                  "Code Action",
-                },
-                r = {
-                  mode = "n",
-                  function()
-                    vim.cmd.RustLsp "debuggables"
-                  end,
-                  "Rust debuggables",
-                },
-              },
-            }
-
-            which_key.register(mappings, opts)
-            which_key.add {
-              "<leader>j",
-              group = "rust",
-              icon = { icon = require("mini.icons").get("filetype", "rust"), color = "orange" },
-            }
-          end
-        end,
+      popup = {
+        border = "rounded",
       },
     },
   },
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   keys = {
+  --     {
+  --       "<leader>j",
+  --       -- ft = { "rust" },
+  --       group = "rust",
+  --       icon = { icon = require("mini.icons").get("filetype", "rust"), color = "orange" },
+  --     },
+  --     {
+  --       "<leader>ja",
+  --       ft = { "rust" },
+  --       function()
+  --         vim.cmd.RustLsp "codeAction"
+  --       end,
+  --       desc = "Code Action",
+  --     },
+  --     {
+  --       "<leader>jr",
+  --       ft = { "rust" },
+  --       function()
+  --         vim.cmd.RustLsp "debuggables"
+  --       end,
+  --       desc = "Rust debuggables",
+  --     },
+  --   },
+  -- },
 }
