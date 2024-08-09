@@ -149,63 +149,49 @@ return {
   --     require("dap-python").setup(path .. "/venv/bin/python")
   --   end,
   -- },
-  {
-    "linux-cultist/venv-selector.nvim",
-    ft = { "python" },
-    cmd = "VenvSelect",
-    opts = function(_, opts)
-      if require("lazyvim.util").has "nvim-dap-python" then
-        opts.dap_enabled = true
-      end
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "python" },
-        callback = function()
-          local which_key_ok, which_key = pcall(require, "which-key")
-          if not which_key_ok then
-            return
-          end
-
-          local which_key_opts = {
-            mode = "n", -- NORMAL mode
-            prefix = "<leader>",
-            -- buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-            buffer = vim.api.nvim_get_current_buf(), -- Local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = true, -- use `nowait` when creating keymaps
-          }
-
-          local mappings = {
-            j = {
-              name = "+python",
-              v = { "<cmd>:VenvSelect<CR>", "Select VirtualEnv" },
-            },
-          }
-
-          which_key.register(mappings, which_key_opts)
-          which_key.add {
-            "<leader>j",
-            group = "python",
-            icon = { icon = require("mini.icons").get("filetype", "python"), color = "yellow" },
-          }
-        end,
-      })
-
-      return vim.tbl_deep_extend("force", opts, {
-        name = {
-          "venv",
-          ".venv",
-          "env",
-          ".env",
-        },
-        -- path = "~/venvs/",
-        parents = 0,
-      })
-    end,
-    -- keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
-    keys = { { "<leader>cv", false } },
-  },
+  -- {
+  --   "folke/which-key.nvim",
+  --   opts = function(_, opts)
+  --     local wk = require "which-key"
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       pattern = { "python" },
+  --       callback = function()
+  --         wk.add {
+  --           "<leader>j",
+  --           ft = { "python" },
+  --           group = "python",
+  --           icon = { icon = require("mini.icons").get("filetype", "python"), color = "yellow" },
+  --         }
+  --       end,
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "linux-cultist/venv-selector.nvim",
+  --   ft = { "python" },
+  --   cmd = "VenvSelect",
+  --   keys = {
+  --     { "<leader>jv", ft = "python", "<cmd>:VenvSelect<CR>", desc = "Select VirtualEnv" },
+  --   },
+  --   opts = function(_, opts)
+  --     if require("lazyvim.util").has "nvim-dap-python" then
+  --       opts.dap_enabled = true
+  --     end
+  --
+  --     return vim.tbl_deep_extend("force", opts, {
+  --       name = {
+  --         "venv",
+  --         ".venv",
+  --         "env",
+  --         ".env",
+  --       },
+  --       -- path = "~/venvs/",
+  --       parents = 0,
+  --     })
+  --   end,
+  --   -- keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
+  --   -- keys = { { "<leader>cv", false } },
+  -- },
   -- {
   --   "nvim-neotest/neotest",
   --   ft = { "python" },
