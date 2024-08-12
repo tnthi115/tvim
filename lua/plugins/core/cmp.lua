@@ -232,4 +232,54 @@ return {
       })
     end,
   },
+  -- ai completion
+  -- {
+  --   "tzachar/cmp-ai",
+  --   event = "LazyFile",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   config = function()
+  --     -- cmp.setup {
+  --     --   sources = {
+  --     --     { name = "cmp_ai" },
+  --     --   },
+  --     -- }
+  --
+  --     cmp.setup {
+  --       mapping = {
+  --         ["<C-x>"] = cmp.mapping(
+  --           cmp.mapping.complete {
+  --             config = {
+  --               sources = cmp.config.sources {
+  --                 { name = "cmp_ai" },
+  --               },
+  --             },
+  --           },
+  --           { "i" }
+  --         ),
+  --       },
+  --     }
+  --
+  --     local cmp_ai = require "cmp_ai.config"
+  --
+  --     cmp_ai:setup {
+  --       max_lines = 100,
+  --       provider = "Ollama",
+  --       provider_options = {
+  --         model = "deepseek-coder:6.7b",
+  --       },
+  --       notify = true,
+  --       notify_callback = function(msg)
+  --         vim.notify(msg)
+  --       end,
+  --       run_on_every_keystroke = true,
+  --       ignored_file_types = {
+  --         -- default is not to ignore
+  --         -- uncomment to ignore in lua:
+  --         -- lua = true
+  --       },
+  --     }
+  --   end,
+  -- },
 }
