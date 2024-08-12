@@ -303,4 +303,62 @@ return {
     --   vim.cmd [[silent! GoInstallDeps]]
     -- end,
   },
+  {
+    "quolpr/quicktest.nvim",
+    ft = { "go" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      -- "m00qek/baleia.nvim",
+    },
+    cmd = { "QuicktestRunLine", "QuicktestRunFile", "QuicktestRunDir", "QuicktestrunAll" },
+    keys = {
+      {
+        "<leader>tR",
+        ft = { "go" },
+        function()
+          require("quicktest").run_line()
+        end,
+        desc = "Run Nearest (Quicktest)",
+      },
+      {
+        "<leader>tL",
+        ft = { "go" },
+        function()
+          require("quicktest").run_previous()
+        end,
+        desc = "Run Last (Quicktest)",
+      },
+      {
+        "<leader>tu",
+        ft = { "go" },
+        function()
+          require("quicktest").toggle_win "split"
+        end,
+        desc = "Toggle Window (Quicktest)",
+      },
+    },
+    config = function()
+      require("quicktest").setup {
+        adapters = {
+          require "quicktest.adapters.golang",
+        },
+        -- split or popup mode, when argument not specified
+        default_win_mode = "split",
+        -- Baleia make coloured output. Requires baleia package. Can cause crashes https://github.com/quolpr/quicktest.nvim/issues/11
+        use_baleia = false,
+      }
+    end,
+  },
+  {
+    "benmills/vimux-golang",
+    ft = { "go" },
+    dependencies = {
+      "preservim/vimux",
+    },
+    cmd = { "GolangTestCurrentPackage", "GolangTestFocused" },
+    keys = {
+      { "<leader>tf", ft = { "go" }, "<cmd>GolangTestFocused<CR>", desc = "Test Focused (vimux-golang)" },
+    },
+  },
 }
