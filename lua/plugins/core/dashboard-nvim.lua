@@ -1,5 +1,9 @@
 -- Full spec: https://www.lazyvim.org/plugins/ui#dashboard-nvim
 
+if true then
+  return {}
+end
+
 return {
   "nvimdev/dashboard-nvim",
   dependencies = {
