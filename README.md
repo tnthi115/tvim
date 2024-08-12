@@ -57,3 +57,5 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] replace nvim-colorizer with mini.hipatterns
 - [x] figure out why the file icon in barbecue.nvim is no longer working for some filetypes
   - switched to dropbar.lua
+- [ ] consider https://github.com/rachartier/tiny-inline-diagnostic.nvim or https://github.com/sontungexpt/better-diagnostic-virtual-text
+  - using https://git.sr.ht/~whynothugo/lsp_lines.nvim

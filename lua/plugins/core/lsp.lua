@@ -12,6 +12,16 @@
 -- Rounded borders:
 -- https://github.com/LazyVim/LazyVim/issues/2708
 
+local virtual_text_enabled = false
+
+local function toggle_lsp_lines()
+  require("lsp_lines").toggle()
+  virtual_text_enabled = not virtual_text_enabled
+  vim.diagnostic.config {
+    virtual_text = virtual_text_enabled,
+  }
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -70,6 +80,63 @@ return {
       ui = {
         border = "rounded",
       },
+    },
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "LspAttach",
+    keys = {
+      {
+        "<leader>uD",
+        toggle_lsp_lines,
+        desc = "Toggle lsp_lines Diagnostics",
+      },
+    },
+    config = function()
+      require("lsp_lines").setup()
+
+      vim.diagnostic.config {
+        virtual_text = virtual_text_enabled,
+      }
+
+      -- Disable for certain filetypes
+      local disabled_filetypes = { "lazy" }
+
+      -- TODO: this is maybe jank, but it works for now
+
+      -- Toggle off lsp_lines when entering lazy
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = disabled_filetypes,
+        callback = function()
+          if vim.bo.filetype == "lazy" then
+            toggle_lsp_lines()
+          end
+        end,
+      })
+      -- Toggle lsp_lines back on when leaving lazy
+      vim.api.nvim_create_autocmd("BufLeave", {
+        callback = function()
+          for _, v in ipairs(disabled_filetypes) do
+            if vim.bo.filetype == v then
+              toggle_lsp_lines()
+              return
+            end
+          end
+        end,
+      })
+    end,
+  },
+  -- Stops inactive LSP clients to free RAM.
+  -- https://github.com/Zeioth/garbage-day.nvim?tab=readme-ov-file
+  {
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "LspAttach",
+    opts = {
+      -- your options here
+      aggressive_mode = false,
+      grace_period = 60 * 15,
+      wakeup_delay = 0,
     },
   },
 }
