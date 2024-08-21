@@ -201,7 +201,7 @@ return {
         mode = { "n", "v" },
         ft = go_filetypes,
         "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
-        desc = "Format with gofumpt and goimports-reviser",
+        desc = "Format with golines",
       },
       {
         "<leader>jf",
