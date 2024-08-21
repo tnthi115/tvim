@@ -17,13 +17,14 @@ return {
     opts = {
       linters_by_ft = {
         gitcommit = { "commitlint", "codespell" },
+        NeogitCommitMessage = { "commitlint", "codespell" },
       },
     },
   },
   -- Conventional commits completion in cmp
   {
     "davidsierradz/cmp-conventionalcommits",
-    ft = { "gitcommit" },
+    ft = { "gitcommit", "NeogitCommitMessage" },
     dependencies = "hrsh7th/nvim-cmp",
     config = function()
       cmp.setup.buffer {
