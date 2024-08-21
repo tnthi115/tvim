@@ -76,11 +76,43 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    opts = {
-      ui = {
-        border = "rounded",
+    dependencies = {
+      -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        event = "LspAttach",
+        cmd = {
+          "MasonToolsInstall",
+          "MasonToolsIntallSync",
+          "MasonToolsUpdate",
+          "MasonToolsUpdateSync",
+          "MasonToolsClean",
+        },
       },
     },
+    opts = function(_, opts)
+      -- Manually setup mason-tool-installer
+      require("mason-tool-installer").setup {
+        -- Pass the ensure_installed list from mason to mason-tool-installer.
+        ensure_installed = opts.ensure_installed,
+        -- This doesn't work when mason-tool-installer is loaded on LspAttach.
+        auto_update = true,
+        run_on_start = true,
+      }
+
+      -- Create autocommand to automatically update mason packages on the LspAttach event.
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function()
+          vim.cmd "MasonToolsUpdate"
+        end,
+      })
+
+      return {
+        ui = {
+          border = "rounded",
+        },
+      }
+    end,
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
