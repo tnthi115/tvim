@@ -7,7 +7,7 @@ return {
       "folke/which-key.nvim",
       opts = function(_, opts)
         local wk = require "which-key"
-        wk.add { "<leader>gk", group = "gitlinker" }
+        wk.add { "<leader>gk", group = "gitlinker", mode = { "n", "v" } }
       end,
     },
   },
