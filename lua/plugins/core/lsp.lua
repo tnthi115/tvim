@@ -169,4 +169,31 @@ return {
       wakeup_delay = 0,
     },
   },
+  -- LSP mouse hover
+  {
+    "seblj/nvim-lsp-extras",
+    dependencies = {
+      {
+        "folke/noice.nvim",
+        opts = {
+          lsp = {
+            -- disable overrides so that seblj/nvim-lsp-extras can set these
+            override = {
+              ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+              ["vim.lsp.util.stylize_markdown"] = false,
+              ["cmp.entry.get_documentation"] = false,
+            },
+          },
+        },
+      },
+    },
+    event = "LspAttach",
+    config = function()
+      vim.o.mousemoveevent = true
+
+      require("nvim-lsp-extras").setup {
+        signature = false,
+      }
+    end,
+  },
 }
