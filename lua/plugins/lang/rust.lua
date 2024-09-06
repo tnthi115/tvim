@@ -6,7 +6,12 @@
 -- $ rustup-init
 -- $ rustup component add rust-analyzer
 
+if true then
+  return {}
+end
+
 return {
+  { import = "lazyvim.plugins.extras.lang.rust" },
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
