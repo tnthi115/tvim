@@ -104,10 +104,8 @@ return {
         end,
       })
 
-      return {
-        ui = {
-          border = "rounded",
-        },
+      opts.ui = {
+        border = "rounded",
       }
     end,
   },
