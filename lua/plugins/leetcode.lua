@@ -19,46 +19,29 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    local which_key_ok, which_key = pcall(require, "which-key")
-    if which_key_ok then
-      local opts = {
-        mode = "n", -- NORMAL
-        prefix = "<leader>",
-        buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-        silent = true, -- use `silent` when creating keymaps
-        noremap = true, -- use `noremap` when creating keymaps
-        nowait = true, -- use `nowait` when creating keymaps
+    local wk_ok, wk = pcall(require, "which-key")
+    if wk_ok then
+      wk.add {
+        { "<leader>.", group = "leetcode" },
+        { "<leader>.m", "<cmd>Leet menu<CR>", desc = "Menu" },
+        { "<leader>.c", "<cmd>Leet console<CR>", desc = "Console" },
+        { "<leader>.i", "<cmd>Leet info<CR>", desc = "Info" },
+        { "<leader>.,", "<cmd>Leet tabs<CR>", desc = "Tabs" },
+        { "<leader>.L", "<cmd>Leet lang<CR>", desc = "Lang" },
+        { "<leader>.r", "<cmd>Leet run<CR>", desc = "Run" },
+        { "<leader>.t", "<cmd>Leet test<CR>", desc = "Test" },
+        { "<leader>.s", "<cmd>Leet submit<CR>", desc = "Submit" },
+        { "<leader>.R", "<cmd>Leet random<CR>", desc = "Random" },
+        { "<leader>.D", "<cmd>Leet daily<CR>", desc = "Daily" },
+        { "<leader>.l", "<cmd>Leet list<CR>", desc = "List" },
+        { "<leader>.d", group = "desc" },
+        { "<leader>.dd", "<cmd>Leet desc toggle<CR>", desc = "Toggle" },
+        { "<leader>.ds", "<cmd>Leet desc stats<CR>", desc = "Stats" },
+        { "<leader>.C", group = "cookie" },
+        { "<leader>.Cd", "<cmd>Leet cookie update<CR>", desc = "Update" },
+        { "<leader>.Cs", "<cmd>Leet cookie delete<CR>", desc = "Delete (Sign-out)" },
+        { "<leader>.u", "<cmd>Leet cache update<CR>", desc = "Update Cache" },
       }
-
-      local mappings = {
-        L = {
-          name = "+leetcode",
-          m = { "<cmd>Leet menu<CR>", "Menu" },
-          c = { "<cmd>Leet console<CR>", "Console" },
-          i = { "<cmd>Leet info<CR>", "Info" },
-          [","] = { "<cmd>Leet tabs<CR>", "Tabs" },
-          L = { "<cmd>Leet lang<CR>", "Lang" },
-          r = { "<cmd>Leet run<CR>", "Run" },
-          t = { "<cmd>Leet test<CR>", "Test" },
-          s = { "<cmd>Leet submit<CR>", "Submit" },
-          R = { "<cmd>Leet random<CR>", "Random" },
-          D = { "<cmd>Leet daily<CR>", "Daily" },
-          l = { "<cmd>Leet list<CR>", "List" },
-          d = {
-            name = "Desc",
-            d = { "<cmd>Leet desc toggle<CR>", "Toggle" },
-            s = { "<cmd>Leet desc stats<CR>", "Stats" },
-          },
-          C = {
-            name = "Cookie",
-            d = { "<cmd>Leet cookie update<CR>", "Update" },
-            s = { "<cmd>Leet cookie delete<CR>", "Delete (Sign-out)" },
-          },
-          u = { "<cmd>Leet cache update<CR>", "Update Cache" },
-        },
-      }
-
-      which_key.register(mappings, opts)
     end
 
     require("leetcode").setup {
