@@ -1,7 +1,5 @@
 -- Full spec: https://www.lazyvim.org/extras/lang/git
 
-local cmp = require "cmp"
-
 return {
   {
     "mfussenegger/nvim-lint",
@@ -27,8 +25,8 @@ return {
     ft = { "gitcommit", "NeogitCommitMessage" },
     dependencies = "hrsh7th/nvim-cmp",
     config = function()
-      cmp.setup.buffer {
-        sources = cmp.config.sources({ { name = "conventionalcommits" } }, { { name = "buffer" } }),
+      require("cmp").setup.buffer {
+        sources = require("cmp").config.sources({ { name = "conventionalcommits" } }, { { name = "buffer" } }),
       }
     end,
   },
