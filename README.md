@@ -60,3 +60,5 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
 - [ ] consider https://github.com/rachartier/tiny-inline-diagnostic.nvim or https://github.com/sontungexpt/better-diagnostic-virtual-text
   - using https://git.sr.ht/~whynothugo/lsp_lines.nvim
 - [x] use https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim to auto update packages
+- [ ] use quartz for publishing markdown notes
+  - see https://www.youtube.com/watch?v=DgKI4hZ4EEI
