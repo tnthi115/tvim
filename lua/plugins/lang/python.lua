@@ -3,17 +3,19 @@
 -- https://www.lazyvim.org/extras/formatting/black
 
 return {
+  { import = "lazyvim.plugins.extras.lang.python" },
   -- Install mason packages.
-  -- {
-  --   "williamboman/mason.nvim",
-  --   ft = { "python" },
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = opts.ensure_installed or {}
-  --     vim.list_extend(opts.ensure_installed, {
-  --       "basedpyright",
-  --     })
-  --   end,
-  -- },
+  {
+    "williamboman/mason.nvim",
+    ft = { "python" },
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "basedpyright",
+        "ruff-lsp",
+      })
+    end,
+  },
   -- {
   --   "nvim-treesitter/nvim-treesitter",
   --   opts = function(_, opts)
