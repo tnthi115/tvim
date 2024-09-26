@@ -10,11 +10,20 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      --- You can override specific highlights to use other groups or a hex color
+      --- function will be called with a Highlights and ColorScheme table
+      ---@param highlights tokyonight.Highlights
+      ---@param colors ColorScheme
       on_highlights = function(hl, c)
         hl.LspInlayHint = {
           bg = "none",
-          fg = "#545c7e",
+          -- fg = "#545c7e",
+          fg = c.comment,
         }
+        -- hl.LineNr = {
+        --   bg = "none",
+        --   fg = c.comment,
+        -- }
       end,
     },
   },
