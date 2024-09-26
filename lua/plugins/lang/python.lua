@@ -13,6 +13,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "basedpyright",
         "ruff-lsp",
+        "pylint",
       })
     end,
   },
