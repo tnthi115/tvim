@@ -115,9 +115,10 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "gopls",
-        "golangci-lint",
+        -- "golangci-lint",
         "golangci-lint-langserver",
         "gofumpt",
+        "goimports",
         "goimports-reviser",
         "golines",
         "gotests",
@@ -148,33 +149,33 @@ return {
       },
     },
   },
-  -- Setup gofumpt, goimports-reviser, gomodifytags, and impl.
-  {
-    "nvimtools/none-ls.nvim",
-    -- ft = go_filetypes,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
-        end,
-      },
-    },
-    opts = function(_, opts)
-      -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-      local nls = require "null-ls"
-      -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
-      -- TODO: this doesn't work
-      -- opts.sources["nls.builtins.formatting.goimports"] = nil
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.code_actions.gomodifytags,
-        nls.builtins.code_actions.impl,
-        -- nls.builtins.formatting.goimports,
-        -- nls.builtins.formatting.gofmt,
-      })
-    end,
-  },
+  -- Setup gomodifytags and impl.
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   -- ft = go_filetypes,
+  --   dependencies = {
+  --     {
+  --       "williamboman/mason.nvim",
+  --       opts = function(_, opts)
+  --         opts.ensure_installed = opts.ensure_installed or {}
+  --         vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
+  --       end,
+  --     },
+  --   },
+  --   opts = function(_, opts)
+  --     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+  --     local nls = require "null-ls"
+  --     -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
+  --     -- TODO: this doesn't work
+  --     -- opts.sources["nls.builtins.formatting.goimports"] = nil
+  --     opts.sources = vim.list_extend(opts.sources or {}, {
+  --       nls.builtins.code_actions.gomodifytags,
+  --       nls.builtins.code_actions.impl,
+  --       -- nls.builtins.formatting.goimports,
+  --       -- nls.builtins.formatting.gofmt,
+  --     })
+  --   end,
+  -- },
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
@@ -359,6 +360,18 @@ return {
     cmd = { "GolangTestCurrentPackage", "GolangTestFocused" },
     keys = {
       { "<leader>tf", ft = { "go" }, "<cmd>GolangTestFocused<CR>", desc = "Test Focused (vimux-golang)" },
+    },
+  },
+  -- Filetype icons
+  {
+    "echasnovski/mini.icons",
+    opts = {
+      file = {
+        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+      },
+      filetype = {
+        gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
+      },
     },
   },
 }
