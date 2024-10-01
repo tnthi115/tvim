@@ -55,7 +55,7 @@ return {
     breadcrumbs_separator = require("lazyvim.config").icons.kinds.Collapsed,
     mac_window_bar = true,
     title = "CodeSnap.nvim",
-    code_font_family = "CaskaydiaCove Nerd Font",
+    code_font_family = "JetBrainsMono Nerd Font",
     watermark_font_family = "Pacifico",
     watermark = "",
     bg_theme = "default",
