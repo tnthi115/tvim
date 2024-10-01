@@ -191,6 +191,7 @@ return {
 
       require("nvim-lsp-extras").setup {
         signature = false,
+        lightbulb = false,
       }
     end,
   },
