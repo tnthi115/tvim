@@ -33,7 +33,7 @@ return {
       { "<leader>jvl", "<cmd>CoverageLoad<CR>", desc = "Load Coverage Report", ft = filetypes },
       { "<leader>jvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
       { "<leader>jvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
-      { "<leader>jvC", "<cmd>CoverageClear<CR>", desc = "Unload Cached Coverage Signs", ft = filetypes },
+      { "<leader>jvq", "<cmd>CoverageClear<CR>", desc = "Unload Cached Coverage Signs", ft = filetypes },
       { "<leader>jvs", "<cmd>CoverageSummary<CR>", desc = "Coverage Summary", ft = filetypes },
     },
     opts = {
