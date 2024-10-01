@@ -21,8 +21,13 @@ return {
       { "<leader>aa", ":CodeCompanion", mode = { "n", "x", "v" } },
       { "<leader>ao", "<cmd>CodeCompanionActions<CR>", desc = "Open Actions" },
       { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "Open New Chat Buffer" },
-      { "<leader>au", "<cmd>CodeCompanionToggle<CR>", desc = "Toggle Chat Buffer" },
-      { "<leader>aA", "<cmd>CodeCompanionAdd<CR>", desc = "Add Selection to Chat Buffer", mode = { "n", "x", "v" } },
+      { "<leader>au", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle Chat Buffer" },
+      {
+        "<leader>aA",
+        "<cmd>CodeCompanionChat Add<CR>",
+        desc = "Add Selection to Chat Buffer",
+        mode = { "n", "x", "v" },
+      },
     },
     opts = {
       adapters = {
