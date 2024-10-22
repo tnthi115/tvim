@@ -195,4 +195,22 @@ return {
       }
     end,
   },
+  -- https://github.com/jmbuhr/otter.nvim
+  {
+    "jmbuhr/otter.nvim",
+    -- event = "LspAttach",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      {
+        "<leader>cO",
+        function()
+          require("otter").activate()
+        end,
+      },
+      desc = "Activate Otter",
+    },
+    opts = {},
+  },
 }
