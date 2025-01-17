@@ -19,19 +19,43 @@ return {
   --     end
   --   end,
   -- },
-  -- {
-  --   "williamboman/mason.nvim",
-  --   ft = { "markdown" },
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = opts.ensure_installed or {}
-  --     vim.list_extend(opts.ensure_installed, { "markdownlint", "marksman" })
-  --   end,
-  -- },
+  {
+    "williamboman/mason.nvim",
+    ft = { "markdown" },
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "marksman" })
+      -- vim.list_extend(opts.ensure_installed, { "marksman", "harper-ls" })
+    end,
+  },
   -- {
   --   "neovim/nvim-lspconfig",
+  --   ft = { "markdown" },
   --   opts = {
   --     servers = {
-  --       marksman = {},
+  --       harper_ls = {
+  --         linters = {
+  --           spell_check = false,
+  --           spelled_numbers = false,
+  --           an_a = true,
+  --           sentence_capitalization = true,
+  --           unclosed_quotes = true,
+  --           wrong_quotes = false,
+  --           long_sentences = true,
+  --           repeated_words = true,
+  --           spaces = true,
+  --           matcher = true,
+  --           correct_number_suffix = true,
+  --           number_suffix_capitalization = true,
+  --           multiple_sequential_pronouns = true,
+  --           linking_verbs = false,
+  --           avoid_curses = true,
+  --           terminating_conjunctions = true,
+  --         },
+  --         codeActions = {
+  --           forceStable = true,
+  --         },
+  --       },
   --     },
   --   },
   -- },
