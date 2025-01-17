@@ -170,6 +170,7 @@ return {
   -- LSP mouse hover
   {
     "seblj/nvim-lsp-extras",
+    enabled = false,
     dependencies = {
       {
         "folke/noice.nvim",
@@ -213,4 +214,57 @@ return {
     },
     opts = {},
   },
+  -- https://github.com/kosayoda/nvim-lightbulb
+  -- {
+  --   "kosayoda/nvim-lightbulb",
+  --   event = "LspAttach",
+  --   opts = {
+  --     code_lenses = true,
+  --     sign = {
+  --       enabled = false,
+  --     },
+  --     line = {
+  --       enabled = false,
+  --       -- Highlight group to highlight the line if there is a lightbulb.
+  --       hl = "LightBulbLine",
+  --     },
+  --     virtual_text = {
+  --       enabled = true,
+  --       -- Text to show in the virt_text.
+  --       text = "💡",
+  --       lens_text = "🔎",
+  --       -- Position of virtual text given to |nvim_buf_set_extmark|.
+  --       -- Can be a number representing a fixed column (see `virt_text_pos`).
+  --       -- Can be a string representing a position (see `virt_text_win_col`).
+  --       pos = "eol",
+  --       -- Highlight group to highlight the virtual text.
+  --       hl = "LightBulbVirtualText",
+  --       -- How to combine other highlights with text highlight.
+  --       -- See `hl_mode` of |nvim_buf_set_extmark|.
+  --       hl_mode = "combine",
+  --     },
+  --     float = {
+  --       enabled = false,
+  --       -- Text to show in the floating window.
+  --       text = "💡",
+  --       lens_text = "🔎",
+  --       -- Highlight group to highlight the floating window.
+  --       hl = "LightBulbFloatWin",
+  --       -- Window options.
+  --       -- See |vim.lsp.util.open_floating_preview| and |nvim_open_win|.
+  --       -- Note that some options may be overridden by |open_floating_preview|.
+  --       win_opts = {
+  --         focusable = false,
+  --       },
+  --     },
+  --     autocmd = {
+  --       enabled = true,
+  --       updatetime = 50,
+  --     },
+  --     ignore = {
+  --       -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
+  --       actions_without_kind = true,
+  --     },
+  --   },
+  -- },
 }
