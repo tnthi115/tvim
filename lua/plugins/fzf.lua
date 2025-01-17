@@ -31,6 +31,7 @@ return {
         end,
         desc = "Grep in o",
       },
+      { "<leader>gC", "<cmd>FzfLua git_branches<CR>", desc = "Branches" },
     },
     opts = {
       fzf_opts = {
