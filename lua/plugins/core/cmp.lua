@@ -1,5 +1,9 @@
 -- Full spec: https://www.lazyvim.org/plugins/coding#nvim-cmp
 
+-- if true then
+--   return {}
+-- end
+--
 local cmp = require "cmp"
 
 local has_words_before = function()
