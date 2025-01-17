@@ -6,7 +6,7 @@ return {
   "folke/which-key.nvim",
   vscode = true,
   opts = {
-    -- preset = "modern",
+    preset = "modern",
     win = {
       border = "single",
     },
