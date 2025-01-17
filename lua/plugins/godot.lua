@@ -3,6 +3,10 @@
 -- Consider https://github.com/iabdelkareem/csharp.nvim, but it used omnisharp as the LSP.
 -- https://youtu.be/cLWgjienc_s?si=GYdU9YV-dwhwoQIO
 
+if true then
+  return {}
+end
+
 return {
   { import = "lazyvim.plugins.extras.lang.omnisharp" },
   -- Install treesitter parsers.
