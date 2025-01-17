@@ -99,3 +99,8 @@ vim.keymap.del("n", "<leader>L")
 -- Deleting and pasting over with the _ register
 vim.keymap.set("x", "<leader>P", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
+
+-- Add LSP hover function to the existing popup menu
+vim.cmd [[
+  menu PopUp.Show\ Hover\ Info <Cmd>lua vim.lsp.buf.hover()<CR>
+]]
