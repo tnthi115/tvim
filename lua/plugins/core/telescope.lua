@@ -6,6 +6,7 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
+    -- enabled = false,
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -28,12 +29,12 @@ return {
       -- { "<leader>gs", false },
       -- remove sort_lastused=true from Telescope buffers keybinds
       -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-      {
-        "<leader>,",
-        "<cmd>Telescope buffers sort_mru=true<cr>",
-        desc = "Switch Buffer",
-      },
-      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
+      -- {
+      --   "<leader>,",
+      --   "<cmd>Telescope buffers sort_mru=true<cr>",
+      --   desc = "Switch Buffer",
+      -- },
+      -- { "<leader>fb", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
       -- { "<leader><space>", LazyVim.pick "auto", desc = "Find Files (Root Dir)" },
       -- { "<leader><space>", "<cmd>Telescope git_files<CR>", desc = "Find Files (git-files)" },
     },
@@ -88,6 +89,7 @@ return {
   -- overwriting lazyvim.plugins.extras.util.project
   {
     "ahmedkhalf/project.nvim",
+    enabled = false,
     opts = {
       -- Manual mode doesn't automatically change your root directory, so you have
       -- the option to manually do so using `:ProjectRoot` command.

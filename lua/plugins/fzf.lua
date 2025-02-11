@@ -2,6 +2,7 @@ return {
   -- { import = "lazyvim.plugins.extras.editor.fzf" },
   {
     "ibhagwan/fzf-lua",
+    optional = true,
     dependencies = {
       {
         "folke/which-key.nvim",
