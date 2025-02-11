@@ -3,6 +3,7 @@
 
 return {
   "eandrju/cellular-automaton.nvim",
+  enabled = false,
   dependencies = {
     -- add default name in which-key
     {
