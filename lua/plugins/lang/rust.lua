@@ -11,7 +11,7 @@ if true then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.rust" },
+  -- { import = "lazyvim.plugins.extras.lang.rust" },
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)

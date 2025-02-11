@@ -3,7 +3,7 @@
 -- https://www.lazyvim.org/extras/formatting/black
 
 return {
-  { import = "lazyvim.plugins.extras.lang.python" },
+  -- { import = "lazyvim.plugins.extras.lang.python" },
   -- Install mason packages.
   {
     "williamboman/mason.nvim",
