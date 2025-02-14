@@ -49,5 +49,14 @@ return {
         },
       },
     },
+    image = {
+      markdown = {
+        -- enable image viewer for markdown files
+        -- if your env doesn't support unicode placeholders, this will be disabled
+        enabled = true,
+        max_width = 80,
+        max_height = 40,
+      },
+    },
   },
 }
