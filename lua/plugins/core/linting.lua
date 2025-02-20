@@ -77,4 +77,23 @@ return {
   --     })
   --   end,
   -- },
+  -- https://github.com/sbulav/validate-gitlab-ci.nvim
+  {
+    "sbulav/validate-gitlab-ci.nvim",
+    -- "tnthi115/validate-gitlab-ci.nvim", -- use my fork with the fix for now
+    enabled = false,
+    event = "BufEnter .gitlab-ci.yml",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      vim.api.nvim_create_augroup("ValidateGitlabCIfiles", { clear = true })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function()
+          require("validate-gitlab-ci.validate-gitlab-ci").validate()
+        end,
+        group = "ValidateGitlabCIfiles",
+        desc = "Validate Gitlab CI  files on save",
+        pattern = ".gitlab-ci.yml",
+      })
+    end,
+  },
 }
