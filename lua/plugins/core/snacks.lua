@@ -44,7 +44,7 @@ return {
     --   run :lua Snacks.picker.picker_layouts(opts?)
     picker = {
       layout = {
-        preset = "ivy_split",
+        preset = "default",
       },
       previewers = {
         git = {
