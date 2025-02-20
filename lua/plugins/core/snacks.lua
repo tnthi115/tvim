@@ -11,14 +11,14 @@ return {
     {
       "<leader>s/m",
       function()
-        Snacks.picker.grep { glob = "!*lts* !*render* !*template*" }
+        Snacks.picker.grep { glob = { "!*lts*", "!*render*", "!*template*" } }
       end,
       desc = "Grep in m",
     },
     {
       "<leader>s/o",
       function()
-        Snacks.picker.grep { glob = "!*pbgo* !*pbswagger*" }
+        Snacks.picker.grep { glob = { "!*pbgo*", "!*pbswagger*" } }
       end,
       desc = "Grep in o",
     },
@@ -43,9 +43,23 @@ return {
     -- layouts: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#picker_layouts
     --   run :lua Snacks.picker.picker_layouts(opts?)
     picker = {
+      layout = {
+        preset = "ivy_split",
+      },
       previewers = {
         git = {
           native = true,
+        },
+      },
+      -- actions = require("trouble.sources.snacks").actions,
+      win = {
+        input = {
+          keys = {
+            ["<c-t>"] = {
+              "trouble_open",
+              mode = { "n", "i" },
+            },
+          },
         },
       },
     },
@@ -56,6 +70,21 @@ return {
         enabled = true,
         max_width = 80,
         max_height = 40,
+      },
+    },
+    styles = {
+      lazygit = {
+        height = 0,
+        width = 0,
+      },
+    },
+    lazygit = {
+      -- don't automatically configure lazygit to use the current colorscheme
+      -- and integrate edit with the current neovim instance
+      configure = false,
+      win = {
+        -- See https://github.com/folke/snacks.nvim/blob/main/docs/styles.md
+        style = "lazygit",
       },
     },
   },
