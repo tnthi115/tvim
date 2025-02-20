@@ -1,9 +1,9 @@
 -- Full spec: https://www.lazyvim.org/plugins/coding#nvim-cmp
 
--- if true then
---   return {}
--- end
---
+if true then
+  return {}
+end
+
 local cmp = require "cmp"
 
 local has_words_before = function()
@@ -15,6 +15,7 @@ end
 return {
   {
     "hrsh7th/nvim-cmp",
+    optional = true,
     opts = {
       -- mapping = cmp.mapping.preset.insert {
       mapping = cmp.mapping.preset.insert {
@@ -70,6 +71,7 @@ return {
   -- better cmdline completion using cmp
   {
     "hrsh7th/cmp-cmdline",
+    optional = true,
     event = "CmdlineEnter",
     config = function()
       -- `:` cmdline setup.
