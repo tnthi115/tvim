@@ -9,14 +9,14 @@ return {
       desc = "Git Branches",
     },
     {
-      "<leader>s/m",
+      "<leader>s'm",
       function()
         Snacks.picker.grep { glob = { "!*lts*", "!*render*", "!*template*" } }
       end,
       desc = "Grep in m",
     },
     {
-      "<leader>s/o",
+      "<leader>s'o",
       function()
         Snacks.picker.grep { glob = { "!*pbgo*", "!*pbswagger*" } }
       end,
@@ -44,7 +44,7 @@ return {
     --   run :lua Snacks.picker.picker_layouts(opts?)
     picker = {
       layout = {
-        preset = "default",
+        preset = "ivy",
       },
       previewers = {
         git = {
