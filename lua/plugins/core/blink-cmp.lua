@@ -80,7 +80,7 @@ return {
             show_on_x_blocked_trigger_characters = nil, -- Inherits from top level `completion.trigger.show_on_blocked_trigger_characters` config when not set
           },
           menu = {
-            auto_show = nil, -- Inherits from top level `completion.menu.auto_show` config when not set
+            auto_show = true, -- Inherits from top level `completion.menu.auto_show` config when not set
             draw = {
               columns = { { "label", "label_description", gap = 1 } },
             },
@@ -89,4 +89,63 @@ return {
       },
     },
   },
+  -- {
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   dependencies = {
+  --     {
+  --       "milanglacier/minuet-ai.nvim",
+  --       config = function()
+  --         -- Your configuration options here
+  --         -- write a for loop to print out 1 through 10
+  --         require("minuet").setup {
+  --           provider = "openai_fim_compatible",
+  --           n_completions = 1, -- recommend for local model for resource saving
+  --           -- I recommend beginning with a small context window size and incrementally
+  --           -- expanding it, depending on your local computing power. A context window
+  --           -- of 512, serves as an good starting point to estimate your computing
+  --           -- power. Once you have a reliable estimate of your local computing power,
+  --           -- you should adjust the context window to a larger value.
+  --           context_window = 512,
+  --           provider_options = {
+  --             openai_fim_compatible = {
+  --               api_key = "TERM",
+  --               name = "Ollama",
+  --               end_point = "http://localhost:11434/v1/completions",
+  --               model = "qwen2.5-coder:7b",
+  --               -- model = "deepseek-coder:6.7b",
+  --               -- model = "starcoder2:7b",
+  --               -- model = "deepseek-coder-v2",
+  --               optional = {
+  --                 max_tokens = 56,
+  --                 top_p = 0.9,
+  --               },
+  --             },
+  --           },
+  --         }
+  --       end,
+  --     },
+  --   },
+  --   opts = {
+  --     keymap = {
+  --       ["<C-y>"] = {
+  --         function(cmp)
+  --           cmp.show { providers = { "minuet" } }
+  --         end,
+  --       },
+  --       -- ["<C-y>"] = require("minuet").make_blink_map(),
+  --     },
+  --     sources = {
+  --       -- if you want to use auto-complete
+  --       default = { "minuet" },
+  --       providers = {
+  --         minuet = {
+  --           name = "minuet",
+  --           module = "minuet.blink",
+  --           score_offset = 100,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 }
