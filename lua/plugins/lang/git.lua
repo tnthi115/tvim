@@ -57,6 +57,7 @@ return {
     dependencies = {
       {
         "Kaiser-Yang/blink-cmp-git",
+        -- ft = { "gitcommit", "NeogitCommitMessage", "markdown" },
         dependencies = { "nvim-lua/plenary.nvim" },
       },
     },
@@ -68,6 +69,12 @@ return {
           git = {
             module = "blink-cmp-git",
             name = "Git",
+            -- only enable this source when filetype is gitcommit, markdown, or 'octo'
+            enabled = function()
+              return vim.tbl_contains({ "octo", "gitcommit", "markdown", "NeogitCommitMessage" }, vim.bo.filetype)
+            end,
+            --- @module 'blink-cmp-git'
+            --- @type blink-cmp-git.Options
             opts = {
               -- options for the blink-cmp-git
               -- commit = {
@@ -120,6 +127,7 @@ return {
                     get_token = function()
                       return vim.env.GITLAB_TOKEN
                     end,
+                    triggers = { "#" },
                   },
                   -- NOTE:
                   -- Even for `gitlab`, you should use `pull_request` rather than `merge_request`
