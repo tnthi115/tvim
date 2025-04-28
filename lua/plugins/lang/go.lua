@@ -76,7 +76,8 @@ return {
               -- "deadcode,depguard,exhaustivestruct,gci,gofmt,gofumpt,golint,interfacer,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
               "--disable-all",
               "--enable",
-              "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
+              -- "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
+              "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,copyloopvar,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
               "--out-format",
               "json",
               "--issues-exit-code=1",
@@ -288,17 +289,52 @@ return {
       end
 
       gopher.setup {
+        -- log level, you might consider using DEBUG or TRACE for debugging the plugin
+        ---@type number
+        log_level = vim.log.levels.INFO,
+
+        -- timeout for running internal commands
+        ---@type number
+        timeout = 2000,
+
+        --- timeout for running installer commands(e.g :GoDepsInstall, :GoDepsInstallSync)
+        installer_timeout = 999999,
+
+        -- user specified paths to binaries
+        ---@class gopher.ConfigCommand
         commands = {
           go = "go",
           gomodifytags = "gomodifytags",
           gotests = "gotests",
           impl = "impl",
           iferr = "iferr",
-          dlv = "dlv",
+        },
+        ---@class gopher.ConfigGotests
+        gotests = {
+          -- gotests doesn't have template named "default" so this plugin uses "default" to set the default template
+          template = "default",
+          -- path to a directory containing custom test code templates
+          ---@type string|nil
+          template_dir = nil,
+          -- switch table tests from using slice to map (with test name for the key)
+          named = false,
+        },
+        ---@class gopher.ConfigGoTag
+        gotag = {
+          ---@type gopher.ConfigGoTagTransform
+          transform = "snakecase",
+
+          -- default tags to add to struct fields
+          default_tag = "json",
+        },
+        iferr = {
+          -- choose a custom error message
+          ---@type string|nil
+          message = nil,
         },
       }
 
-      require("gopher.dap").setup()
+      -- require("gopher.dap").setup()
     end,
     -- build = function()
     --   vim.cmd [[silent! GoInstallDeps]]
