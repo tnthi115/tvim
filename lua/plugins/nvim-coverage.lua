@@ -55,7 +55,7 @@ return {
       lang = {
         -- customize language specific settings
         go = {
-          coverage_file = "coverage_out/cmd-unittest-bl",
+          coverage_file = "coverage_out/cmd-unittest-opt-bl",
         },
       },
     },
