@@ -20,32 +20,61 @@ return {
     },
   },
   -- Conventional commits completion in cmp
-  {
-    "davidsierradz/cmp-conventionalcommits",
-    optional = true,
-    ft = { "gitcommit", "NeogitCommitMessage" },
-    dependencies = "hrsh7th/nvim-cmp",
-    config = function()
-      require("cmp").setup.buffer {
-        sources = require("cmp").config.sources({ { name = "conventionalcommits" } }, { { name = "buffer" } }),
-      }
-    end,
-  },
+  -- {
+  --   "davidsierradz/cmp-conventionalcommits",
+  --   optional = true,
+  --   ft = { "gitcommit", "NeogitCommitMessage" },
+  --   dependencies = "hrsh7th/nvim-cmp",
+  --   config = function()
+  --     require("cmp").setup.buffer {
+  --       sources = require("cmp").config.sources({ { name = "conventionalcommits" } }, { { name = "buffer" } }),
+  --     }
+  --   end,
+  -- },
+  -- {
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   dependencies = {
+  --     "davidsierradz/cmp-conventionalcommits",
+  --     "saghen/blink.compat",
+  --   },
+  --   opts = {
+  --     sources = {
+  --       compat = { "conventionalcommits" },
+  --       providers = {
+  --         conventionalcommits = {
+  --           kind = "ConventionalCommits",
+  --           score_offset = 100,
+  --           async = true,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      "davidsierradz/cmp-conventionalcommits",
-      "saghen/blink.compat",
+      { "disrupted/blink-cmp-conventional-commits" },
     },
     opts = {
       sources = {
-        compat = { "conventionalcommits" },
+        default = {
+          "conventional_commits", -- add it to the list
+          "lsp",
+          "buffer",
+          "path",
+        },
         providers = {
-          conventionalcommits = {
-            kind = "ConventionalCommits",
-            score_offset = 100,
-            async = true,
+          conventional_commits = {
+            name = "Conventional Commits",
+            module = "blink-cmp-conventional-commits",
+            enabled = function()
+              return vim.bo.filetype == "gitcommit"
+            end,
+            ---@module 'blink-cmp-conventional-commits'
+            ---@type blink-cmp-conventional-commits.Options
+            opts = {}, -- none so far
           },
         },
       },
