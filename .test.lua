@@ -21,3 +21,13 @@ end
 if repo then
   print("repo: " .. repo)
 end
+
+-- write a function that prints out n digits of pi
+
+local function print_pi_digits(n)
+  local pi_str = tostring(math.pi):gsub("%.", "")
+  local formatted_str = pi_str:sub(1, 1) .. "." .. pi_str:sub(4, n + 2)
+  print(formatted_str)
+end
+
+print_pi_digits(15)
