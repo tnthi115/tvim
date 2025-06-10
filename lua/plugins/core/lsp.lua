@@ -97,12 +97,12 @@ return {
         run_on_start = true,
       }
 
-      -- Create autocommand to automatically update mason packages on the LspAttach event.
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function()
-          vim.cmd "MasonToolsUpdate"
-        end,
-      })
+      -- -- Create autocommand to automatically update mason packages on the LspAttach event.
+      -- vim.api.nvim_create_autocmd("LspAttach", {
+      --   callback = function()
+      --     vim.cmd "MasonToolsUpdate"
+      --   end,
+      -- })
 
       opts.ui = {
         border = "rounded",
