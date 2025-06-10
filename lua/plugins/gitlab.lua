@@ -82,8 +82,8 @@ return {
   -- but it still works I guess?
   -- this is now a paid feature as part of Duo Pro :(
   {
-    "git@gitlab.com:gitlab-org/editor-extensions/gitlab.vim.git",
-    commit = "cf304d18ba352e7bf914af978f4c1aab7ffb7e49",
+    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
+    -- commit = "cf304d18ba352e7bf914af978f4c1aab7ffb7e49",
     lazy = false,
     -- enabled = false,
     -- event = { "BufReadPre", "BufNewFile" }, -- Activate when a file is created/opened
@@ -96,7 +96,7 @@ return {
       return vim.env.GITLAB_TOKEN ~= nil and vim.env.GITLAB_TOKEN ~= ""
     end,
     keys = {
-      { "<leader>uG", "<Plug>(GitLabToggleCodeSuggestions)", desc = "Toggle Gitlab Duo Code Suggestions" },
+      { "<leader>u.", "<Plug>(GitLabToggleCodeSuggestions)", desc = "Toggle Gitlab Duo Code Suggestions" },
     },
     opts = {
       statusline = {
