@@ -9,7 +9,10 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
     },
     opts = function()
-      vim.api.nvim_set_hl(0, "DropBarIconUISeparator", { link = "Comment" })
+      -- vim.api.nvim_set_hl(0, "DropBarIconUISeparator", { link = "Comment" })
+      -- vim.api.nvim_set_hl(0, "DropBarPreview", { link = "Normal" })
+      -- vim.api.nvim_set_hl(0, "DropBarCurrentContext", { link = "Normal" })
+      -- vim.api.nvim_set_hl(0, "BufferLineBackground", { link = "Normal" })
     end,
   },
 }

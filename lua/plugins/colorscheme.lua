@@ -24,6 +24,9 @@ return {
         --   bg = "none",
         --   fg = c.comment,
         -- }
+        hl.BufferLineBackground = {
+          bg = "none",
+        }
       end,
     },
   },
