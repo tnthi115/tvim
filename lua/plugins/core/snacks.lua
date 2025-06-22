@@ -2,6 +2,7 @@ return {
   {
     "folke/snacks.nvim",
     keys = {
+      { "<leader>s'", "", desc = "Grep with preset glob" },
       {
         "<leader>gC",
         function()
@@ -45,11 +46,29 @@ return {
       --   run :lua Snacks.picker.picker_layouts(opts?)
       picker = {
         layout = {
-          preset = "ivy",
+          preset = "default", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
+        },
+        layouts = {
+          -- default = {
+          --   layout = {
+          --     width = 0.9,
+          --     height = 0.9,
+          --   },
+          -- },
+          ivy = {
+            layout = {
+              height = 0.5,
+            },
+          },
         },
         previewers = {
           git = {
             native = true,
+            layout = "default",
+          },
+          diff = {
+            builtin = false,
+            cmd = { "delta" },
           },
         },
         -- actions = require("trouble.sources.snacks").actions,
@@ -89,12 +108,5 @@ return {
         },
       },
     },
-  },
-  {
-    "folke/which-key.nvim",
-    opts = function(_, opts)
-      local wk = require "which-key"
-      wk.add { "<leader>s'", group = "Grep with preset glob" }
-    end,
   },
 }
