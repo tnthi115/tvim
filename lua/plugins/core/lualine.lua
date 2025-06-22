@@ -238,7 +238,7 @@ return {
         {
           -- spaces stolen from Lunarvim
           function()
-            local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
+            local shiftwidth = vim.fn.shiftwidth()
             return "󰌒" .. " " .. shiftwidth
           end,
           padding = 1,
