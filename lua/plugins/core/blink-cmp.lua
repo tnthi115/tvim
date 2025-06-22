@@ -4,6 +4,10 @@ return {
     optional = true,
     dependencies = {
       -- "saghen/blink.compat",
+      -- {
+      --   "Fildo7525/pretty_hover",
+      --   event = "LspAttach",
+      -- },
     },
     opts = {
       keymap = {
@@ -34,6 +38,24 @@ return {
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
+      sources = {
+        default = { "omni" },
+        -- providers = {
+        --   omni = {
+        --     module = "blink.cmp.sources.complete_func",
+        --     enabled = function()
+        --       return vim.bo.omnifunc ~= "v:lua.vim.lsp.omnifunc"
+        --     end,
+        --     ---@type blink.cmp.CompleteFuncOpts
+        --     opts = {
+        --       complete_func = function()
+        --         return vim.bo.omnifunc
+        --       end,
+        --     },
+        --     score_offset = 100,
+        --   },
+        -- },
+      },
       appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp
@@ -51,7 +73,17 @@ return {
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon" }, { "source_name" } },
           },
         },
-        documentation = { window = { border = "single" } },
+        documentation = {
+          window = { border = "single" },
+          -- draw = function(opts)
+          --   if opts.item and opts.item.documentation then
+          --     local out = require("pretty_hover.parser").parse(opts.item.documentation.value)
+          --     opts.item.documentation.value = out:string()
+          --   end
+          --
+          --   opts.default_implementation(opts)
+          -- end,
+        },
       },
       signature = { window = { border = "single" } },
       cmdline = {
