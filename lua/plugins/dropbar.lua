@@ -13,6 +13,7 @@ return {
       -- vim.api.nvim_set_hl(0, "DropBarPreview", { link = "Normal" })
       -- vim.api.nvim_set_hl(0, "DropBarCurrentContext", { link = "Normal" })
       -- vim.api.nvim_set_hl(0, "BufferLineBackground", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" }) -- no background for dropbar
     end,
   },
 }
