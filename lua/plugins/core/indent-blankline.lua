@@ -2,6 +2,7 @@
 
 return {
   "lukas-reineke/indent-blankline.nvim",
+  optional = true,
   opts = {
     scope = {
       highlight = { "Normal" },
