@@ -19,6 +19,11 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 -- Set to false to disable.
 vim.g.lazygit_config = false
 
+-- folding
+vim.opt.foldmethod = "expr"
+-- vim.opt.foldnestmax = 10
+-- vim.opt.foldlevel = 9
+
 -- Options from Lunarvim
 -- local options = {
 --   background = "dark",
