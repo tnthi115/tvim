@@ -410,4 +410,16 @@ return {
       },
     },
   },
+  -- This doesn't work unfortunately
+  -- {
+  --   "Snyssfx/goerr-nvim",
+  --   ft = { "go" },
+  --   config = function()
+  --     vim.cmd [[syntax on]]
+  --     vim.opt.foldmethod = "syntax"
+  --     vim.opt.foldnestmax = 10
+  --     vim.opt.foldlevel = 9
+  --     vim.opt.softtabstop = 2
+  --   end,
+  -- },
 }
