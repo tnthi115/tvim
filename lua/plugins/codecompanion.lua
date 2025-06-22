@@ -10,22 +10,16 @@ return {
       "nvim-treesitter/nvim-treesitter",
       -- "nvim-telescope/telescope.nvim", -- Optional
       "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-      {
-        "folke/which-key.nvim",
-        opts = function(_, opts)
-          local wk = require "which-key"
-          wk.add { "<leader>a", group = "ai (CodeCompanion)" }
-        end,
-      },
     },
     keys = {
-      { "<leader>Ca", ":CodeCompanion ", mode = { "n", "x", "v" } },
-      { "<leader>Co", "<cmd>CodeCompanionActions<CR>", desc = "Open Actions" },
-      { "<leader>Cc", "<cmd>CodeCompanionChat<CR>", desc = "Open New Chat Buffer" },
-      { "<leader>Cu", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle Chat Buffer" },
-      { "<leader>C:", ":CodeCompanionCmd ", desc = "Create Neovim commands in commandline mode" },
+      { "<leader>a,", "", desc = "+CodeCompanion", mode = { "n", "v" } },
+      { "<leader>a,a", ":CodeCompanion ", mode = { "n", "x", "v" } },
+      { "<leader>a,o", "<cmd>CodeCompanionActions<CR>", desc = "Open Actions" },
+      { "<leader>a,c", "<cmd>CodeCompanionChat<CR>", desc = "Open New Chat Buffer" },
+      { "<leader>a,u", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle Chat Buffer" },
+      { "<leader>a,:", ":CodeCompanionCmd ", desc = "Create Neovim commands in commandline mode" },
       {
-        "<leader>Cv",
+        "<leader>a,v",
         "<cmd>CodeCompanionChat Add<CR>",
         desc = "Add Selection to Chat Buffer",
         mode = { "n", "x", "v" },
