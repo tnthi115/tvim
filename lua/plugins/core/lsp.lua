@@ -69,6 +69,12 @@ return {
     "neovim/nvim-lspconfig",
     opts = function()
       require("lspconfig.ui.windows").default_options.border = "rounded"
+
+      -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      -- TODO: doesn't work
+      keys[#keys + 1] = { "<c-k>", false }
+      -- keys[#keys + 1] = { "K", require("pretty_hover").hover() }
     end,
   },
   {
