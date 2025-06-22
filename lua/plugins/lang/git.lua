@@ -61,9 +61,6 @@ return {
       sources = {
         default = {
           "conventional_commits", -- add it to the list
-          "lsp",
-          "buffer",
-          "path",
         },
         providers = {
           conventional_commits = {
