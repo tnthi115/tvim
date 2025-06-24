@@ -7,8 +7,14 @@ return {
     event = "LazyFile",
     version = false, -- Never set this value to "*"! Never!
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    build = function()
+      -- conditionally use the correct build system for the current OS
+      if vim.fn.has "win32" == 1 then
+        return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      else
+        return "make"
+      end
+    end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
@@ -50,6 +56,8 @@ return {
     },
     keys = {
       { "<leader>a", "", desc = "ai", mode = { "n", "v", "x" } },
+      { "<leader>ax", "<cmd>AvanteClear<CR>", desc = "avante: clear chat history", mode = { "n", "v", "x" } },
+      -- { "A", false },
     },
     opts = {
       -- add any opts here
@@ -58,6 +66,9 @@ return {
       auto_suggestions_provider = "copilot",
       providers = {
         copilot = {
+          -- TODO: see if this is possible
+          -- default model is gpt-4o-2024-11-24
+          model = "claude-3.7-sonnet", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/supported-ai-models-in-copilot#supported-ai-models-per-copilot-plan
           extra_request_body = {
             temperature = 0,
             max_completion_tokens = 1000000,
@@ -80,6 +91,86 @@ return {
           endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
           model = "mistral:7b-instruct",
         },
+        ["gpt-4o-2024-11-24"] = {
+          __inherited_from = "copilot",
+          display_name = "copilot/gpt-4o-2024-11-24",
+          model = "gpt-4o-2024-11-24",
+        },
+        ["gpt-o3-mini"] = {
+          __inherited_from = "copilot",
+          display_name = "copilot/o3-mini",
+          model = "o3-mini",
+        },
+        -- ["o3"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/o3",
+        --   model = "o3",
+        -- },
+        ["gpt-4.1"] = {
+          __inherited_from = "copilot",
+          display_name = "copilot/gpt-4.1",
+          model = "gpt-4.1",
+        },
+        -- ["gpt-4.5"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gpt-4.5",
+        --   model = "gpt-4.5",
+        -- },
+        -- ["gpt-4o"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gpt-4o",
+        --   model = "gpt-4o",
+        -- },
+        -- ["o1"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/o1",
+        --   model = "o1",
+        -- },
+        -- ["o3-mini"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/o3-mini",
+        --   model = "o3-mini",
+        -- },
+        -- ["o4-mini"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/o4-mini",
+        --   model = "o4-mini",
+        -- },
+        -- ["claude-opus-4"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/claude-opus-4",
+        --   model = "claude-opus-4",
+        -- },
+        ["claude-3.5-sonnet"] = {
+          __inherited_from = "copilot",
+          display_name = "copilot/claude-3.5-sonnet",
+          model = "claude-3.5-sonnet",
+        },
+        -- ["claude-3.7-sonnet"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/claude-3.7-sonnet",
+        --   model = "claude-3.7-sonnet",
+        -- },
+        -- ["claude-3.7-sonnet-thinking"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/claude-3.7-sonnet-thinking",
+        --   model = "claude-3.7-sonnet-thinking",
+        -- },
+        -- ["claude-4-sonnet"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/claude-4-sonnet",
+        --   model = "claude-4-sonnet",
+        -- },
+        -- ["gemini-2.5-pro"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gemini-2.5-pro",
+        --   model = "gemini-2.5-pro",
+        -- },
+        -- ["gemini-2.0-flash"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gemini-2.0-flash",
+        --   model = "gemini-2.0-flash",
+        -- },
       },
       ---Specify the special dual_boost mode
       ---1. enabled: Whether to enable dual_boost mode. Default to false.
