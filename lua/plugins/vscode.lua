@@ -8,12 +8,12 @@ end
 
 -- Add some vscode specific keymaps
 vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyVimKeymapsDefaults",
+  pattern = "LazyVimKeymaps",
   callback = function()
     vim.keymap.set(
       "n",
       "<leader>e",
-      [[<cmd>lua require('vscode').action('workbench.action.toggleSidebarVisibility')<cr>]]
+      [[<cmd>lua require('vscode').action('workbench.action.toggleSidebarVisibility', { args = { when = 'sideBarFocus' })<cr>]]
     )
     vim.keymap.set(
       "n",
@@ -22,5 +22,7 @@ vim.api.nvim_create_autocmd("User", {
     )
     vim.keymap.set("n", "gr", [[<cmd>lua require('vscode').action('editor.action.goToReferences')<cr>]])
     vim.keymap.set("n", "gy", [[<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<cr>]])
+    vim.keymap.set("n", "<leader>gg", [[<cmd>lua require('vscode').action('lazygit-vscode.toggle')<cr>]])
+    -- vim.keymap.set("n", "<c-/>", [[<cmd>lua require('vscode').action('workbench.action.terminal.toggleTerminal')<cr>]])
   end,
 })
