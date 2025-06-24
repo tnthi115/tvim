@@ -45,6 +45,11 @@ return {
       -- layouts: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#picker_layouts
       --   run :lua Snacks.picker.picker_layouts(opts?)
       picker = {
+        sources = {
+          files = { hidden = true },
+          grep = { hidden = true },
+          explorer = { hidden = true },
+        },
         layout = {
           preset = "default", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
         },
