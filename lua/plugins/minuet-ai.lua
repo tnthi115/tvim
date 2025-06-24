@@ -1,5 +1,9 @@
 -- https://github.com/milanglacier/minuet-ai.nvim
 
+if true then
+  return {}
+end
+
 local kind_icons = {
   -- LLM Provider icons
   claude = "󰋦",
