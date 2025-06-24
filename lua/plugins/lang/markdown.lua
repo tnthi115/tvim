@@ -5,10 +5,10 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
-      indent = {
-        enabled = true,
-        skip_heading = true,
-      },
+      -- indent = {
+      --   enabled = true,
+      --   skip_heading = true,
+      -- },
     },
   },
   -- {

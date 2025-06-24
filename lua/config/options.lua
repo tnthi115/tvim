@@ -7,6 +7,7 @@ vim.opt.pumblend = 0
 vim.opt.scrolloff = 8
 vim.opt.swapfile = false
 vim.opt.conceallevel = 1
+vim.cmd [[set breakindent]]
 
 -- LSP Server to use for Python.
 -- Set to "basedpyright" to use basedpyright instead of pyright.
@@ -20,7 +21,7 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazygit_config = false
 
 -- folding
-vim.opt.foldmethod = "expr"
+-- vim.opt.foldmethod = "expr"
 -- vim.opt.foldnestmax = 10
 -- vim.opt.foldlevel = 9
 
