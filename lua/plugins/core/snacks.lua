@@ -47,7 +47,7 @@ return {
       picker = {
         sources = {
           files = { hidden = true },
-          grep = { hidden = true },
+          grep = { hidden = true, layout = "ivy" },
           explorer = { hidden = true },
         },
         layout = {
