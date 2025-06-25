@@ -100,7 +100,7 @@ return {
         ensure_installed = opts.ensure_installed,
         -- This doesn't work when mason-tool-installer is loaded on LspAttach.
         auto_update = true,
-        run_on_start = true,
+        run_on_start = false,
       }
 
       -- -- Create autocommand to automatically update mason packages on the LspAttach event.
