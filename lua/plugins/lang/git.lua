@@ -136,13 +136,6 @@ return {
                       end
                       return default
                     end,
-                    get_documentation = function(item)
-                      local default = require("blink-cmp-git.default.github").mention.get_documentation(item)
-                      default.get_token = function()
-                        return vim.env.GITHUB_TOKEN
-                      end
-                      return default
-                    end,
                   },
                 },
                 gitlab = {
@@ -181,5 +174,11 @@ return {
         },
       },
     },
+  },
+  -- better commit message window
+  {
+    "cvigilv/diferente.nvim",
+    ft = { "gitcommit" },
+    opts = {},
   },
 }
