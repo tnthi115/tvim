@@ -12,13 +12,6 @@
 -- Rounded borders:
 -- https://github.com/LazyVim/LazyVim/issues/2708
 
--- local function toggle_lsp_lines()
---   require("lsp_lines").toggle()
---   local new_value = not vim.diagnostic.config().virtual_text
---   vim.diagnostic.config { virtual_text = new_value }
---   return new_value
--- end
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -115,51 +108,85 @@ return {
       }
     end,
   },
-  -- {
-  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  --   enabled = false,
-  --   event = "LspAttach",
-  --   keys = {
-  --     {
-  --       "<leader>uD",
-  --       toggle_lsp_lines,
-  --       desc = "Toggle lsp_lines Diagnostics",
-  --     },
-  --   },
-  --   config = function()
-  --     require("lsp_lines").setup()
-  --
-  --     vim.diagnostic.config {
-  --       virtual_text = false,
-  --     }
-  --
-  --     -- Disable for certain filetypes
-  --     local disabled_filetypes = { "lazy" }
-  --
-  --     -- TODO: this is maybe jank, but it works for now
-  --
-  --     -- Toggle off lsp_lines when entering lazy
-  --     vim.api.nvim_create_autocmd("FileType", {
-  --       pattern = disabled_filetypes,
-  --       callback = function()
-  --         if vim.bo.filetype == "lazy" and vim.diagnostic.config().virtual_text == false then
-  --           toggle_lsp_lines()
-  --         end
-  --       end,
-  --     })
-  --     -- Toggle lsp_lines back on when leaving lazy
-  --     vim.api.nvim_create_autocmd("BufLeave", {
-  --       callback = function()
-  --         for _, v in ipairs(disabled_filetypes) do
-  --           if vim.bo.filetype == v and vim.diagnostic.config().virtual_text == true then
-  --             toggle_lsp_lines()
-  --             return
-  --           end
-  --         end
-  --       end,
-  --     })
-  --   end,
-  -- },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "LspAttach",
+    -- keys = {
+    --   {
+    --     "<leader>uu",
+    --     Toggle_lsp_lines,
+    --     desc = "Toggle lsp_lines Diagnostics",
+    --   },
+    -- },
+    config = function()
+      require("lsp_lines").setup()
+
+      vim.diagnostic.config {
+        virtual_text = true,
+        virtual_lines = {
+          only_current_line = true,
+          highlight_whole_line = false,
+        },
+      }
+
+      -- -- Disable for certain filetypes
+      -- local disabled_filetypes = { "lazy", "mason" }
+      --
+      -- -- Custom functionality:
+      -- -- Hide LSP virtual text diagnostics and show lsp_lines on the current cursor line only
+      -- Custom_diag_ns = vim.api.nvim_create_namespace "custom_diag_hide_cursor"
+      -- Custom_diag_augroup = vim.api.nvim_create_augroup("custom_diag_hide_cursor", { clear = true })
+      --
+      -- local function create_show_diagnostics_except_cursor_autocmd(disabled_filetypes_list)
+      --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "BufEnter", "InsertLeave" }, {
+      --     group = Custom_diag_augroup,
+      --     callback = function()
+      --       local bufnr = vim.api.nvim_get_current_buf()
+      --       local filetype = vim.bo.filetype
+      --       if vim.tbl_contains(disabled_filetypes_list, filetype) then
+      --         return
+      --       end
+      --       local cursor_line = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed
+      --       vim.diagnostic.hide(Custom_diag_ns, bufnr)
+      --       local diagnostics = vim.diagnostic.get(bufnr)
+      --       local filtered = {}
+      --       for _, d in ipairs(diagnostics) do
+      --         if d.lnum ~= cursor_line then
+      --           table.insert(filtered, d)
+      --         end
+      --       end
+      --       vim.diagnostic.show(Custom_diag_ns, bufnr, filtered, { virtual_text = true, virtual_lines = false })
+      --     end,
+      --   })
+      -- end
+      --
+      -- create_show_diagnostics_except_cursor_autocmd(disabled_filetypes)
+      --
+      -- function Toggle_lsp_lines()
+      --   local config = vim.diagnostic.config()
+      --   if config and config.virtual_lines ~= false then
+      --     -- Switch to lsp_lines state
+      --     require("lsp_lines").toggle()
+      --     vim.diagnostic.config {
+      --       virtual_text = false,
+      --       virtual_lines = {
+      --         only_current_line = true,
+      --         highlight_whole_line = false,
+      --       },
+      --     }
+      --     create_show_diagnostics_except_cursor_autocmd(disabled_filetypes)
+      --   else
+      --     -- Switch to normal virtual_text only state
+      --     require("lsp_lines").toggle()
+      --     vim.diagnostic.config {
+      --       virtual_text = true,
+      --       virtual_lines = false,
+      --     }
+      --     vim.api.nvim_clear_autocmds { group = Custom_diag_augroup }
+      --   end
+      -- end
+    end,
+  },
   -- Stops inactive LSP clients to free RAM.
   -- https://github.com/Zeioth/garbage-day.nvim?tab=readme-ov-file
   {
