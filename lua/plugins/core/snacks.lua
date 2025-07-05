@@ -24,6 +24,13 @@ return {
         end,
         desc = "Grep glob !*pbgo* !*pbswagger*",
       },
+      {
+        "<leader>fz",
+        function()
+          Snacks.picker.zoxide()
+        end,
+        desc = "Zoxide",
+      },
     },
     opts = {
       indent = {
@@ -47,25 +54,32 @@ return {
       picker = {
         sources = {
           files = { hidden = true },
-          grep = { hidden = true, layout = "ivy" },
+          grep = { hidden = true, layout = { preset = "ivy" } },
           explorer = { hidden = true },
+          git_branches = { layout = { preset = "vertical" } },
+          git_diff = { layout = { preset = "default" } },
+          git_log = { layout = { preset = "default" } },
+          git_log_file = { layout = { preset = "default" } },
+          git_log_line = { layout = { preset = "default" } },
+          git_stash = { layout = { preset = "default" } },
+          git_status = { layout = { preset = "default" } },
         },
         layout = {
-          preset = "default", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
+          preset = "ivy", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
         },
-        layouts = {
-          -- default = {
-          --   layout = {
-          --     width = 0.9,
-          --     height = 0.9,
-          --   },
-          -- },
-          ivy = {
-            layout = {
-              height = 0.5,
-            },
-          },
-        },
+        -- layouts = {
+        --   default = {
+        --     layout = {
+        --       width = 0.9,
+        --       height = 0.9,
+        --     },
+        --   },
+        --   ivy = {
+        --     layout = {
+        --       height = 0.5,
+        --     },
+        --   },
+        -- },
         previewers = {
           git = {
             native = true,
@@ -97,20 +111,20 @@ return {
           max_height = 40,
         },
       },
-      styles = {
-        lazygit = {
-          height = 0,
-          width = 0,
-        },
-      },
+      -- styles = {
+      --   lazygit = {
+      --     height = 0,
+      --     width = 0,
+      --   },
+      -- },
       lazygit = {
         -- don't automatically configure lazygit to use the current colorscheme
         -- and integrate edit with the current neovim instance
         configure = false,
-        win = {
-          -- See https://github.com/folke/snacks.nvim/blob/main/docs/styles.md
-          style = "lazygit",
-        },
+        -- win = {
+        --   -- See https://github.com/folke/snacks.nvim/blob/main/docs/styles.md
+        --   style = "lazygit",
+        -- },
       },
     },
   },
