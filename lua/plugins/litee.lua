@@ -1,9 +1,13 @@
 -- https://github.com/ldelossa/litee-calltree.nvim
 
+if true then
+  return {}
+end
+
 return {
   {
     "ldelossa/litee.nvim",
-    event = "LazyFile",
+    event = "LspAttach",
     opts = {
       notify = { enabled = false },
       panel = {

@@ -55,11 +55,11 @@ end, { desc = "Set spaces" })
 --   end)
 -- end
 
-vim.keymap.set("n", "<leader>s.", function()
-  vim.ui.input({ prompt = "Glob pattern: " }, function(input)
-    vim.cmd(string.format("Telescope live_grep glob_pattern=%s", input))
-  end)
-end, { desc = "Live grep with glob pattern" })
+-- vim.keymap.set("n", "<leader>s.", function()
+--   vim.ui.input({ prompt = "Glob pattern: " }, function(input)
+--     vim.cmd(string.format("Telescope live_grep glob_pattern=%s", input))
+--   end)
+-- end, { desc = "Live grep with glob pattern" })
 
 -- Set keymaps for diagnostics like Lunarvim.
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })

@@ -1,7 +1,5 @@
 -- Full spec: https://www.lazyvim.org/plugins/ui#lualinenvim
 
-local Util = require "lazyvim.util"
-
 local colors = {
   bg = "#202328",
   fg = "#bbc2cf",
@@ -165,7 +163,7 @@ return {
         },
       }
       opts.sections.lualine_c = {
-        Util.lualine.root_dir(),
+        require("lazyvim.util").lualine.root_dir(),
         {
           "diff",
           symbols = {

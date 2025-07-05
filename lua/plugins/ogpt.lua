@@ -3,6 +3,7 @@
 
 return {
   "huynle/ogpt.nvim",
+  enabled = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",

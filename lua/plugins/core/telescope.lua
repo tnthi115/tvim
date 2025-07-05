@@ -1,12 +1,16 @@
 -- Full spec: https://www.lazyvim.org/plugins/editor#telescopenvim-optional
 
+if true then
+  return {}
+end
+
 local actions = require "telescope.actions"
 
 return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
-    -- enabled = false,
+    enabled = false,
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
