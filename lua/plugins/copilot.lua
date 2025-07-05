@@ -49,6 +49,8 @@ return {
       },
     },
     opts = {
+      model = "claude-3.7-sonnet",
+      context = { "#buffers" },
       mappings = {
         reset = {
           normal = "<A-l>",
