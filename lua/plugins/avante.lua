@@ -7,14 +7,15 @@ return {
     event = "LazyFile",
     version = false, -- Never set this value to "*"! Never!
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = function()
-      -- conditionally use the correct build system for the current OS
-      if vim.fn.has "win32" == 1 then
-        return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      else
-        return "make"
-      end
-    end,
+    -- build = function()
+    --   -- conditionally use the correct build system for the current OS
+    --   if vim.fn.has "win32" == 1 then
+    --     return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    --   else
+    --     return "make BUILD_FROM_SOURCE=true"
+    --   end
+    -- end,
+    build = "make",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
@@ -59,11 +60,14 @@ return {
       { "<leader>ax", "<cmd>AvanteClear<CR>", desc = "avante: clear chat history", mode = { "n", "v", "x" } },
       -- { "A", false },
     },
+    ---@module 'avante'
+    ---@type avante.Config
     opts = {
       -- add any opts here
       -- for example
       provider = "copilot",
       auto_suggestions_provider = "copilot",
+      -- https://models.dev/
       providers = {
         copilot = {
           -- TODO: see if this is possible
@@ -71,46 +75,83 @@ return {
           model = "claude-3.7-sonnet", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/supported-ai-models-in-copilot#supported-ai-models-per-copilot-plan
           extra_request_body = {
             temperature = 0,
-            max_completion_tokens = 1000000,
-            reasoning_effort = "high", -- low|medium|high, only used for reasoning models
+            -- max_completion_tokens = 1000000,
+            max_completion_tokens = 8192,
+            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
           },
         },
-        openai = {
+        f5gpt = {
           __inherited_from = "openai",
-          endpoint = "https://f5ai.pd.f5net.com/api/chat/completion",
+          endpoint = "https://f5ai.pd.f5net.com/api/",
+          display_name = "f5gpt/gpt-4o",
           model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
           api_key = os.getenv "OPENAI_API_KEY",
-          -- extra_request_body = {
-          --   timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-          --   temperature = 0.75,
-          --   max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-          --   --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-          -- },
+          extra_request_body = {
+            temperature = 0.2,
+            max_completion_tokens = 16384,
+            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+          },
+        },
+        f5gpt1 = {
+          __inherited_from = "openai",
+          endpoint = "https://f5ai.pd.f5net.com/api/",
+          display_name = "f5gpt/gpt-4.1",
+          model = "gpt-4.1", -- your desired model (or use gpt-4o, etc.)
+          api_key = os.getenv "OPENAI_API_KEY",
+          extra_request_body = {
+            temperature = 0.2,
+            max_completion_tokens = 32768,
+            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+          },
+        },
+        f5gpt2 = {
+          __inherited_from = "openai",
+          endpoint = "https://f5ai.pd.f5net.com/api/",
+          display_name = "f5gpt/o3",
+          model = "o3", -- your desired model (or use gpt-4o, etc.)
+          api_key = os.getenv "OPENAI_API_KEY",
+          extra_request_body = {
+            temperature = 0.2,
+            max_completion_tokens = 100000,
+            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+          },
+        },
+        f5gpt3 = {
+          __inherited_from = "openai",
+          endpoint = "https://f5ai.pd.f5net.com/api/",
+          display_name = "f5gpt/gpt-4.1-mini",
+          model = "gpt-4.1-mini", -- your desired model (or use gpt-4o, etc.)
+          api_key = os.getenv "OPENAI_API_KEY",
+          extra_request_body = {
+            temperature = 0.2,
+            max_completion_tokens = 32768,
+            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+          },
         },
         ollama = {
           endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
           model = "mistral:7b-instruct",
         },
-        ["gpt-4o-2024-11-24"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/gpt-4o-2024-11-24",
-          model = "gpt-4o-2024-11-24",
-        },
-        ["gpt-o3-mini"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/o3-mini",
-          model = "o3-mini",
-        },
+        -- ["gpt-4o-2024-11-24"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gpt-4o-2024-11-24",
+        --   model = "gpt-4o-2024-11-24",
+        -- },
+        -- ["gpt-o3-mini"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/o3-mini",
+        --   model = "o3-mini",
+        -- },
         -- ["o3"] = {
         --   __inherited_from = "copilot",
         --   display_name = "copilot/o3",
         --   model = "o3",
         -- },
-        ["gpt-4.1"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/gpt-4.1",
-          model = "gpt-4.1",
-        },
+        -- ["gpt-4.1"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/gpt-4.1",
+        --   model = "gpt-4.1",
+        -- },
         -- ["gpt-4.5"] = {
         --   __inherited_from = "copilot",
         --   display_name = "copilot/gpt-4.5",
@@ -141,11 +182,11 @@ return {
         --   display_name = "copilot/claude-opus-4",
         --   model = "claude-opus-4",
         -- },
-        ["claude-3.5-sonnet"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/claude-3.5-sonnet",
-          model = "claude-3.5-sonnet",
-        },
+        -- ["claude-3.5-sonnet"] = {
+        --   __inherited_from = "copilot",
+        --   display_name = "copilot/claude-3.5-sonnet",
+        --   model = "claude-3.5-sonnet",
+        -- },
         -- ["claude-3.7-sonnet"] = {
         --   __inherited_from = "copilot",
         --   display_name = "copilot/claude-3.7-sonnet",
