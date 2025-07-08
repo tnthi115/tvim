@@ -8,9 +8,9 @@ return {
       { "<leader>ax", mode = { "n", "v" }, false },
       { "<leader>aq", mode = { "n", "v" }, false },
       { "<leader>ap", mode = { "n", "v" }, false },
-      { "<leader>a.", "", desc = "+CopilotChat", mode = { "n", "v" } },
+      { "<leader>O", "", desc = "+copilotchat ai", mode = { "n", "v" } },
       {
-        "<leader>a.a",
+        "<leader>Oa",
         function()
           return require("CopilotChat").toggle()
         end,
@@ -18,7 +18,7 @@ return {
         mode = { "n", "v" },
       },
       {
-        "<leader>a.x",
+        "<leader>Ox",
         function()
           return require("CopilotChat").reset()
         end,
@@ -26,7 +26,7 @@ return {
         mode = { "n", "v" },
       },
       {
-        "<leader>a.q",
+        "<leader>Oq",
         function()
           vim.ui.input({
             prompt = "Quick Chat: ",
@@ -40,7 +40,7 @@ return {
         mode = { "n", "v" },
       },
       {
-        "<leader>a.p",
+        "<leader>Op",
         function()
           require("CopilotChat").select_prompt()
         end,

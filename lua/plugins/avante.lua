@@ -56,7 +56,7 @@ return {
       },
     },
     keys = {
-      { "<leader>a", "", desc = "ai", mode = { "n", "v", "x" } },
+      { "<leader>a", "", desc = "avante ai", mode = { "n", "v", "x" } },
       { "<leader>ax", "<cmd>AvanteClear<CR>", desc = "avante: clear chat history", mode = { "n", "v", "x" } },
       -- { "A", false },
     },

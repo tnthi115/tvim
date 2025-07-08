@@ -1,6 +1,10 @@
 -- https://github.com/David-Kunz/gen.nvim
 -- ollama integration
 
+if true then
+  return {}
+end
+
 return {
   "David-Kunz/gen.nvim",
   dependencies = {
