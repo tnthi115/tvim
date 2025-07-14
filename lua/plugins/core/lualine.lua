@@ -123,6 +123,16 @@ return {
     -- },
     event = "VeryLazy",
     opts = function(_, opts)
+      -- TODO: add this config to debugmaster.lua
+      -- source: https://github.com/miroshQa/dotfiles/blob/2cb9dc3368b1ac0982f26af724db8eac073ba55c/nvim/lua/plugins/lualine.lua#L25C1-L47C1
+      local dmode_enabled = false
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "DebugModeChanged",
+        callback = function(args)
+          dmode_enabled = args.data.enabled
+        end,
+      })
+
       local icons = LazyVim.config.icons
 
       local attached_clients = {
@@ -149,7 +159,11 @@ return {
             -- return " " .. "󰒲" .. " "
           end,
           padding = { left = 0, right = 0 },
-          color = {},
+          -- color = {},
+          -- TODO: add this config to debugmaster.lua
+          color = function(tb)
+            return dmode_enabled and "dCursor" or tb
+          end,
           cond = nil,
         },
         -- nvim-remote
