@@ -234,19 +234,37 @@ return {
   {
     "jmbuhr/otter.nvim",
     -- event = "LspAttach",
+    ft = { "markdown" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
+    cmd = { "OtterActivate", "OtterDeactivate", "OtterExport", "OtterExportAs" },
     keys = {
       {
-        "<leader>cO",
+        "<leader>cuo",
         function()
           require("otter").activate()
         end,
+        desc = "Activate Otter",
       },
-      desc = "Activate Otter",
+      {
+        "<leader>cuO",
+        function()
+          require("otter").deactivate()
+        end,
+        desc = "Deactivate Otter",
+      },
     },
-    opts = {},
+    config = true,
+    opts = function(_, opts)
+      -- Activate Otter when entering a markdown file
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function()
+          require("otter").activate()
+        end,
+      })
+    end,
   },
   -- https://github.com/kosayoda/nvim-lightbulb
   -- {
