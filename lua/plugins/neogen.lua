@@ -7,7 +7,7 @@ return {
     "danymat/neogen",
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
-    event = "LspAttach",
+    -- event = "LspAttach",
     dependencies = "nvim-treesitter/nvim-treesitter",
     -- stylua: ignore
     -- keys = {

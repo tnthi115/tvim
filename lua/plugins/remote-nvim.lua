@@ -7,16 +7,10 @@ return {
     "nvim-lua/plenary.nvim", -- For standard functions
     "MunifTanjim/nui.nvim", -- To build the plugin UI
     -- "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        local wk = require "which-key"
-        wk.add { "<leader>R", group = "remote" }
-      end,
-    },
   },
   cmd = { "RemoteStart", "RemoteStop", "RemoteInfo", "RemoteCleanup", "RemoteConfigDel", "RemoteLog" },
   keys = {
+    { "<leader>R", "", desc = "remote" },
     { "<leader>Rs", "<cmd>RemoteStart<CR>", desc = "RemoteStart" },
     { "<leader>RS", "<cmd>RemoteStop<CR>", desc = "RemoteStop" },
     { "<leader>Ri", "<cmd>RemoteInfo<CR>", desc = "RemoteInfo" },

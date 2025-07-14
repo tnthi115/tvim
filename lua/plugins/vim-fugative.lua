@@ -3,7 +3,7 @@
 return {
   {
     "tpope/vim-fugitive",
-    event = "LazyFile",
+    -- event = "LazyFile",
     keys = {
       { "<leader>gF", "<cmd>Git<CR>", desc = "Fugitive" },
     },

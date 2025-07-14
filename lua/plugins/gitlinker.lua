@@ -2,17 +2,9 @@
 
 return {
   "linrongbin16/gitlinker.nvim",
-  dependencies = {
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        local wk = require "which-key"
-        wk.add { "<leader>gk", group = "gitlinker", mode = { "n", "v" } }
-      end,
-    },
-  },
   cmd = "GitLink",
   keys = {
+    { mode = { "n", "v" }, "<leader>gk", "", desc = "gitlinker" },
     { mode = { "n", "v" }, "<leader>gkl", "<cmd>GitLink<CR>", desc = "Copy /blob URL to Clipboard" },
     { mode = { "n", "v" }, "<leader>gkL", "<cmd>GitLink!<CR>", desc = "Open /blob URL in Browser" },
     { mode = { "n", "v" }, "<leader>gkb", "<cmd>GitLink blame<CR>", desc = "Copy /blame URL to Clipboard" },

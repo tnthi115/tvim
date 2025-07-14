@@ -4,17 +4,9 @@ return {
   "mistricky/codesnap.nvim",
   build = "make",
   version = "^1",
-  dependencies = {
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        local wk = require "which-key"
-        wk.add { "<leader>cz", group = "codesnap", mode = { "n", "v" } }
-      end,
-    },
-  },
   cmd = { "CodeSnap", "CodeSnapSave" },
   keys = {
+    { mode = { "n", "v" }, "<leader>cz", "", desc = "codesnap" },
     { mode = { "n", "v" }, "<leader>czs", ":CodeSnap<CR>", desc = "Copy Code Snapshot" },
     { mode = { "n", "v" }, "<leader>czS", ":CodeSnapSave<CR>", desc = "Save Code Snapshot" },
   },

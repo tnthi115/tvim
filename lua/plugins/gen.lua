@@ -7,18 +7,10 @@ end
 
 return {
   "David-Kunz/gen.nvim",
-  dependencies = {
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        local wk = require "which-key"
-        wk.add { "<leader>G", group = "gen", mode = { "n", "v" } }
-      end,
-    },
-  },
   cmd = "Gen",
   -- stylua: ignore
   keys = {
+    { mode = { "n", "v" }, "<leader>G", "", desc = "gen" },
     { mode = { "n" }, "<leader>Gm", "<cmd>lua require('gen').select_model()<CR>", desc = "Select Model" },
     -- I'm not sure why yet, but using : instead of <cmd> allows for the visual selection to work.
     { mode = { "n", "v" }, "<leader>Gg", ":Gen<CR>", desc = "Gen" },

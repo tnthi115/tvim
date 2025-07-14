@@ -9,15 +9,6 @@ return {
     requires = "nvim-lua/plenary.nvim",
     -- Optional: needed for PHP when using the cobertura parser
     rocks = { "lua-xmlreader" },
-    dependencies = {
-      {
-        "folke/which-key.nvim",
-        opts = function(_, opts)
-          local wk = require "which-key"
-          wk.add { "<leader>jv", group = "code coverage" }
-        end,
-      },
-    },
     cmd = {
       "Coverage",
       "CoverageHide",
@@ -29,12 +20,13 @@ return {
       "CoverageLoadLcov",
     },
     keys = {
-      { "<leader>jvc", "<cmd>Coverage<CR>", desc = "Load and Display Coverage Report", ft = filetypes },
-      { "<leader>jvl", "<cmd>CoverageLoad<CR>", desc = "Load Coverage Report", ft = filetypes },
-      { "<leader>jvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
-      { "<leader>jvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
-      { "<leader>jvq", "<cmd>CoverageClear<CR>", desc = "Unload Cached Coverage Signs", ft = filetypes },
-      { "<leader>jvs", "<cmd>CoverageSummary<CR>", desc = "Coverage Summary", ft = filetypes },
+      { "<leader>mv", "", desc = "code coverage", ft = filetypes },
+      { "<leader>mvc", "<cmd>Coverage<CR>", desc = "Load and Display Coverage Report", ft = filetypes },
+      { "<leader>mvl", "<cmd>CoverageLoad<CR>", desc = "Load Coverage Report", ft = filetypes },
+      { "<leader>mvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
+      { "<leader>mvt", "<cmd>CoverageToggle<CR>", desc = "Toggle Coverage Signs", ft = filetypes },
+      { "<leader>mvq", "<cmd>CoverageClear<CR>", desc = "Unload Cached Coverage Signs", ft = filetypes },
+      { "<leader>mvs", "<cmd>CoverageSummary<CR>", desc = "Coverage Summary", ft = filetypes },
     },
     opts = {
       commands = true, -- create commands

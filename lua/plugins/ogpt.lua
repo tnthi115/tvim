@@ -1,6 +1,10 @@
 -- https://github.com/huynle/ogpt.nvim
 -- opgt - fork of jackMort/ChatGPT.nvim that uses ollama
 
+if true then
+  return {}
+end
+
 return {
   "huynle/ogpt.nvim",
   enabled = false,
@@ -8,17 +12,11 @@ return {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",
     -- "nvim-telescope/telescope.nvim",
-    {
-      "folke/which-key.nvim",
-      opts = function(_, opts)
-        local wk = require "which-key"
-        wk.add { "<leader>o", group = "ogpt", mode = { "n", "v" } }
-      end,
-    },
   },
   cmd = { "OGPT", "OGPTActAs", "OGPTCompleteCode", "OGPTFocus", "OGPTRun" },
   -- stylua: ignore
   keys = {
+    { mode = { "n", "v" }, "<leader>o", "", desc = "ogpt" },
     { mode = { "n", "v" }, "<leader>oo", "<cmd>OGPT<CR>", desc = "OGPT" },
     { mode = { "n", "v" }, "<leader>of", "<cmd>OGPTFocus<CR>", desc = "OGPTFocus" },
     { mode = { "n", "v" }, "<leader>oa", "<cmd>OGPTActAs<CR>", desc = "OGPTActAs" },

@@ -3,16 +3,8 @@ return {
   {
     "ibhagwan/fzf-lua",
     optional = true,
-    dependencies = {
-      {
-        "folke/which-key.nvim",
-        opts = function(_, opts)
-          local wk = require "which-key"
-          wk.add { "<leader>s/", group = "Grep with glob" }
-        end,
-      },
-    },
     keys = {
+      { "<leader>s/", "", desc = "Grep with glob" },
       { "<leader>s//", "<cmd>FzfLua live_grep_glob<CR>", desc = "Grep with glob" },
       {
         "<leader>s/m",

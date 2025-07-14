@@ -5,7 +5,8 @@ return {
   enabled = false,
   cmd = { "GitBlameToggle", "GitBlameEnable", "GitBlameDisable" },
   keys = {
-    { "<leader>uB", "<cmd>GitBlameToggle<CR>", desc = "Toggle Git Blame Virtual Text" },
+    { "<leader>gu", "", desc = "ui/toggles" },
+    { "<leader>guB", "<cmd>GitBlameToggle<CR>", desc = "Toggle Git Blame Virtual Text" },
     { "<leader>gB", "<cmd>GitBlameEnable<CR>", desc = "Enable Git Blame Virtual Text" },
   },
   opts = {

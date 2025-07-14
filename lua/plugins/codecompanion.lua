@@ -4,7 +4,7 @@ return {
   {
     "olimorris/codecompanion.nvim",
     enabled = true,
-    event = "LazyFile",
+    -- event = "LazyFile",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",

@@ -1,7 +1,7 @@
 return {
   {
     "akinsho/git-conflict.nvim",
-    event = "LazyFile",
+    event = "GitConflictDetected",
     version = "*",
     command = {
       "GitConflictChooseOurs",
@@ -11,6 +11,9 @@ return {
       "GitConflictNextConflict",
       "GitConflictPrevConflict",
       "GitConflictListQf",
+    },
+    keys = {
+      { "<leader>ghc", "<cmd>GitConflictListQf", desc = "Git Conflict List" },
     },
     config = function()
       require("git-conflict").setup {}
