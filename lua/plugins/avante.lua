@@ -4,7 +4,7 @@ return {
   {
     "yetone/avante.nvim",
     enabled = true,
-    event = "LazyFile",
+    -- event = "LazyFile",
     version = false, -- Never set this value to "*"! Never!
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- build = function()
@@ -32,7 +32,7 @@ return {
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         opts = {
           -- recommended settings
           default = {
@@ -45,6 +45,10 @@ return {
             use_absolute_path = true,
           },
         },
+        keys = {
+          -- suggested keymap
+          { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+        },
       },
       {
         -- Make sure to set this up properly if you have lazy=true
@@ -53,6 +57,44 @@ return {
           file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
+      },
+      -- https://github.com/ravitemer/mcphub.nvim
+      {
+        "ravitemer/mcphub.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+        },
+        build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
+        cmd = "MCPHub",
+        keys = {
+          { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
+        },
+        config = function()
+          require("mcphub").setup()
+        end,
+      },
+      {
+        "saghen/blink.cmp",
+        event = "BufRead Avante",
+        dependencies = {
+          "Kaiser-Yang/blink-cmp-avante",
+          -- ... Other dependencies
+        },
+        opts = {
+          sources = {
+            -- Add 'avante' to the list
+            default = { "avante" },
+            providers = {
+              avante = {
+                module = "blink-cmp-avante",
+                name = "Avante",
+                opts = {
+                  -- options for blink-cmp-avante
+                },
+              },
+            },
+          },
+        },
       },
     },
     keys = {
@@ -132,86 +174,6 @@ return {
           endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
           model = "mistral:7b-instruct",
         },
-        -- ["gpt-4o-2024-11-24"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gpt-4o-2024-11-24",
-        --   model = "gpt-4o-2024-11-24",
-        -- },
-        -- ["gpt-o3-mini"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/o3-mini",
-        --   model = "o3-mini",
-        -- },
-        -- ["o3"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/o3",
-        --   model = "o3",
-        -- },
-        -- ["gpt-4.1"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gpt-4.1",
-        --   model = "gpt-4.1",
-        -- },
-        -- ["gpt-4.5"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gpt-4.5",
-        --   model = "gpt-4.5",
-        -- },
-        -- ["gpt-4o"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gpt-4o",
-        --   model = "gpt-4o",
-        -- },
-        -- ["o1"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/o1",
-        --   model = "o1",
-        -- },
-        -- ["o3-mini"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/o3-mini",
-        --   model = "o3-mini",
-        -- },
-        -- ["o4-mini"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/o4-mini",
-        --   model = "o4-mini",
-        -- },
-        -- ["claude-opus-4"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/claude-opus-4",
-        --   model = "claude-opus-4",
-        -- },
-        -- ["claude-3.5-sonnet"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/claude-3.5-sonnet",
-        --   model = "claude-3.5-sonnet",
-        -- },
-        -- ["claude-3.7-sonnet"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/claude-3.7-sonnet",
-        --   model = "claude-3.7-sonnet",
-        -- },
-        -- ["claude-3.7-sonnet-thinking"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/claude-3.7-sonnet-thinking",
-        --   model = "claude-3.7-sonnet-thinking",
-        -- },
-        -- ["claude-4-sonnet"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/claude-4-sonnet",
-        --   model = "claude-4-sonnet",
-        -- },
-        -- ["gemini-2.5-pro"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gemini-2.5-pro",
-        --   model = "gemini-2.5-pro",
-        -- },
-        -- ["gemini-2.0-flash"] = {
-        --   __inherited_from = "copilot",
-        --   display_name = "copilot/gemini-2.0-flash",
-        --   model = "gemini-2.0-flash",
-        -- },
       },
       ---Specify the special dual_boost mode
       ---1. enabled: Whether to enable dual_boost mode. Default to false.
@@ -241,29 +203,46 @@ return {
         -- Examples:
         -- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
         -- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
+
+        -- Avante integration
+        -- system_prompt as function ensures LLM always has latest MCP server state
+        -- This is evaluated for every message, even in existing chats
+        system_prompt = function()
+          local hub = require("mcphub").get_hub_instance()
+          return hub and hub:get_active_servers_prompt() or ""
+        end,
+        -- Using function prevents requiring mcphub before it's loaded
+        custom_tools = function()
+          return {
+            require("mcphub.extensions.avante").mcp_tool(),
+          }
+        end,
       },
     },
   },
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      "Kaiser-Yang/blink-cmp-avante",
-      -- ... Other dependencies
-    },
-    opts = {
-      sources = {
-        -- Add 'avante' to the list
-        default = { "avante" },
-        providers = {
-          avante = {
-            module = "blink-cmp-avante",
-            name = "Avante",
-            opts = {
-              -- options for blink-cmp-avante
-            },
-          },
-        },
-      },
-    },
-  },
+  --   {
+  --     "yetone/avante.nvim",
+  --     dependencies = {
+  --       -- other dependencies
+  --       "takeshid/avante-status.nvim",
+  --     },
+  --     opts = function(_, opts)
+  --       opts.provider = require("avante-status").get_chat_provider {
+  --         "copilot",
+  --         "openai",
+  --       }
+  --       opts.auto_suggestions_provider = require("avante-status").get_suggestions_provider {
+  --         "copilot",
+  --         "openai",
+  --       }
+  --     end,
+  --   },
+  --   {
+  --     "nvim-lualine/lualine.nvim",
+  --     optional = true,
+  --     event = "VeryLazy",
+  --     opts = function(_, opts)
+  --       table.insert(opts.sections.lualine_x, 2, require("avante-status.lualine").chat_component)
+  --     end,
+  --   },
 }
