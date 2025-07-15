@@ -1,7 +1,7 @@
 return {
   {
     "akinsho/git-conflict.nvim",
-    event = "GitConflictDetected",
+    event = "VeryLazy",
     version = "*",
     command = {
       "GitConflictChooseOurs",
