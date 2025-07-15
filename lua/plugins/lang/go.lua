@@ -20,10 +20,10 @@ return {
     opts = {
       servers = {
         gopls = {
-          keys = {
-            -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-            { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
-          },
+          -- keys = {
+          --   -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
+          --   { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+          -- },
           settings = {
             gopls = {
               gofumpt = true,
@@ -185,7 +185,7 @@ return {
         pattern = { "go" },
         callback = function()
           wk.add {
-            "<leader>j",
+            "<leader>m",
             mode = { "n", "v" },
             group = "go",
             icon = { icon = require("mini.icons").get("filetype", "go"), color = "azure" },
@@ -199,17 +199,21 @@ return {
     ft = go_filetypes,
     keys = {
       {
-        "<leader>jg",
+        "<leader>mg",
         mode = { "n", "v" },
         ft = go_filetypes,
-        "<cmd>lua require('conform').format({formatters = {'golines'}})<CR>",
+        function()
+          require("conform").format { formatters = { "golines" } }
+        end,
         desc = "Format with golines",
       },
       {
-        "<leader>jf",
+        "<leader>mf",
         mode = { "n", "v" },
         ft = go_filetypes,
-        "<cmd>lua require('conform').format({formatters = {'gofumpt', 'goimports-reviser'}})<CR>",
+        function()
+          require("conform").format { formatters = { "gofumpt", "goimports-reviser" } }
+        end,
         desc = "Format with gofumpt and goimports-reviser",
       },
     },
@@ -228,7 +232,8 @@ return {
           end
 
           if is_in_work_dir then
-            return { "goimports", "gofmt" }
+            -- return { "goimports", "gofmt" }
+            return { "goimports" }
           else
             return { "goimports-reviser", "gofumpt", "golines" }
           end
@@ -240,19 +245,23 @@ return {
     "nvim-neotest/neotest",
     ft = go_filetypes,
     dependencies = {
-      "nvim-neotest/neotest-go",
+      -- "nvim-neotest/neotest-go",
       -- neotest-golang
       -- "antoinemadec/FixCursorHold.nvim",
-      -- "fredrikaverpil/neotest-golang",
+      "fredrikaverpil/neotest-golang",
     },
     opts = {
       adapters = {
-        ["neotest-go"] = {
-          -- Here we can set options for neotest-go, e.g.
-          -- args = { "-tags=integration" }
-          recursive_run = true,
+        -- ["neotest-go"] = {
+        --   -- Here we can set options for neotest-go, e.g.
+        --   -- args = { "-tags=integration" }
+        --   recursive_run = true,
+        -- },
+        ["neotest-golang"] = {
+          -- Here we can set options for neotest-golang, e.g.
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
         },
-        -- ["neotest-golang"] = {},
       },
     },
   },
@@ -265,22 +274,24 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     keys = {
-      { "<leader>jt", ft = go_filetypes, "<cmd>GoMod tidy<CR>", desc = "Tidy" },
-      { "<leader>ja", ft = go_filetypes, "<cmd>GoTestAdd<CR>", desc = "Add Test" },
-      { "<leader>jA", ft = go_filetypes, "<cmd>GoTestsAll<CR>", desc = "Add All Tests" },
-      { "<leader>jE", ft = go_filetypes, "<cmd>GoTestsExp<CR>", desc = "Add Exported Tests" },
-      { "<leader>jG", ft = go_filetypes, "<cmd>GoGenerate<CR>", desc = "Go Generate" },
-      { "<leader>jF", ft = go_filetypes, "<cmd>GoGenerate %<CR>", desc = "Go Generate File" },
-      { "<leader>jc", ft = go_filetypes, "<cmd>GoCmt<CR>", desc = "Generate Comment" },
-      { "<leader>je", ft = go_filetypes, "<cmd>GoIfErr<CR>", desc = "Generate iferr" },
-      { "<leader>jT", ft = go_filetypes, "<cmd>GoTagAdd proto<CR>", desc = "Add Protobuf Tags" },
+      { "<leader>mt", ft = go_filetypes, "<cmd>GoMod tidy<CR>", desc = "Tidy" },
+      { "<leader>ma", ft = go_filetypes, "<cmd>GoTestAdd<CR>", desc = "Add Test" },
+      { "<leader>mA", ft = go_filetypes, "<cmd>GoTestsAll<CR>", desc = "Add All Tests" },
+      { "<leader>mE", ft = go_filetypes, "<cmd>GoTestsExp<CR>", desc = "Add Exported Tests" },
+      { "<leader>mG", ft = go_filetypes, "<cmd>GoGenerate<CR>", desc = "Go Generate" },
+      { "<leader>mF", ft = go_filetypes, "<cmd>GoGenerate %<CR>", desc = "Go Generate File" },
+      { "<leader>mc", ft = go_filetypes, "<cmd>GoCmt<CR>", desc = "Generate Comment" },
+      { "<leader>me", ft = go_filetypes, "<cmd>GoIfErr<CR>", desc = "Generate iferr" },
+      { "<leader>mT", ft = go_filetypes, "<cmd>GoTagAdd proto<CR>", desc = "Add Protobuf Tags" },
       {
-        "<leader>jd",
+        "<leader>md",
         ft = go_filetypes,
-        "<cmd>lua require('dap-go').debug_test()<CR>",
+        function()
+          require("gopher.dap").debug_test()
+        end,
         desc = "Debug Go Test",
       },
-      { "<leader>ji", ft = go_filetypes, "<cmd>GoImpl<CR>", desc = "Impl" },
+      { "<leader>mi", ft = go_filetypes, "<cmd>GoImpl<CR>", desc = "Impl" },
     },
     config = function()
       local gopher_ok, gopher = pcall(require, "gopher")
@@ -376,6 +387,7 @@ return {
       },
     },
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("quicktest").setup {
         adapters = {
           require "quicktest.adapters.golang",
@@ -411,6 +423,7 @@ return {
     },
   },
   -- This doesn't work unfortunately
+  -- use https://github.com/Bparsons0904/phantom-err.nvim instead
   -- {
   --   "Snyssfx/goerr-nvim",
   --   ft = { "go" },
@@ -422,4 +435,22 @@ return {
   --     vim.opt.softtabstop = 2
   --   end,
   -- },
+  {
+    "maxandron/goplements.nvim",
+    ft = "go",
+    cmd = { "GoplementEnable", "GoplementDisable", "GoplementToggle" },
+    keys = {
+      { "<leader>mu", ft = go_filetypes, "", desc = "ui/toggles" },
+      { "<leader>mug", ft = go_filetypes, "<cmd>GoplementToggle<CR>", desc = "Toggle Goplements" },
+    },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      -- Whether to display the package name along with the type name (i.e., builtins.error vs error)
+      display_package = false,
+      -- The default links to DiagnosticHint
+      highlight = "LspInlayHint",
+    },
+  },
 }
