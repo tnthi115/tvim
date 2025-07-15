@@ -30,40 +30,10 @@ return {
       "folke/snacks.nvim", -- for input provider snacks
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "zbirenbaum/copilot.lua", -- for providers='copilot'
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-        keys = {
-          -- suggested keymap
-          { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
     },
     keys = {
       { "<leader>a", "", desc = "avante ai", mode = { "n", "v", "x" } },
       { "<leader>ax", "<cmd>AvanteClear<CR>", desc = "avante: clear chat history", mode = { "n", "v", "x" } },
-      -- { "A", false },
     },
     ---@module 'avante'
     ---@type avante.Config
@@ -166,21 +136,20 @@ return {
         -- Examples:
         -- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
         -- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
-
-        -- Avante integration
-        -- system_prompt as function ensures LLM always has latest MCP server state
-        -- This is evaluated for every message, even in existing chats
-        system_prompt = function()
-          local hub = require("mcphub").get_hub_instance()
-          return hub and hub:get_active_servers_prompt() or ""
-        end,
-        -- Using function prevents requiring mcphub before it's loaded
-        custom_tools = function()
-          return {
-            require("mcphub.extensions.avante").mcp_tool(),
-          }
-        end,
       },
+      -- Avante integration
+      -- system_prompt as function ensures LLM always has latest MCP server state
+      -- This is evaluated for every message, even in existing chats
+      system_prompt = function()
+        local hub = require("mcphub").get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ""
+      end,
+      -- Using function prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
     },
   },
   {
@@ -218,8 +187,42 @@ return {
       { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
     },
     config = function()
-      require("mcphub").setup()
+      ---@diagnostic disable-next-line: missing-fields
+      require("mcphub").setup {
+        extensions = {
+          avante = {
+            make_slash_commands = true, -- make /slash commands from MCP server prompts
+          },
+        },
+      }
     end,
+  },
+  {
+    -- support for image pasting
+    "HakonHarnes/img-clip.nvim",
+    keys = {
+      { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+    },
+    opts = {
+      -- recommended settings
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        -- required for Windows users
+        use_absolute_path = true,
+      },
+    },
+  },
+  {
+    -- Make sure to set this up properly if you have lazy=true
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "Avante" },
+    opts = {
+      file_types = { "markdown", "Avante" },
+    },
   },
   --   {
   --     "yetone/avante.nvim",

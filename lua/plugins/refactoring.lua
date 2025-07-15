@@ -3,63 +3,168 @@
 -- Now managed by LazyExtras
 -- Full spec: https://www.lazyvim.org/extras/editor/refactoring
 
+local pick = function()
+  local refactoring = require "refactoring"
+  if LazyVim.pick.picker.name == "telescope" then
+    return require("telescope").extensions.refactoring.refactors()
+  elseif LazyVim.pick.picker.name == "fzf" then
+    local fzf_lua = require "fzf-lua"
+    local results = refactoring.get_refactors()
+
+    local opts = {
+      fzf_opts = {},
+      fzf_colors = true,
+      actions = {
+        ["default"] = function(selected)
+          refactoring.refactor(selected[1])
+        end,
+      },
+    }
+    fzf_lua.fzf_exec(results, opts)
+  else
+    refactoring.select_refactor()
+  end
+end
+
 return {
-  "ThePrimeagen/refactoring.nvim",
-  -- dependencies = {
-  --   "nvim-lua/plenary.nvim",
-  --   "nvim-treesitter/nvim-treesitter",
-  --   {
-  --     "folke/which-key.nvim",
-  --     opts = function(_, opts)
-  -- local wk = require "which-key"
-  -- wk.add { "<leader>r", group = "refactoring" }
-  --     end,
-  --   },
-  -- },
-  cmd = "Refactor",
-  -- stylua: ignore
-  -- keys = {
-  --   -- Refactoring Operations
-  --   -- Prompt for a refactor to apply when the remap is triggered.
-  --   ---@diagnostic disable-next-line: missing-parameter
-  --   { mode = {"n", "x"}, "<leader>rr", function() require('refactoring').select_refactor() end, desc = "Select Refactor" },
-  --   { mode = "x", "<leader>re", function() require('refactoring').refactor('Extract Function') end, desc = "Extract Function" },
-  --   { mode = "x", "<leader>rf", function() require('refactoring').refactor('Extract Function To File') end, desc = "Extract Function To File" },
-  --   { mode = "x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end, desc = "Extract Variable" },
-  --   { mode = "x", "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, desc = "Inline Variable" },
-  --   { mode = "n", "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, desc = "Inline Variable" },
-  --   { mode = "n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end, desc = "Extract Block" },
-  --   { mode = "n", "<leader>rB", function() require('refactoring').refactor('Extract Block To File') end, desc = "Extract Block To File" },
-  --   -- Debug Operations
-  --   ---@diagnostic disable-next-line: missing-fields
-  --   { mode = "n", "<leader>rP", function() require('refactoring').debug.printf({below = false}) end, desc = "Printf" },
-  --   ---@diagnostic disable-next-line: missing-parameter
-  --   { mode = {"x", "n"}, "<leader>rp", function() require('refactoring').debug.print_var() end, desc = "Print Variable" },
-  --   ---@diagnostic disable-next-line: missing-fields
-  --   { mode = "n", "<leader>rc", function() require('refactoring').debug.cleanup({}) end, desc = "Cleanup Print Statements" },
-  -- },
-  -- opts = {
-  --   prompt_func_return_type = {
-  --     go = true,
-  --     java = true,
-  --     cpp = true,
-  --     c = true,
-  --     h = false,
-  --     hpp = false,
-  --     cxx = false,
-  --   },
-  --   prompt_func_param_type = {
-  --     go = true,
-  --     java = true,
-  --     cpp = true,
-  --     c = true,
-  --     h = false,
-  --     hpp = false,
-  --     cxx = false,
-  --   },
-  --   printf_statements = {},
-  --   print_var_statements = {},
-  --   show_success_message = true, -- shows a message with information about the refactor on success
-  --   --                           -- i.e. [Refactor] Inlined 3 variable occurrences
-  -- },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    -- event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = "Refactor",
+    keys = {
+      { "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
+      {
+        "<leader>rs",
+        pick,
+        mode = { "n", "x" },
+        desc = "Refactor",
+      },
+      {
+        "<leader>ri",
+        function()
+          return require("refactoring").refactor "Inline Variable"
+        end,
+        mode = { "n", "x" },
+        desc = "Inline Variable",
+        expr = true,
+      },
+      {
+        "<leader>rb",
+        function()
+          return require("refactoring").refactor "Extract Block"
+        end,
+        mode = { "n", "x" },
+        desc = "Extract Block",
+        expr = true,
+      },
+      {
+        "<leader>rf",
+        function()
+          require("refactoring").refactor "Extract Block To File"
+        end,
+        mode = { "n", "x" },
+        desc = "Extract Block To File",
+        expr = true,
+      },
+      {
+        "<leader>rP",
+        function()
+          return require("refactoring").debug.printf { below = false }
+        end,
+        mode = { "n", "x" },
+        desc = "Debug Print",
+        expr = true,
+      },
+      {
+        "<leader>rp",
+        function()
+          return require("refactoring").debug.print_var { normal = true }
+        end,
+        mode = { "n", "x" },
+        desc = "Debug Print Variable",
+        expr = true,
+      },
+      {
+        "<leader>rc",
+        function()
+          return require("refactoring").debug.cleanup {}
+        end,
+        mode = { "n", "x" },
+        desc = "Debug Cleanup",
+        expr = true,
+      },
+      {
+        "<leader>rf",
+        function()
+          return require("refactoring").refactor "Extract Function"
+        end,
+        mode = { "n", "x" },
+        desc = "Extract Function",
+        expr = true,
+      },
+      {
+        "<leader>rF",
+        function()
+          return require("refactoring").refactor "Extract Function To File"
+        end,
+        mode = { "n", "x" },
+        desc = "Extract Function To File",
+        expr = true,
+      },
+      {
+        "<leader>rx",
+        function()
+          return require("refactoring").refactor "Extract Variable"
+        end,
+        mode = { "n", "x" },
+        desc = "Extract Variable",
+        expr = true,
+      },
+      {
+        "<leader>rp",
+        function()
+          return require("refactoring").debug.print_var()
+        end,
+        mode = { "n", "x" },
+        desc = "Debug Print Variable",
+        expr = true,
+      },
+    },
+    opts = {
+      prompt_func_return_type = {
+        go = false,
+        java = false,
+        cpp = false,
+        c = false,
+        h = false,
+        hpp = false,
+        cxx = false,
+      },
+      prompt_func_param_type = {
+        go = false,
+        java = false,
+        cpp = false,
+        c = false,
+        h = false,
+        hpp = false,
+        cxx = false,
+      },
+      printf_statements = {},
+      print_var_statements = {},
+      show_success_message = true, -- shows a message with information about the refactor on success
+      -- i.e. [Refactor] Inlined 3 variable occurrences
+    },
+    config = function(_, opts)
+      require("refactoring").setup(opts)
+      if LazyVim.has "telescope.nvim" then
+        LazyVim.on_load("telescope.nvim", function()
+          require("telescope").load_extension "refactoring"
+        end)
+      end
+    end,
+  },
 }
