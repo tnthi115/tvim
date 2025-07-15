@@ -55,7 +55,10 @@ return {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      { "disrupted/blink-cmp-conventional-commits" },
+      {
+        "disrupted/blink-cmp-conventional-commits",
+        ft = { "gitcommit", "NeogitCommitMessage" },
+      },
     },
     opts = {
       sources = {
@@ -83,7 +86,7 @@ return {
     dependencies = {
       {
         "Kaiser-Yang/blink-cmp-git",
-        -- ft = { "gitcommit", "NeogitCommitMessage", "markdown" },
+        ft = { "gitcommit", "NeogitCommitMessage", "markdown" },
         dependencies = { "nvim-lua/plenary.nvim" },
       },
     },
