@@ -5,6 +5,7 @@ return {
     "yetone/avante.nvim",
     enabled = true,
     -- event = "LazyFile",
+    event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- build = function()
@@ -32,7 +33,7 @@ return {
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
-        -- event = "VeryLazy",
+        event = "VeryLazy",
         opts = {
           -- recommended settings
           default = {
@@ -57,44 +58,6 @@ return {
           file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
-      },
-      -- https://github.com/ravitemer/mcphub.nvim
-      {
-        "ravitemer/mcphub.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-        },
-        build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
-        cmd = "MCPHub",
-        keys = {
-          { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
-        },
-        config = function()
-          require("mcphub").setup()
-        end,
-      },
-      {
-        "saghen/blink.cmp",
-        event = "BufRead Avante",
-        dependencies = {
-          "Kaiser-Yang/blink-cmp-avante",
-          -- ... Other dependencies
-        },
-        opts = {
-          sources = {
-            -- Add 'avante' to the list
-            default = { "avante" },
-            providers = {
-              avante = {
-                module = "blink-cmp-avante",
-                name = "Avante",
-                opts = {
-                  -- options for blink-cmp-avante
-                },
-              },
-            },
-          },
-        },
       },
     },
     keys = {
@@ -219,6 +182,44 @@ return {
         end,
       },
     },
+  },
+  {
+    "saghen/blink.cmp",
+    event = "BufRead Avante",
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+      -- ... Other dependencies
+    },
+    opts = {
+      sources = {
+        -- Add 'avante' to the list
+        default = { "avante" },
+        providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {
+              -- options for blink-cmp-avante
+            },
+          },
+        },
+      },
+    },
+  },
+  -- https://github.com/ravitemer/mcphub.nvim
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
+    cmd = "MCPHub",
+    keys = {
+      { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
+    },
+    config = function()
+      require("mcphub").setup()
+    end,
   },
   --   {
   --     "yetone/avante.nvim",
