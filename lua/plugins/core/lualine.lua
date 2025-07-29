@@ -20,18 +20,20 @@ local colors = {
 -- formatters and linters from null-ls, nvim-lint and conform.nvim
 
 local function get_attached_clients()
-  local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
+  local buf_clients = vim.lsp.get_clients { bufnr = 0 }
   if #buf_clients == 0 then
     return "LSP Inactive"
   end
 
   local buf_ft = vim.bo.filetype
-  local buf_client_names = {}
+  local lsp_clients = {}
+  local linters = {}
+  local formatters = {}
 
-  -- add client
+  -- Add LSP clients
   for _, client in pairs(buf_clients) do
     if client.name ~= "copilot" and client.name ~= "null-ls" then
-      table.insert(buf_client_names, client.name)
+      table.insert(lsp_clients, client.name)
     end
   end
 
@@ -47,7 +49,17 @@ local function get_attached_clients()
       if source._validated then
         for ft_name, ft_active in pairs(source.filetypes) do
           if ft_name == buf_ft and ft_active then
-            table.insert(buf_client_names, source.name)
+            -- Categorize null-ls sources as either formatters or linters based on their methods
+            if source.methods then
+              if vim.tbl_contains(source.methods, require("null-ls").methods.FORMATTING) then
+                table.insert(formatters, source.name)
+              elseif vim.tbl_contains(source.methods, require("null-ls").methods.DIAGNOSTICS) then
+                table.insert(linters, source.name)
+              end
+            else
+              -- If we can't determine, treat as generic LSP client
+              table.insert(lsp_clients, source.name)
+            end
           end
         end
       end
@@ -58,15 +70,13 @@ local function get_attached_clients()
   local lint_s, lint = pcall(require, "lint")
   if lint_s then
     for ft_k, ft_v in pairs(lint.linters_by_ft) do
-      if type(ft_v) == "table" then
-        for _, linter in ipairs(ft_v) do
-          if buf_ft == ft_k then
-            table.insert(buf_client_names, linter)
+      if ft_k == buf_ft then
+        if type(ft_v) == "table" then
+          for _, linter in ipairs(ft_v) do
+            table.insert(linters, linter)
           end
-        end
-      elseif type(ft_v) == "string" then
-        if buf_ft == ft_k then
-          table.insert(buf_client_names, ft_v)
+        elseif type(ft_v) == "string" then
+          table.insert(linters, ft_v)
         end
       end
     end
@@ -78,40 +88,67 @@ local function get_attached_clients()
   --   local formatter_util = require "formatter.util"
   --   for _, formatter in ipairs(formatter_util.get_available_formatters_for_ft(buf_ft)) do
   --     if formatter then
-  --       table.insert(buf_client_names, formatter)
+  --       table.insert(formatters, formatter)
   --     end
   --   end
   -- end
 
   -- Add formatters (from conform.nvim)
   -- lua vim.print(require("conform").list_formatters(vim.api.nvim_get_current_buf()))
-  local formatter_s, formatters = pcall(require, "conform")
+  local formatter_s, conform = pcall(require, "conform")
   if formatter_s then
-    for _, formatter in ipairs(formatters.list_formatters(vim.api.nvim_get_current_buf())) do
+    for _, formatter in ipairs(conform.list_formatters(vim.api.nvim_get_current_buf())) do
       if formatter then
-        table.insert(buf_client_names, formatter.name)
+        table.insert(formatters, formatter.name)
       end
     end
   end
 
-  -- This needs to be a string only table so we can use concat below
-  local unique_client_names = {}
-  for _, client_name_target in ipairs(buf_client_names) do
-    local is_duplicate = false
-    for _, client_name_compare in ipairs(unique_client_names) do
-      if client_name_target == client_name_compare then
-        is_duplicate = true
+  -- Remove duplicates from each category
+  local function deduplicate(list)
+    local unique = {}
+    local result = {}
+    for _, item in ipairs(list) do
+      if not unique[item] then
+        unique[item] = true
+        table.insert(result, item)
       end
     end
-    if not is_duplicate then
-      table.insert(unique_client_names, client_name_target)
-    end
+    return result
   end
 
-  local client_names_str = table.concat(unique_client_names, ", ")
-  local language_servers = string.format("[%s]", client_names_str)
+  local unique_lsp_clients = deduplicate(lsp_clients)
+  local unique_linters = deduplicate(linters)
+  local unique_formatters = deduplicate(formatters)
 
-  return language_servers
+
+  -- Combine all categories with their respective icons in a single bracket
+  local all_tools = {}
+
+  local icons = {
+    lsp_clients = { "󰒋 ", " " },
+    linters = { "󰁨 ", " " },
+    formatters = { "󰉿 ", "󰊅 " },
+  }
+
+  if #unique_lsp_clients > 0 then
+    table.insert(all_tools, icons.lsp_clients[2] .. table.concat(unique_lsp_clients, ", "))
+  end
+
+  if #unique_linters > 0 then
+    table.insert(all_tools, icons.linters[2] .. table.concat(unique_linters, ", "))
+  end
+
+  if #unique_formatters > 0 then
+    table.insert(all_tools, icons.formatters[2] .. table.concat(unique_formatters, ", "))
+  end
+
+  if #all_tools == 0 then
+    return "No Tools"
+  end
+
+  -- return "[ " .. table.concat(all_tools, " ") .. " ]"
+  return table.concat(all_tools, " ")
 end
 
 return {
