@@ -1,3 +1,20 @@
+-- vim.api.nvim_create_autocmd("VimResized", {
+--   callback = function()
+--     print "VimResized event triggered"
+--     local snacks = package.loaded["plugins.core.snacks"]
+--     if
+--       snacks
+--       and snacks[1]
+--       and snacks[1].opts
+--       and snacks[1].opts.picker
+--       and snacks[1].opts.picker.formatters
+--       and snacks[1].opts.picker.formatters.file
+--     then
+--       snacks[1].opts.picker.formatters.file.truncate = math.floor(vim.api.nvim_win_get_width(0) * 0.35)
+--     end
+--   end,
+-- })
+--
 return {
   {
     "folke/snacks.nvim",
@@ -52,6 +69,11 @@ return {
       -- layouts: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#picker_layouts
       --   run :lua Snacks.picker.picker_layouts(opts?)
       picker = {
+        formatters = {
+          file = {
+            truncate = math.floor(vim.api.nvim_win_get_width(0) * 0.35),
+          },
+        },
         sources = {
           files = { hidden = true },
           grep = { hidden = true, layout = { preset = "ivy" } },
