@@ -47,7 +47,8 @@ return {
         copilot = {
           -- TODO: see if this is possible
           -- default model is gpt-4o-2024-11-24
-          model = "claude-3.7-sonnet", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/supported-ai-models-in-copilot#supported-ai-models-per-copilot-plan
+          -- model = "claude-3.7-sonnet", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/supported-ai-models-in-copilot#supported-ai-models-per-copilot-plan
+          model = "gpt-4.1", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/supported-ai-models-in-copilot#supported-ai-models-per-copilot-plan
           extra_request_body = {
             temperature = 0,
             -- max_completion_tokens = 1000000,
