@@ -4,8 +4,6 @@ if true then
   return {}
 end
 
-local actions = require "telescope.actions"
-
 return {
   -- change some telescope options and a keymap to browse plugin files
   {
@@ -63,8 +61,8 @@ return {
         -- },
         mappings = {
           i = {
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-j>"] = require("telescope.actions").move_selection_next,
+            ["<C-k>"] = require("telescope.actions").move_selection_previous,
           },
         },
       },
@@ -105,6 +103,27 @@ return {
       detection_methods = { "pattern", "lsp" },
       -- detection_methods = { "pattern" },
       show_hidden = true,
+    },
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { { "nvim-telescope/telescope.nvim", enabled = true }, "nvim-lua/plenary.nvim" },
+    cmd = "Telescope file_browser",
+    keys = {
+      { "<leader>.", false },
+      {
+        "<leader>.",
+        function()
+          require("telescope").extensions.file_browser.file_browser()
+        end,
+        desc = "Find File",
+      },
+    },
+  },
+  {
+    "snacks.nvim",
+    keys = {
+      { "<leader>.", false },
     },
   },
 }
