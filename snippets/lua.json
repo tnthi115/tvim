@@ -1,0 +1,9 @@
+{
+  "Lazy Keymap": {
+    "prefix": "lkey",
+    "body": [
+      "{ \"$1\", \"$2\", desc = \"$3\" }"
+    ],
+    "description": "LazyVim/lazy.nvim keymap"
+  }
+}
