@@ -48,6 +48,13 @@ return {
         end,
         desc = "Zoxide",
       },
+      {
+        "<leader>'",
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = "Resume Last Search",
+      },
     },
     opts = {
       indent = {
@@ -85,6 +92,12 @@ return {
           git_log_line = { layout = { preset = "default" } },
           git_stash = { layout = { preset = "default" } },
           git_status = { layout = { preset = "default" } },
+          projects = {
+            dev = { "~/code", "~/go/src" },
+          },
+          zoxide = {
+            confirm = "picker_files",
+          },
         },
         layout = {
           preset = "ivy", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
@@ -116,7 +129,7 @@ return {
         win = {
           input = {
             keys = {
-              ["<c-t>"] = {
+              ["<c-x>"] = {
                 "trouble_open",
                 mode = { "n", "i" },
               },
