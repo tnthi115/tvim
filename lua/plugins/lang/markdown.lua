@@ -1,6 +1,10 @@
 -- Full spec: -- https://www.lazyvim.org/extras/lang/markdown
 -- Don't need this anymore as the extra has everything I need.
 
+if vim.g.vscode then
+  return {}
+end
+
 return {
   {
     "MeanderingProgrammer/render-markdown.nvim",

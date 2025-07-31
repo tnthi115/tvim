@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 -- Full spec: https://www.lazyvim.org/extras/lang/go
 -- I am no longer importing lazyvim.plugins.extras.lang.go, but instead using
 -- it as a foundation.

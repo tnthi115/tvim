@@ -1,5 +1,9 @@
 -- Full spec: https://www.lazyvim.org/extras/lang/git
 
+if vim.g.vscode then
+  return {}
+end
+
 return {
   {
     "mfussenegger/nvim-lint",

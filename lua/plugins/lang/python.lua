@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 -- Full spec:
 -- https://www.lazyvim.org/extras/lang/python
 -- https://www.lazyvim.org/extras/formatting/black

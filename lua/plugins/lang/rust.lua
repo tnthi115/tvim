@@ -1,4 +1,7 @@
 -- https://www.lazyvim.org/extras/lang/rust
+if vim.g.vscode then
+  return {}
+end
 
 -- Installation:
 
