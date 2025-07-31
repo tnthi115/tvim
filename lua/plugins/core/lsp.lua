@@ -256,15 +256,15 @@ return {
       },
     },
     config = true,
-    opts = function(_, opts)
-      -- Activate Otter when entering a markdown file
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "markdown",
-        callback = function()
-          require("otter").activate()
-        end,
-      })
-    end,
+    -- opts = function(_, opts)
+    --   -- Activate Otter when entering a markdown file
+    --   vim.api.nvim_create_autocmd("FileType", {
+    --     pattern = "markdown",
+    --     callback = function()
+    --       require("otter").activate()
+    --     end,
+    --   })
+    -- end,
   },
   -- https://github.com/kosayoda/nvim-lightbulb
   -- {
