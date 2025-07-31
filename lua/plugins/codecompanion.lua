@@ -12,14 +12,14 @@ return {
       "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
     },
     keys = {
-      { "<leader>o", "", desc = "+codecompanion ai", mode = { "n", "v" } },
-      { "<leader>oa", ":CodeCompanion ", mode = { "n", "x", "v" } },
-      { "<leader>oo", "<cmd>CodeCompanionActions<CR>", desc = "Open Actions" },
-      { "<leader>oc", "<cmd>CodeCompanionChat<CR>", desc = "Open New Chat Buffer" },
-      { "<leader>ou", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle Chat Buffer" },
-      { "<leader>o:", ":CodeCompanionCmd ", desc = "Create Neovim commands in commandline mode" },
+      { "<leader>O", "", desc = "+codecompanion ai", mode = { "n", "v" } },
+      { "<leader>Oa", ":CodeCompanion ", mode = { "n", "x", "v" } },
+      { "<leader>Oo", "<cmd>CodeCompanionActions<CR>", desc = "Open Actions" },
+      { "<leader>Oc", "<cmd>CodeCompanionChat<CR>", desc = "Open New Chat Buffer" },
+      { "<leader>Ou", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle Chat Buffer" },
+      { "<leader>O:", ":CodeCompanionCmd ", desc = "Create Neovim commands in commandline mode" },
       {
-        "<leader>ov",
+        "<leader>Ov",
         "<cmd>CodeCompanionChat Add<CR>",
         desc = "Add Selection to Chat Buffer",
         mode = { "n", "x", "v" },
