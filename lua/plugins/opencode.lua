@@ -54,56 +54,40 @@ return {
         mode = "v",
       },
       {
+        "<leader>op",
+        function()
+          require("opencode").select_prompt()
+        end,
+        desc = "Select prompt",
+        mode = { "n", "v" },
+      },
+      {
         "<leader>on",
         function()
-          require("opencode").create_session()
+          require("opencode").command "session_new"
         end,
         desc = "New session",
       },
       {
-        "<leader>oe",
+        "<leader>oy",
         function()
-          require("opencode").prompt "Explain @cursor and its context"
+          require("opencode").command "messages_copy"
         end,
-        desc = "Explain code near cursor",
+        desc = "Copy last message",
       },
       {
-        "<leader>or",
+        "<S-C-u>",
         function()
-          require("opencode").prompt "Review @file for correctness and readability"
+          require("opencode").command "messages_half_page_up"
         end,
-        desc = "Review file",
+        desc = "Scroll messages up",
       },
       {
-        "<leader>of",
+        "<S-C-d>",
         function()
-          require("opencode").prompt "Fix these @diagnostics"
+          require("opencode").command "messages_half_page_down"
         end,
-        desc = "Fix errors",
-      },
-      {
-        "<leader>oo",
-        function()
-          require("opencode").prompt "Optimize @selection for performance and readability"
-        end,
-        desc = "Optimize selection",
-        mode = "v",
-      },
-      {
-        "<leader>od",
-        function()
-          require("opencode").prompt "Add documentation comments for @selection"
-        end,
-        desc = "Document selection",
-        mode = "v",
-      },
-      {
-        "<leader>ot",
-        function()
-          require("opencode").prompt "Add tests for @selection"
-        end,
-        desc = "Test selection",
-        mode = "v",
+        desc = "Scroll messages down",
       },
     },
   },
