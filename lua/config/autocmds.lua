@@ -98,3 +98,42 @@ vim.api.nvim_create_autocmd("FileType", {
 --   -- Open the quickfix window
 --   vim.cmd "copen"
 -- end, { desc = "Update opera image digest" })
+
+-- Show staged diff in split when editing commit message (Fugitive, delta, or plain diff)
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "COMMIT_EDITMSG",
+  callback = function()
+    local commit_win = vim.api.nvim_get_current_win()
+    local wins = vim.api.nvim_list_wins()
+    local commit_win = vim.api.nvim_get_current_win()
+    local diff_win
+
+    if #wins == 1 then
+      -- Only one window, create a split
+      vim.cmd "vsplit"
+      wins = vim.api.nvim_list_wins()
+    end
+
+    -- Find the window that is not the commit message
+    for _, win in ipairs(wins) do
+      if win ~= commit_win then
+        diff_win = win
+        break
+      end
+    end
+
+    if not diff_win then
+      return -- No window to show diff
+    end
+
+    local diff = vim.fn.systemlist "git diff --cached"
+    if diff and #diff > 0 then
+      local diff_buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_win_set_buf(diff_win, diff_buf)
+      vim.api.nvim_buf_set_lines(diff_buf, 0, -1, false, diff)
+      vim.bo[diff_buf].filetype = "diff"
+      vim.api.nvim_set_current_win(commit_win)
+    end
+  end,
+  desc = "Show staged diff in split when editing commit message",
+})
