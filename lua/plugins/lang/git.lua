@@ -185,6 +185,7 @@ return {
   -- better commit message window
   {
     "cvigilv/diferente.nvim",
+    enabled = false,
     ft = { "gitcommit" },
     opts = {},
   },
