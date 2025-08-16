@@ -106,7 +106,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local commit_win = vim.api.nvim_get_current_win()
     local diff = vim.fn.systemlist "git diff --cached"
     if not (diff and #diff > 0) then
-      return -- No diff, do nothing
+      -- If no staged diff, try to show the current commit diff (reword case)
+      diff = vim.fn.systemlist "git show HEAD --no-color --pretty=format:"
+      if not (diff and #diff > 0) then
+        return -- Still no diff, do nothing
+      end
     end
 
     local wins = vim.api.nvim_list_wins()
