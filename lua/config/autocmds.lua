@@ -104,8 +104,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "COMMIT_EDITMSG",
   callback = function()
     local commit_win = vim.api.nvim_get_current_win()
+    local diff = vim.fn.systemlist "git diff --cached"
+    if not (diff and #diff > 0) then
+      return -- No diff, do nothing
+    end
+
     local wins = vim.api.nvim_list_wins()
-    local commit_win = vim.api.nvim_get_current_win()
     local diff_win
 
     if #wins == 1 then
@@ -126,14 +130,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       return -- No window to show diff
     end
 
-    local diff = vim.fn.systemlist "git diff --cached"
-    if diff and #diff > 0 then
-      local diff_buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_win_set_buf(diff_win, diff_buf)
-      vim.api.nvim_buf_set_lines(diff_buf, 0, -1, false, diff)
-      vim.bo[diff_buf].filetype = "diff"
-      vim.api.nvim_set_current_win(commit_win)
-    end
+    local diff_buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_win_set_buf(diff_win, diff_buf)
+    vim.api.nvim_buf_set_lines(diff_buf, 0, -1, false, diff)
+    vim.bo[diff_buf].filetype = "diff"
+    vim.api.nvim_set_current_win(commit_win)
   end,
   desc = "Show staged diff in split when editing commit message",
 })
