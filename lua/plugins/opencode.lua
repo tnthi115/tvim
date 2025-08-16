@@ -26,7 +26,7 @@ return {
     opts = {
       -- Set these according to https://models.dev/
       provider_id = "github-copilot",
-      model_id = "gpt-4.1",
+      model_id = "gpt-5",
     },
     keys = {
       { "<leader>o", "", desc = "Opencode", mode = { "n", "v" } },

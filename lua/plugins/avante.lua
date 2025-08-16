@@ -3,7 +3,7 @@
 return {
   {
     "yetone/avante.nvim",
-    enabled = true,
+    enabled = false,
     -- event = "LazyFile",
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
@@ -53,7 +53,7 @@ return {
             temperature = 0,
             -- max_completion_tokens = 1000000,
             max_completion_tokens = 8192,
-            reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+            -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
           },
         },
         f5gpt = {
