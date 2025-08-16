@@ -27,6 +27,11 @@ return {
       -- Set these according to https://models.dev/
       provider_id = "github-copilot",
       model_id = "gpt-5",
+      terminal = {
+        env = {
+          OPENCODE_THEME = "tymon-kanagawa",
+        },
+      },
     },
     keys = {
       { "<leader>o", "", desc = "Opencode", mode = { "n", "v" } },
