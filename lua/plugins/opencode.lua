@@ -45,7 +45,7 @@ return {
       {
         "<leader>oa",
         function()
-          require("opencode").ask()
+          require("opencode").ask "@cursor: "
         end,
         desc = "Ask opencode",
         mode = "n",
