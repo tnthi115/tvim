@@ -1,15 +1,12 @@
 -- https://github.com/harrisoncramer/gitlab.nvim
 -- gitlab MR integration
 
-if true then
-  return {}
-end
-
 return {
   {
     name = "gitlab-mrs",
     "harrisoncramer/gitlab.nvim",
-    enabled = false,
+    enabled = true,
+    event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",

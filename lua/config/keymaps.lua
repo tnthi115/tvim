@@ -62,7 +62,7 @@ end, { desc = "Set spaces" })
 -- end, { desc = "Live grep with glob pattern" })
 
 -- Set keymaps for diagnostics like Lunarvim.
-vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+-- vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 -- vim.keymap.set("n", "<leader>cj", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 -- vim.keymap.set("n", "<leader>ck", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
 

@@ -39,7 +39,7 @@ return {
     name = "gitlab-duo-code-suggestions",
     "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
     -- "git@gitlab.com:gitlab-org/editor-extensions/gitlab.vim.git",
-    -- enabled = false,
+    enabled = false,
     -- event = { "BufReadPre", "BufNewFile" }, -- Activate when a file is created/opened
     -- event = { "LspAttach" },
     -- event = { "LazyFile" },
