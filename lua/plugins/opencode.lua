@@ -4,23 +4,7 @@ return {
   {
     "NickvanDyke/opencode.nvim",
     dependencies = {
-      "folke/snacks.nvim",
-      {
-        -- Optional blink.cmp integration for context placeholders
-        "saghen/blink.cmp",
-        opts = {
-          sources = {
-            providers = {
-              opencode = {
-                module = "opencode.cmp.blink",
-              },
-            },
-            per_filetype = {
-              opencode_ask = { "opencode", "buffer" },
-            },
-          },
-        },
-      },
+      { "folke/snacks.nvim", opts = { input = { enabled = true } } },
     },
     ---@type opencode.Config
     opts = {
@@ -34,14 +18,7 @@ return {
       },
     },
     keys = {
-      { "<leader>o", "", desc = "Opencode", mode = { "n", "v" } },
-      {
-        "<leader>ot",
-        function()
-          require("opencode").toggle()
-        end,
-        desc = "Toggle embedded opencode",
-      },
+      -- Recommended keymaps
       {
         "<leader>oa",
         function()
@@ -59,12 +36,11 @@ return {
         mode = "v",
       },
       {
-        "<leader>op",
+        "<leader>ot",
         function()
-          require("opencode").select_prompt()
+          require("opencode").toggle()
         end,
-        desc = "Select prompt",
-        mode = { "n", "v" },
+        desc = "Toggle embedded opencode",
       },
       {
         "<leader>on",
@@ -93,6 +69,22 @@ return {
           require("opencode").command "messages_half_page_down"
         end,
         desc = "Scroll messages down",
+      },
+      {
+        "<leader>op",
+        function()
+          require("opencode").select_prompt()
+        end,
+        desc = "Select prompt",
+        mode = { "n", "v" },
+      },
+      -- Example: keymap for custom prompt
+      {
+        "<leader>oe",
+        function()
+          require("opencode").prompt "Explain @cursor and its context"
+        end,
+        desc = "Explain code near cursor",
       },
     },
   },
