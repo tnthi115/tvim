@@ -6,25 +6,43 @@ return {
     dependencies = {
       { "folke/snacks.nvim", opts = { input = { enabled = true } } },
     },
-    ---@type opencode.Config
-    opts = {
-      -- Set these according to https://models.dev/
-      provider_id = "github-copilot",
-      model_id = "gpt-5",
-      terminal = {
-        env = {
-          OPENCODE_THEME = "tymon-kanagawa",
+    config = function()
+      -- `opencode.nvim` passes options via a global variable instead of `setup()` for faster startup
+      ---@type opencode.Opts
+      vim.g.opencode_opts = {
+        -- Set these according to https://models.dev/
+        provider_id = "github-copilot",
+        -- model_id = "gpt-5",
+        terminal = {
+          env = {
+            OPENCODE_THEME = "tymon-kanagawa",
+          },
         },
-      },
-    },
+      }
+    end,
     keys = {
       -- Recommended keymaps
+      {
+        "<leader>ot",
+        function()
+          require("opencode").toggle()
+        end,
+        desc = "Toggle opencode",
+      },
+      {
+        "<leader>oA",
+        function()
+          require("opencode").ask()
+        end,
+        desc = "Ask opencode",
+        mode = "n",
+      },
       {
         "<leader>oa",
         function()
           require("opencode").ask "@cursor: "
         end,
-        desc = "Ask opencode",
+        desc = "Ask opencode about this",
         mode = "n",
       },
       {
@@ -36,55 +54,40 @@ return {
         mode = "v",
       },
       {
-        "<leader>ot",
-        function()
-          require("opencode").toggle()
-        end,
-        desc = "Toggle embedded opencode",
-      },
-      {
         "<leader>on",
         function()
           require("opencode").command "session_new"
         end,
-        desc = "New session",
+        desc = "New opencode session",
       },
       {
         "<leader>oy",
         function()
           require("opencode").command "messages_copy"
         end,
-        desc = "Copy last message",
+        desc = "Copy last opencode response",
       },
       {
         "<S-C-u>",
         function()
           require("opencode").command "messages_half_page_up"
         end,
-        desc = "Scroll messages up",
+        desc = "Messages half page up",
       },
       {
         "<S-C-d>",
         function()
           require("opencode").command "messages_half_page_down"
         end,
-        desc = "Scroll messages down",
+        desc = "Messages half page down",
       },
       {
-        "<leader>op",
+        "<leader>os",
         function()
           require("opencode").select_prompt()
         end,
-        desc = "Select prompt",
+        desc = "Select opencode prompt",
         mode = { "n", "v" },
-      },
-      -- Example: keymap for custom prompt
-      {
-        "<leader>oe",
-        function()
-          require("opencode").prompt "Explain @cursor and its context"
-        end,
-        desc = "Explain code near cursor",
       },
     },
   },
