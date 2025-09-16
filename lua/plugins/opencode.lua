@@ -22,6 +22,7 @@ return {
     end,
     keys = {
       -- Recommended keymaps
+      { "<leader>o", "opencode", desc = "opencode", mode = { "n", "v" } },
       {
         "<leader>ot",
         function()
