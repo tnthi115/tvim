@@ -1,5 +1,9 @@
 -- https://github.com/yetone/avante.nvim
 
+if true then
+  return {}
+end
+
 return {
   {
     "yetone/avante.nvim",
@@ -155,6 +159,8 @@ return {
   },
   {
     "saghen/blink.cmp",
+    optional = true,
+    cond = false, -- Disabled since avante.nvim is disabled
     event = "BufRead Avante",
     dependencies = {
       "Kaiser-Yang/blink-cmp-avante",
@@ -179,13 +185,15 @@ return {
   -- https://github.com/ravitemer/mcphub.nvim
   {
     "ravitemer/mcphub.nvim",
+    cond = false, -- Disabled since avante.nvim is disabled
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
     build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
     cmd = "MCPHub",
     keys = {
-      { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
+      -- { "<leader>am", "<cmd>MCPHub<CR>", desc = "MCPHub" },
+      { "<leader>cM", "<cmd>MCPHub<CR>", desc = "MCPHub" },
     },
     config = function()
       ---@diagnostic disable-next-line: missing-fields
@@ -201,6 +209,8 @@ return {
   {
     -- support for image pasting
     "HakonHarnes/img-clip.nvim",
+    optional = true,
+    cond = false, -- Disabled since avante.nvim is disabled
     keys = {
       { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
     },
@@ -220,6 +230,8 @@ return {
   {
     -- Make sure to set this up properly if you have lazy=true
     "MeanderingProgrammer/render-markdown.nvim",
+    optional = true,
+    cond = false, -- Disabled since avante.nvim is disabled
     ft = { "markdown", "Avante" },
     opts = {
       file_types = { "markdown", "Avante" },
