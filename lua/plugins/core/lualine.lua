@@ -143,7 +143,8 @@ local function get_attached_clients()
   end
 
   if #all_tools == 0 then
-    return "No Tools"
+    -- return "No Tools"
+    return "LSP Inactive"
   end
 
   -- return "[ " .. table.concat(all_tools, " ") .. " ]"
