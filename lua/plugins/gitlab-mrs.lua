@@ -6,24 +6,13 @@ return {
     name = "gitlab-mrs",
     "harrisoncramer/gitlab.nvim",
     enabled = true,
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
       "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
-      -- {
-      --   "folke/which-key.nvim",
-      --   opts = function(_, opts)
-      --     local wk = require "which-key"
-      --     wk.add { "<leader>m", group = "gitlab" }
-      --     wk.add { "<leader>mr", group = "reviewers" }
-      --     wk.add { "<leader>mc", group = "comment" }
-      --     wk.add { "<leader>ma", group = "assignee" }
-      --     wk.add { "<leader>ml", group = "labels" }
-      --   end,
-      -- },
     },
     build = function()
       require("gitlab.server").build(true)
@@ -34,31 +23,31 @@ return {
       { "gla", "", desc = "assignees" },
       { "gll", "", desc = "labels" },
       { "glr", "", desc = "reviewers" },
-      -- { "<leader>ms", "<cmd>lua require('gitlab').review()<CR>", desc = "Start Gitlab review" },
-      -- { "<leader>mS", "<cmd>lua require('gitlab').summary()<CR>", desc = "Summary" },
-      -- { "<leader>mA", "<cmd>lua require('gitlab').approve()<CR>", desc = "Approve MR" },
-      -- { "<leader>mR", "<cmd>lua require('gitlab').revoke()<CR>", desc = "Revoke approval" },
-      -- { "<leader>mc", "<cmd>lua require('gitlab').create_comment()<CR>", desc = "Create comment" },
-      -- { "<leader>mc", "<cmd>lua require('gitlab').create_multiline_comment()<CR>", desc = "Create multiline comment", mode = "v" },
-      -- { "<leader>mC", "<cmd>lua require('gitlab').create_comment_suggestion()<CR>", desc = "Create comment suggestion", mode = "v" },
-      -- { "<leader>mm", "<cmd>lua require('gitlab').move_to_discussion_tree_from_diagnostic()<CR>", desc = "Move to discussion tree from diagnostic" },
-      -- { "<leader>mn", "<cmd>lua require('gitlab').create_note()<CR>", desc = "Create MR note" },
-      -- { "<leader>md", "<cmd>lua require('gitlab').toggle_discussions()<CR>", desc = "Toggle MR discussions" },
-      -- { "<leader>maa", "<cmd>lua require('gitlab').add_assignee()<CR>", desc = "Add MR assignee" },
-      -- { "<leader>mad", "<cmd>lua require('gitlab').delete_assignee()<CR>", desc = "Delete MR assignee" },
-      -- { "<leader>mla", "<cmd>lua require('gitlab').add_label()<CR>", desc = "Add MR label" },
-      -- { "<leader>mld", "<cmd>lua require('gitlab').delete_label()<CR>", desc = "Delete MR label" },
-      -- { "<leader>mra", "<cmd>lua require('gitlab').add_reviewer()<CR>", desc = "Add MR reviewer" },
-      -- { "<leader>mrd", "<cmd>lua require('gitlab').delete_reviewer()<CR>", desc = "Delete MR reviewer" },
-      -- { "<leader>mp", "<cmd>lua require('gitlab').pipeline()<CR>", desc = "Show MR pipeline status" },
-      -- { "<leader>mo", "<cmd>lua require('gitlab').open_in_browser()<CR>", desc = "Open MR in browser" },
-      -- { "<leader>mM", "<cmd>lua require('gitlab').merge()<CR>", desc = "Merge MR" },
-      -- { "<leader>mu", "<cmd>lua require('gitlab').copy_mr_url()<CR>", desc = "Copy MR url" },
-      -- { "<leader>mb", "<cmd>lua require('gitlab').choose_merge_request()<CR>", desc = "Choose MR for Review" },
-      -- { "<leader>mO", "<cmd>lua require('gitlab').create_mr()<CR>", desc = "Create MR" },
-      -- { "<leader>mP", "<cmd>lua require('gitlab').publish_all_drafts()<CR>", desc = "Publish all MR comment drafts" },
-      -- { "<leader>mD", "<cmd>lua require('gitlab').toggle_draft_mode()<CR>", desc = "Toggle MR comment draft mode" },
-      -- { "<leader>mq", "<cmd>DiffviewClose<CR>", desc = "Quit Review (Diffview)" },
+      -- default keymaps:
+      --   https://github.com/harrisoncramer/gitlab.nvim/blob/main/doc/gitlab.nvim.txt?plain=1#L168-L193
+      --   https://github.com/harrisoncramer/gitlab.nvim/blob/main/lua/gitlab/state.lua#L70-L94
+      -- descriptions and keymap registration:
+      --   https://github.com/harrisoncramer/gitlab.nvim/blob/main/lua/gitlab/state.lua#L277-L420
+      { "glaa", "<cmd>lua require('gitlab').add_assignee()<cr>", desc = "Add MR assignee" },
+      { "glad", "<cmd>lua require('gitlab').delete_assignee()<cr>", desc = "Delete MR assignee" },
+      { "glla", "<cmd>lua require('gitlab').add_label()<cr>", desc = "Add MR label" },
+      { "glld", "<cmd>lua require('gitlab').delete_label()<cr>", desc = "Delete MR label" },
+      { "glra", "<cmd>lua require('gitlab').add_reviewer()<cr>", desc = "Add MR reviewer" },
+      { "glrd", "<cmd>lua require('gitlab').delete_reviewer()<cr>", desc = "Delete MR reviewer" },
+      { "glA", "<cmd>lua require('gitlab').approve()<cr>", desc = "Approve MR" },
+      { "glR", "<cmd>lua require('gitlab').revoke()<cr>", desc = "Revoke approval" },
+      { "glM", "<cmd>lua require('gitlab').merge()<cr>", desc = "Merge MR" },
+      { "glC", "<cmd>lua require('gitlab').create_mr()<cr>", desc = "Create MR" },
+      { "glc", "<cmd>lua require('gitlab').choose_merge_request()<cr>", desc = "Choose MR for review" },
+      { "glS", "<cmd>lua require('gitlab').review()<cr>", desc = "Start Gitlab review" },
+      { "gls", "<cmd>lua require('gitlab').summary()<cr>", desc = "Show MR summary" },
+      { "glu", "<cmd>lua require('gitlab').copy_mr_url()<cr>", desc = "Copy MR url" },
+      { "glo", "<cmd>lua require('gitlab').open_in_browser()<cr>", desc = "Open MR in browser" },
+      { "gln", "<cmd>lua require('gitlab').create_note()<cr>", desc = "Create MR note" },
+      { "glp", "<cmd>lua require('gitlab').pipeline()<cr>", desc = "Show MR pipeline status" },
+      { "gld", "<cmd>lua require('gitlab').toggle_discussions()<cr>", desc = "Toggle MR discussions" },
+      { "glD", "<cmd>lua require('gitlab').toggle_draft_mode()<cr>", desc = "Toggle MR comment draft mode" },
+      { "glP", "<cmd>lua require('gitlab').publish_all_drafts()<cr>", desc = "Publish all MR comment drafts" },
     },
     opts = {
       reviewer_settings = {
