@@ -1,5 +1,8 @@
 -- Full spec: https://www.lazyvim.org/plugins/treesitter
 
+-- 2025-09-17 Lazyvim update now uses the treesitter main branch, which requires the tree-sitter-cli
+-- brew install tree-sitter-cli
+
 -- if true then
 --   return {}
 -- end

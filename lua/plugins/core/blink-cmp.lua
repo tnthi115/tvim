@@ -86,33 +86,18 @@ return {
         },
       },
       signature = { window = { border = "single" } },
+      -- 2025-09-17 LazyVim added cmdline completion to blink
+      -- https://github.com/LazyVim/LazyVim/blob/bd1f523df58edd61eef10643ef9c42f9191ce617/lua/lazyvim/plugins/extras/coding/blink.lua?plain=1#L86-L98
       cmdline = {
-        enabled = true,
-        -- keymap = nil, -- Inherits from top level `keymap` config when not set
         keymap = {
-          preset = "super-tab",
+          -- preset = "cmdline",
           ["<C-j>"] = { "select_next", "fallback" },
           ["<C-k>"] = { "select_prev", "fallback" },
+          ["<TAB>"] = { "select_next", "fallback" },
+          ["<S-TAB>"] = { "select_prev", "fallback" },
         },
-        sources = function()
-          local type = vim.fn.getcmdtype()
-          -- Search forward and backward
-          if type == "/" or type == "?" then
-            return { "buffer" }
-          end
-          -- Commands
-          if type == ":" or type == "@" then
-            return { "cmdline" }
-          end
-          return {}
-        end,
         completion = {
-          trigger = {
-            show_on_blocked_trigger_characters = {},
-            show_on_x_blocked_trigger_characters = nil, -- Inherits from top level `completion.trigger.show_on_blocked_trigger_characters` config when not set
-          },
           menu = {
-            auto_show = true, -- Inherits from top level `completion.menu.auto_show` config when not set
             draw = {
               columns = { { "label", "label_description", gap = 1 } },
             },
