@@ -1,8 +1,8 @@
--- https://github.com/echasnovski/mini.splitjoin
+-- https://github.com/nvim-mini/mini.splitjoin
 
 return {
   {
-    "echasnovski/mini.splitjoin",
+    "nvim-mini/mini.splitjoin",
     event = "LazyFile",
     opts = {},
   },

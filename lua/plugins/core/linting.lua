@@ -5,7 +5,7 @@ return {
     "mfussenegger/nvim-lint",
     dependencies = {
       {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         opts = function(_, opts)
           opts.ensure_installed = opts.ensure_installed or {}
           vim.list_extend(opts.ensure_installed, { "codespell", "shellcheck" })
@@ -57,7 +57,7 @@ return {
   --   "nvimtools/none-ls.nvim",
   --   dependencies = {
   --     {
-  --       "williamboman/mason.nvim",
+  --       "mason-org/mason.nvim",
   --       opts = function(_, opts)
   --         opts.ensure_installed = opts.ensure_installed or {}
   --         vim.list_extend(opts.ensure_installed, { "commitlint", "codespell", "shellcheck" })

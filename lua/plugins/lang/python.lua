@@ -10,7 +10,7 @@ return {
   -- { import = "lazyvim.plugins.extras.lang.python" },
   -- Install mason packages.
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     ft = { "python" },
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
