@@ -191,7 +191,6 @@ return {
   -- https://github.com/Zeioth/garbage-day.nvim?tab=readme-ov-file
   {
     "zeioth/garbage-day.nvim",
-    enabled = false,
     dependencies = "neovim/nvim-lspconfig",
     event = "LspAttach",
     opts = {

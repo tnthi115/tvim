@@ -11,6 +11,7 @@ return {
     },
     keys = {
       { "<leader>g,", "", desc = "diffview", mode = { "n", "v" } },
+      { "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
       { "<leader>g,o", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
       { "<leader>g,a", ":DiffviewOpen ", desc = "Open Diffview (with args)" },
       { "<leader>g,q", "<cmd>DiffviewClose<CR>", desc = "Close Diffview" },
