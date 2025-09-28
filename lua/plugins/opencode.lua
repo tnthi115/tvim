@@ -28,14 +28,14 @@ return {
         function()
           require("opencode").toggle()
         end,
-        desc = "Toggle opencode",
+        desc = "Toggle",
       },
       {
         "<leader>oA",
         function()
           require("opencode").ask()
         end,
-        desc = "Ask opencode",
+        desc = "Ask",
         mode = "n",
       },
       {
@@ -43,7 +43,7 @@ return {
         function()
           require("opencode").ask "@cursor: "
         end,
-        desc = "Ask opencode about this",
+        desc = "Ask about this",
         mode = "n",
       },
       {
@@ -51,7 +51,23 @@ return {
         function()
           require("opencode").ask "@selection: "
         end,
-        desc = "Ask opencode about selection",
+        desc = "Ask about selection",
+        mode = "v",
+      },
+      {
+        "<leader>o+",
+        function()
+          require("opencode").prompt("@buffer", { append = true })
+        end,
+        desc = "Add buffer to prompt",
+        mode = "n",
+      },
+      {
+        "<leader>o+",
+        function()
+          require("opencode").prompt("@selection", { append = true })
+        end,
+        desc = "Add selection to prompt",
         mode = "v",
       },
       {
@@ -59,14 +75,14 @@ return {
         function()
           require("opencode").command "session_new"
         end,
-        desc = "New opencode session",
+        desc = "New session",
       },
       {
         "<leader>oy",
         function()
           require("opencode").command "messages_copy"
         end,
-        desc = "Copy last opencode response",
+        desc = "Copy last response",
       },
       {
         "<S-C-u>",
@@ -85,9 +101,9 @@ return {
       {
         "<leader>os",
         function()
-          require("opencode").select_prompt()
+          require("opencode").select()
         end,
-        desc = "Select opencode prompt",
+        desc = "Select prompt",
         mode = { "n", "v" },
       },
     },
