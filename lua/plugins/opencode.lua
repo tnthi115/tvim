@@ -28,7 +28,7 @@ return {
         function()
           require("opencode").toggle()
         end,
-        desc = "Toggle",
+        desc = "Toggle embedded",
       },
       {
         "<leader>oA",
@@ -55,6 +55,14 @@ return {
         mode = "v",
       },
       {
+        "<leader>oe",
+        function()
+          require("opencode").prompt "Explain @cursor and its context"
+        end,
+        desc = "Explain this code",
+        mode = "n",
+      },
+      {
         "<leader>o+",
         function()
           require("opencode").prompt("@buffer", { append = true })
@@ -76,13 +84,6 @@ return {
           require("opencode").command "session_new"
         end,
         desc = "New session",
-      },
-      {
-        "<leader>oy",
-        function()
-          require("opencode").command "messages_copy"
-        end,
-        desc = "Copy last response",
       },
       {
         "<S-C-u>",
