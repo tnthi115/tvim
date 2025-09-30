@@ -16,7 +16,9 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "basedpyright",
-        "ruff-lsp",
+        -- "ruff-lsp",
+        -- TODO: setup ruff with rules and server mode
+        "ruff",
         "pylint",
       })
     end,
@@ -28,15 +30,15 @@ return {
       servers = {
         -- pyright = {},
         basedpyright = {},
-        ruff_lsp = {
-          init_options = {
-            settings = {
-              -- Any extra CLI arguments for `ruff` go here.
-              -- See https://beta.ruff.rs/docs/rules/
-              args = { "--extend-select=W,N,D,UP,S,A,C4,ISC,ICN,PT,RET,SIM,TID,TCH,PL,TRY,AIR,PERF,FURB,RUF" },
-            },
-          },
-        },
+        -- ruff_lsp = {
+        --   init_options = {
+        --     settings = {
+        --       -- Any extra CLI arguments for `ruff` go here.
+        --       -- See https://beta.ruff.rs/docs/rules/
+        --       args = { "--extend-select=W,N,D,UP,S,A,C4,ISC,ICN,PT,RET,SIM,TID,TCH,PL,TRY,AIR,PERF,FURB,RUF" },
+        --     },
+        --   },
+        -- },
       },
     },
   },
