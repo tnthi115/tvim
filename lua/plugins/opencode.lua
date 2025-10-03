@@ -13,9 +13,13 @@ return {
         -- Set these according to https://models.dev/
         provider_id = "github-copilot",
         -- model_id = "gpt-5",
+        ---@diagnostic disable-next-line: missing-fields
         terminal = {
           env = {
             OPENCODE_THEME = "tymon-kanagawa",
+          },
+          win = {
+            position = "left",
           },
         },
       }
