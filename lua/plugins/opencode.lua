@@ -19,7 +19,7 @@ return {
             OPENCODE_THEME = "tymon-kanagawa",
           },
           win = {
-            position = "left",
+            position = "right",
           },
         },
       }
