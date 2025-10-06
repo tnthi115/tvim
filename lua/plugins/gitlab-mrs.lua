@@ -5,7 +5,7 @@ return {
   {
     name = "gitlab-mrs",
     "harrisoncramer/gitlab.nvim",
-    enabled = true,
+    enabled = false,
     -- event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
