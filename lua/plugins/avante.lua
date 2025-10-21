@@ -1,5 +1,7 @@
 -- https://github.com/yetone/avante.nvim
 
+-- Now a LazyVim Extra: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/ai/avante.lua
+
 if true then
   return {}
 end
@@ -8,33 +10,6 @@ return {
   {
     "yetone/avante.nvim",
     enabled = false,
-    -- event = "LazyFile",
-    event = "VeryLazy",
-    version = false, -- Never set this value to "*"! Never!
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    -- build = function()
-    --   -- conditionally use the correct build system for the current OS
-    --   if vim.fn.has "win32" == 1 then
-    --     return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-    --   else
-    --     return "make BUILD_FROM_SOURCE=true"
-    --   end
-    -- end,
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      -- "nvim-mini/mini.pick", -- for file_selector provider mini.pick
-      -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      -- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-      -- "ibhagwan/fzf-lua", -- for file_selector provider fzf
-      "stevearc/dressing.nvim", -- for input provider dressing
-      "folke/snacks.nvim", -- for input provider snacks
-      "nvim-tree/nvim-web-devicons", -- or nvim-mini/mini.icons
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
-    },
     keys = {
       { "<leader>a", "", desc = "avante ai", mode = { "n", "v", "x" } },
       { "<leader>ax", "<cmd>AvanteClear<CR>", desc = "avante: clear chat history", mode = { "n", "v", "x" } },
@@ -142,46 +117,46 @@ return {
         -- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
         -- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
       },
-      -- Avante integration
-      -- system_prompt as function ensures LLM always has latest MCP server state
-      -- This is evaluated for every message, even in existing chats
-      system_prompt = function()
-        local hub = require("mcphub").get_hub_instance()
-        return hub and hub:get_active_servers_prompt() or ""
-      end,
-      -- Using function prevents requiring mcphub before it's loaded
-      custom_tools = function()
-        return {
-          require("mcphub.extensions.avante").mcp_tool(),
-        }
-      end,
+      -- -- Avante integration
+      -- -- system_prompt as function ensures LLM always has latest MCP server state
+      -- -- This is evaluated for every message, even in existing chats
+      -- system_prompt = function()
+      --   local hub = require("mcphub").get_hub_instance()
+      --   return hub and hub:get_active_servers_prompt() or ""
+      -- end,
+      -- -- Using function prevents requiring mcphub before it's loaded
+      -- custom_tools = function()
+      --   return {
+      --     require("mcphub.extensions.avante").mcp_tool(),
+      --   }
+      -- end,
     },
   },
-  {
-    "saghen/blink.cmp",
-    optional = true,
-    cond = false, -- Disabled since avante.nvim is disabled
-    event = "BufRead Avante",
-    dependencies = {
-      "Kaiser-Yang/blink-cmp-avante",
-      -- ... Other dependencies
-    },
-    opts = {
-      sources = {
-        -- Add 'avante' to the list
-        default = { "avante" },
-        providers = {
-          avante = {
-            module = "blink-cmp-avante",
-            name = "Avante",
-            opts = {
-              -- options for blink-cmp-avante
-            },
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   cond = false, -- Disabled since avante.nvim is disabled
+  --   event = "BufRead Avante",
+  --   dependencies = {
+  --     "Kaiser-Yang/blink-cmp-avante",
+  --     -- ... Other dependencies
+  --   },
+  --   opts = {
+  --     sources = {
+  --       -- Add 'avante' to the list
+  --       default = { "avante" },
+  --       providers = {
+  --         avante = {
+  --           module = "blink-cmp-avante",
+  --           name = "Avante",
+  --           opts = {
+  --             -- options for blink-cmp-avante
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   -- https://github.com/ravitemer/mcphub.nvim
   {
     "ravitemer/mcphub.nvim",
@@ -206,37 +181,37 @@ return {
       }
     end,
   },
-  {
-    -- support for image pasting
-    "HakonHarnes/img-clip.nvim",
-    optional = true,
-    cond = false, -- Disabled since avante.nvim is disabled
-    keys = {
-      { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
-    },
-    opts = {
-      -- recommended settings
-      default = {
-        embed_image_as_base64 = false,
-        prompt_for_file_name = false,
-        drag_and_drop = {
-          insert_mode = true,
-        },
-        -- required for Windows users
-        use_absolute_path = true,
-      },
-    },
-  },
-  {
-    -- Make sure to set this up properly if you have lazy=true
-    "MeanderingProgrammer/render-markdown.nvim",
-    optional = true,
-    cond = false, -- Disabled since avante.nvim is disabled
-    ft = { "markdown", "Avante" },
-    opts = {
-      file_types = { "markdown", "Avante" },
-    },
-  },
+  -- {
+  --   -- support for image pasting
+  --   "HakonHarnes/img-clip.nvim",
+  --   optional = true,
+  --   cond = false, -- Disabled since avante.nvim is disabled
+  --   keys = {
+  --     { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+  --   },
+  --   opts = {
+  --     -- recommended settings
+  --     default = {
+  --       embed_image_as_base64 = false,
+  --       prompt_for_file_name = false,
+  --       drag_and_drop = {
+  --         insert_mode = true,
+  --       },
+  --       -- required for Windows users
+  --       use_absolute_path = true,
+  --     },
+  --   },
+  -- },
+  -- {
+  --   -- Make sure to set this up properly if you have lazy=true
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   optional = true,
+  --   cond = false, -- Disabled since avante.nvim is disabled
+  --   ft = { "markdown", "Avante" },
+  --   opts = {
+  --     file_types = { "markdown", "Avante" },
+  --   },
+  -- },
   --   {
   --     "yetone/avante.nvim",
   --     dependencies = {
