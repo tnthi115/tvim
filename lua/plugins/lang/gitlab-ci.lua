@@ -2,10 +2,6 @@
 
 -- TODO: figure this out, not working as expected
 
-if true then
-  return {}
-end
-
 return {
   -- Setup gitlab_ci_ls.
   {
