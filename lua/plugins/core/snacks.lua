@@ -83,7 +83,8 @@ return {
         },
         sources = {
           files = { hidden = true },
-          grep = { hidden = true, layout = { preset = "default" } },
+          grep = { hidden = true, layout = { preset = "dropdown" } },
+          grep_word = { hidden = true, layout = { preset = "dropdown" } },
           explorer = { hidden = true },
           git_branches = { layout = { preset = "vertical" } },
           git_diff = { layout = { preset = "default" } },
@@ -100,7 +101,7 @@ return {
           },
         },
         layout = {
-          preset = "ivy", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
+          preset = "dropdown", -- "default" | "bottom" | "dropdown" | "ivy" | "ivy_split" | "left" | "right" | "select" | "sidebar" | "telescope" | "top" | "vertical" | "vscode"
         },
         layouts = {
           default = {
@@ -112,6 +113,12 @@ return {
           ivy = {
             layout = {
               height = 0.5,
+            },
+          },
+          dropdown = {
+            layout = {
+              width = 0.9,
+              height = 0.99,
             },
           },
         },
