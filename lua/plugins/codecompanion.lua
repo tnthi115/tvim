@@ -1,9 +1,13 @@
 -- https://github.com/olimorris/codecompanion.nvim?tab=readme-ov-file
 
+if true then
+  return {}
+end
+
 return {
   {
     "olimorris/codecompanion.nvim",
-    enabled = true,
+    enabled = false,
     -- event = "LazyFile",
     dependencies = {
       "nvim-lua/plenary.nvim",
