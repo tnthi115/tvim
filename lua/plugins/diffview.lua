@@ -11,6 +11,7 @@ return {
     },
     keys = {
       { "<leader>g,", "", desc = "diffview", mode = { "n", "v" } },
+      -- This overrides lazyvim / snacks keymap
       { "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
       { "<leader>g,o", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
       { "<leader>g,a", ":DiffviewOpen ", desc = "Open Diffview (with args)" },
