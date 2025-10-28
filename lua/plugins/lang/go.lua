@@ -66,35 +66,12 @@ return {
             },
           },
         },
-        golangci_lint_ls = {
-          init_options = {
-            command = {
-              "golangci-lint",
-              "run",
-              -- "--enable-all",
-              -- "--disable",
-              -- "deadcode,exhaustivestruct,gci,gofmt,gofumpt,goimports,golint,ifshort,interfacer,lll,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,revive,scopelint,structcheck,tagalign,tagliatelle,varcheck,varnamelen,whitespace,wsl",
-              -- "deadcode,depguard,exhaustivestruct,gci,gofmt,golint,ifshort,interfacer,lll,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,revive,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
-              -- "deadcode,depguard,exhaustivestruct,gci,gofmt,ifshort,interfacer,lll,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
-              -- "deadcode,depguard,exhaustivestruct,gci,gofmt,golint,interfacer,lll,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
-              -- "deadcode,depguard,exhaustivestruct,gci,gofmt,gofumpt,golint,interfacer,maligned,misspell,nlreturn,nonamedreturns,nosnakecase,scopelint,structcheck,tagalign,tagliatelle,varcheck,whitespace,wsl",
-              "--disable-all",
-              "--enable",
-              -- "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
-              "errcheck,gosimple,govet,ineffassign,staticcheck,typecheck,unused,asasalint,asciicheck,bidichk,bodyclose,cyclop,decorder,dupl,durationcheck,errname,errorlint,exhaustive,exhaustruct,exportloopref,copyloopvar,forbidigo,funlen,gocheckcompilerdirectives,gochecknoglobals,gochecknoinits,gochecksumtype,gocognit,goconst,gocritic,gocyclo,godot,goimports,gomoddirectives,gomodguard,goprintffuncname,gosec,ireturn,lll,loggercheck,makezero,mirror,mnd,musttag,nakedret,nestif,nilerr,nilnil,noctx,nolintlint,nonamedreturns,nosprintfhostport,perfsprint,prealloc,predeclared,promlinter,protogetter,reassign,revive,rowserrcheck,sloglint,sqlclosecheck,stylecheck,tenv,testableexamples,testifylint,testpackage,tparallel,unconvert,unparam,usestdlibvars,wastedassign,whitespace,wrapcheck",
-              "--out-format",
-              "json",
-              "--issues-exit-code=1",
-              -- "--go=1.18",
-            },
-          },
-        },
       },
       setup = {
         gopls = function(_, opts)
           -- workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          LazyVim.lsp.on_attach(function(client, _)
+          Snacks.util.lsp.on({ name = "gopls" }, function(_, client)
             if not client.server_capabilities.semanticTokensProvider then
               local semantic = client.config.capabilities.textDocument.semanticTokens
               client.server_capabilities.semanticTokensProvider = {
@@ -106,11 +83,23 @@ return {
                 range = true,
               }
             end
-          end, "gopls")
+          end)
           -- end workaround
         end,
       },
     },
+  },
+  -- Disable golangci_lint_ls server as we use golangci-lint via nvim-lint
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers.golangci_lint_ls = { enabled = false }
+      opts.setup = opts.setup or {}
+      opts.setup.golangci_lint_ls = function()
+        return true
+      end
+    end,
   },
   -- Install mason packages.
   {
@@ -120,8 +109,7 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "gopls",
-        -- "golangci-lint",
-        "golangci-lint-langserver",
+        "golangci-lint",
         "gofumpt",
         "goimports",
         "goimports-reviser",
@@ -131,12 +119,6 @@ return {
       })
     end,
   },
-  -- Setup nvim-dap-go.
-  -- {
-  --   "leoluz/nvim-dap-go",
-  --   ft = go_filetypes,
-  --   config = true,
-  -- },
   {
     "mfussenegger/nvim-dap",
     optional = true,
@@ -199,7 +181,24 @@ return {
     end,
   },
   {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    dependencies = {
+      {
+        "mason-org/mason.nvim",
+        opts = { ensure_installed = { "golangci-lint" } },
+      },
+    },
+    opts = {
+      linters_by_ft = {
+        -- uses my ~/.golangci.yml config file
+        go = { "golangcilint" },
+      },
+    },
+  },
+  {
     "stevearc/conform.nvim",
+    optional = true,
     ft = go_filetypes,
     keys = {
       {
@@ -247,6 +246,7 @@ return {
   },
   {
     "nvim-neotest/neotest",
+    optional = true,
     ft = go_filetypes,
     dependencies = {
       -- "nvim-neotest/neotest-go",
