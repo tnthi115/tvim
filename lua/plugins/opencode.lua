@@ -4,7 +4,9 @@ return {
   {
     "NickvanDyke/opencode.nvim",
     dependencies = {
-      { "folke/snacks.nvim", opts = { input = { enabled = true } } },
+      -- Recommended for `ask()` and `select()`.
+      -- Required for default `toggle()` implementation.
+      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
     },
     config = function()
       -- see https://github.com/NickvanDyke/opencode.nvim/blob/main/lua/opencode/config.lua
