@@ -3,169 +3,15 @@ if vim.g.vscode then
 end
 
 -- Full spec: https://www.lazyvim.org/extras/lang/go
--- I am no longer importing lazyvim.plugins.extras.lang.go, but instead using
--- it as a foundation.
+-- Using lazyvim.plugins.extras.lang.go as the base via LazyExtras
+-- This file only adds overrides and extra plugins for Go.
 
 local go_filetypes = { "go", "gomod", "gowork", "gosum" }
 
 return {
-  -- Install treesitter parsers.
-  {
-    "nvim-treesitter/nvim-treesitter",
-    ft = go_filetypes,
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, go_filetypes)
-    end,
-  },
-  -- Setup gopls and golangci_lint_ls.
-  {
-    "neovim/nvim-lspconfig",
-    ft = go_filetypes,
-    opts = {
-      servers = {
-        gopls = {
-          -- keys = {
-          --   -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-          --   { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
-          -- },
-          settings = {
-            gopls = {
-              gofumpt = true,
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                -- fieldalignment = true,
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
-                shadow = true,
-              },
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-              semanticTokens = true,
-            },
-          },
-        },
-      },
-      setup = {
-        gopls = function(_, opts)
-          -- workaround for gopls not supporting semanticTokensProvider
-          -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          Snacks.util.lsp.on({ name = "gopls" }, function(_, client)
-            if not client.server_capabilities.semanticTokensProvider then
-              local semantic = client.config.capabilities.textDocument.semanticTokens
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers,
-                },
-                range = true,
-              }
-            end
-          end)
-          -- end workaround
-        end,
-      },
-    },
-  },
-  -- Disable golangci_lint_ls server as we use golangci-lint via nvim-lint
-  {
-    "neovim/nvim-lspconfig",
-    opts = function(_, opts)
-      opts.servers = opts.servers or {}
-      opts.servers.golangci_lint_ls = { enabled = false }
-      opts.setup = opts.setup or {}
-      opts.setup.golangci_lint_ls = function()
-        return true
-      end
-    end,
-  },
-  -- Install mason packages.
-  {
-    "mason-org/mason.nvim",
-    ft = go_filetypes,
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "gopls",
-        "golangci-lint",
-        "gofumpt",
-        "goimports",
-        "goimports-reviser",
-        "golines",
-        "gotests",
-        "iferr",
-      })
-    end,
-  },
-  {
-    "mfussenegger/nvim-dap",
-    optional = true,
-    dependencies = {
-      {
-        "mason-org/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "delve" })
-        end,
-      },
-      {
-        "leoluz/nvim-dap-go",
-        opts = {},
-      },
-    },
-  },
-  -- Setup gomodifytags and impl.
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   -- ft = go_filetypes,
-  --   dependencies = {
-  --     {
-  --       "mason-org/mason.nvim",
-  --       opts = function(_, opts)
-  --         opts.ensure_installed = opts.ensure_installed or {}
-  --         vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl" })
-  --       end,
-  --     },
-  --   },
-  --   opts = function(_, opts)
-  --     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-  --     local nls = require "null-ls"
-  --     -- Remove goimports (added by lazyvim.plugins.extras.lang.go)
-  --     -- TODO: this doesn't work
-  --     -- opts.sources["nls.builtins.formatting.goimports"] = nil
-  --     opts.sources = vim.list_extend(opts.sources or {}, {
-  --       nls.builtins.code_actions.gomodifytags,
-  --       nls.builtins.code_actions.impl,
-  --       -- nls.builtins.formatting.goimports,
-  --       -- nls.builtins.formatting.gofmt,
-  --     })
-  --   end,
-  -- },
   {
     "folke/which-key.nvim",
-    opts = function(_, opts)
+    opts = function(_, _)
       local wk = require "which-key"
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "go" },
@@ -180,21 +26,30 @@ return {
       })
     end,
   },
+  -- Disable golangci_lint_ls since we use nvim-lint for golangci-lint
   {
-    "mfussenegger/nvim-lint",
-    optional = true,
-    dependencies = {
-      {
-        "mason-org/mason.nvim",
-        opts = { ensure_installed = { "golangci-lint" } },
-      },
-    },
-    opts = {
-      linters_by_ft = {
-        -- uses my ~/.golangci.yml config file
-        go = { "golangcilint" },
-      },
-    },
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers.golangci_lint_ls = { enabled = false }
+      opts.setup = opts.setup or {}
+      opts.setup.golangci_lint_ls = function()
+        return true
+      end
+    end,
+  },
+  {
+    "mason-org/mason.nvim",
+    ft = go_filetypes,
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "goimports-reviser",
+        "golines",
+        "gotests",
+        "iferr",
+      })
+    end,
   },
   {
     "stevearc/conform.nvim",
@@ -233,9 +88,7 @@ return {
             end
             current_dir = vim.fn.fnamemodify(current_dir, ":h")
           end
-
           if is_in_work_dir then
-            -- return { "goimports", "gofmt" }
             return { "goimports" }
           else
             return { "goimports-reviser", "gofumpt", "golines" }
@@ -244,32 +97,7 @@ return {
       },
     },
   },
-  {
-    "nvim-neotest/neotest",
-    optional = true,
-    ft = go_filetypes,
-    dependencies = {
-      -- "nvim-neotest/neotest-go",
-      -- neotest-golang
-      -- "antoinemadec/FixCursorHold.nvim",
-      "fredrikaverpil/neotest-golang",
-    },
-    opts = {
-      adapters = {
-        -- ["neotest-go"] = {
-        --   -- Here we can set options for neotest-go, e.g.
-        --   -- args = { "-tags=integration" }
-        --   recursive_run = true,
-        -- },
-        ["neotest-golang"] = {
-          -- Here we can set options for neotest-golang, e.g.
-          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
-          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
-        },
-      },
-    },
-  },
-  -- gopher.nvim plugin
+  -- gopher.nvim plugin (extra commands for tests, tags, impl, iferr, etc.)
   {
     "olexsmir/gopher.nvim",
     ft = go_filetypes,
@@ -298,8 +126,8 @@ return {
       { "<leader>mi", ft = go_filetypes, "<cmd>GoImpl<CR>", desc = "Impl" },
     },
     config = function()
-      local gopher_ok, gopher = pcall(require, "gopher")
-      if not gopher_ok then
+      local ok, gopher = pcall(require, "gopher")
+      if not ok then
         return
       end
 
@@ -355,6 +183,7 @@ return {
     --   vim.cmd [[silent! GoInstallDeps]]
     -- end,
   },
+  -- quicktest.nvim for lightweight test runs
   {
     "quolpr/quicktest.nvim",
     ft = { "go" },
@@ -403,6 +232,7 @@ return {
       }
     end,
   },
+  -- Vimux integration for focused Go tests
   {
     "benmills/vimux-golang",
     ft = { "go" },
@@ -412,18 +242,6 @@ return {
     cmd = { "GolangTestCurrentPackage", "GolangTestFocused" },
     keys = {
       { "<leader>tf", ft = { "go" }, "<cmd>GolangTestFocused<CR>", desc = "Test Focused (vimux-golang)" },
-    },
-  },
-  -- Filetype icons
-  {
-    "nvim-mini/mini.icons",
-    opts = {
-      file = {
-        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
-      },
-      filetype = {
-        gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
-      },
     },
   },
   -- This doesn't work unfortunately
@@ -439,6 +257,7 @@ return {
   --     vim.opt.softtabstop = 2
   --   end,
   -- },
+  -- Inline type info toggles
   {
     "maxandron/goplements.nvim",
     ft = "go",
