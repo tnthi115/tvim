@@ -13,17 +13,16 @@ return {
       -- `opencode.nvim` passes options via a global variable instead of `setup()` for faster startup
       ---@type opencode.Opts
       vim.g.opencode_opts = {
-        auto_reload = true,
-        -- Set these according to https://models.dev/
-        provider_id = "github-copilot",
-        -- model_id = "gpt-5",
-        ---@diagnostic disable-next-line: missing-fields
-        terminal = {
-          env = {
-            OPENCODE_THEME = "tymon-kanagawa",
-          },
-          win = {
-            position = "right",
+        provider = {
+          name = "snacks",
+          ---@type opencode.provider.Snacks
+          snacks = {
+            env = {
+              OPENCODE_THEME = "tymon-kanagawa",
+            },
+            win = {
+              position = "right",
+            },
           },
         },
       }
