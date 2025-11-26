@@ -38,7 +38,7 @@ return {
         function()
           require("opencode").ask("@this: ", { submit = true })
         end,
-        desc = "Ask about this",
+        desc = "Ask opencode",
         mode = { "n", "x" },
       },
       {
@@ -62,7 +62,7 @@ return {
         function()
           require("opencode").select()
         end,
-        desc = "Select prompt",
+        desc = "Execute opencode action...",
         mode = { "n", "x" },
       },
       {
