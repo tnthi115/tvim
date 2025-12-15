@@ -1,7 +1,18 @@
 -- Full spec: -- https://www.lazyvim.org/extras/lang/markdown
+-- Full spec: -- https://www.lazyvim.org/extras/lang/markdown
 -- Don't need this anymore as the extra has everything I need.
 
 -- No longer using the extra
+
+-- NOTE: LazyVim's markdown extra still uses markdownlint-cli2 (as of Dec 2025)
+-- This config uses rumdl instead, which is:
+-- - Faster (written in Rust)
+-- - Has built-in LSP support (nvim-lspconfig since Dec 5, 2025)
+-- - Has built-in nvim-lint support (added Nov 13, 2025)
+-- - Used by LazyVim's own CI/pre-commit hooks
+-- TODO: Open an issue/PR in LazyVim to update the markdown extra to use rumdl
+-- LazyVim repo: https://github.com/folke/LazyVim
+-- Current extra: https://github.com/folke/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/markdown.lua
 
 LazyVim.on_very_lazy(function()
   vim.filetype.add {
@@ -22,7 +33,7 @@ return {
     ft = { "markdown" },
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "rumdl", "mdslw", "markdownlint-cli2", "markdown-toc" })
+      vim.list_extend(opts.ensure_installed, { "rumdl", "mdslw", "markdown-toc" })
       -- vim.list_extend(opts.ensure_installed, { "marksman", "harper-ls" })
     end,
   },
@@ -192,46 +203,81 @@ return {
   --     },
   --   },
   -- },
+  -- ============================================================================
+  -- OPTION 1: rumdl via conform.nvim (formatter) + nvim-lint (linter)
+  -- ============================================================================
+  -- Current approach: separate tools for formatting and linting
+  -- Pros: More control over when linting runs, well-tested approach
+  -- Cons: Two tools doing similar work, more configuration
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = {
+  --     formatters = {
+  --       ["markdown-toc"] = {
+  --         condition = function(_, ctx)
+  --           for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
+  --             if line:find "<!%-%- toc %-%->" then
+  --               return true
+  --             end
+  --           end
+  --         end,
+  --       },
+  --       -- TODO: Check if rumdl gets added as a built-in formatter to conform.nvim
+  --       -- Currently custom because it's not built-in (as of Dec 2025)
+  --       -- Feature request issue: https://github.com/stevearc/conform.nvim/issues/814
+  --       -- If added upstream, this custom definition can be removed
+  --       ["rumdl"] = {
+  --         command = "rumdl",
+  --         args = { "fmt", "-", "--stderr" },
+  --         stdin = true,
+  --       },
+  --     },
+  --     formatters_by_ft = {
+  --       ["markdown"] = { "rumdl" },
+  --       ["markdown.mdx"] = { "rumdl" },
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   optional = true,
+  --   opts = {
+  --     linters_by_ft = {
+  --       markdown = { "rumdl" },
+  --     },
+  --   },
+  -- },
+
+  -- ============================================================================
+  -- OPTION 2: rumdl LSP (all-in-one: linting + formatting + code actions)
+  -- ============================================================================
+  -- Alternative approach: Use rumdl's built-in LSP server (available since v0.0.100)
+  -- Built-in to nvim-lspconfig since Dec 5, 2025 (PR #4199, commit f944a821)
+  -- Pros: Single tool, real-time diagnostics, code actions, simpler config
+  -- Cons: Less control over when linting runs, newer/less tested
+  --
+  -- NOTE: This uses the new Neovim 0.11+ vim.lsp.enable() API
+  -- The config is automatically loaded from nvim-lspconfig's lsp/rumdl.lua
+  --
+  -- CURRENTLY ACTIVE - Testing rumdl LSP
+
+  -- Disable prettier for markdown (from LazyVim prettier extra)
   {
     "stevearc/conform.nvim",
     optional = true,
     opts = {
-      formatters = {
-        ["markdown-toc"] = {
-          condition = function(_, ctx)
-            for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
-              if line:find "<!%-%- toc %-%->" then
-                return true
-              end
-            end
-          end,
-        },
-        ["markdownlint-cli2"] = {
-          condition = function(_, ctx)
-            local diag = vim.tbl_filter(function(d)
-              return d.source == "markdownlint"
-            end, vim.diagnostic.get(ctx.buf))
-            return #diag > 0
-          end,
-        },
-        ["rumdl"] = {
-          command = "rumdl",
-          args = { "fmt", "-", "--quiet" },
-          stdin = true,
-        },
-      },
       formatters_by_ft = {
-        ["markdown"] = { "rumdl", "mdslw", "markdown-toc" },
-        ["markdown.mdx"] = { "rumdl", "mdslw", "markdown-toc" },
+        markdown = {},
+        ["markdown.mdx"] = {},
       },
     },
   },
   {
-    "mfussenegger/nvim-lint",
-    optional = true,
+    "neovim/nvim-lspconfig",
     opts = {
-      linters_by_ft = {
-        markdown = { "markdownlint-cli2" },
+      servers = {
+        rumdl = {},
       },
     },
   },
@@ -297,6 +343,16 @@ return {
       indent = {
         enabled = true,
         skip_heading = true,
+      },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      indent = {
+        filter = function(buf)
+          return vim.bo[buf].filetype ~= "markdown"
+        end,
       },
     },
   },
