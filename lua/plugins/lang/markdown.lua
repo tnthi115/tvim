@@ -343,17 +343,18 @@ return {
       indent = {
         enabled = true,
         skip_heading = true,
+        icon = "│ ",
       },
     },
   },
-  {
-    "folke/snacks.nvim",
-    opts = {
-      indent = {
-        filter = function(buf)
-          return vim.bo[buf].filetype ~= "markdown"
-        end,
-      },
-    },
-  },
+  -- {
+  --   "folke/snacks.nvim",
+  --   opts = {
+  --     indent = {
+  --       filter = function(buf)
+  --         return vim.bo[buf].filetype ~= "markdown"
+  --       end,
+  --     },
+  --   },
+  -- },
 }

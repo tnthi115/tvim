@@ -58,10 +58,10 @@ return {
     },
     opts = {
       indent = {
-        indent = {
-          -- only_current = true,
-          -- hl = "Normal",
-        },
+        -- indent = {
+        --   -- only_current = true,
+        --   -- hl = "Normal",
+        -- },
         animate = {
           enabled = false,
         },
