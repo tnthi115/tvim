@@ -1,64 +1,139 @@
-# AGENTS.md
+# TVIM - NEOVIM CONFIG KNOWLEDGE BASE
 
-## Build, Lint, and Test
+**Generated:** 2026-02-06
+**Commit:** d1ee6a1
+**Branch:** main
 
-- **Linting**:
-  - Linting is handled via [nvim-lint](https://github.com/mfussenegger/nvim-lint) and configured in `lua/plugins/core/linting.lua`.
-  - Linters are triggered on `BufWritePost`, `BufReadPost`, and `InsertLeave`.
-  - Linters used: `codespell` (for markdown, html), `shellcheck` (for sh, bash).
-  - To run a linter on the current buffer:
-    `:lua require("lint").try_lint()`
-- **Formatting**:
-  - Lua code is formatted with [stylua](https://github.com/JohnnyMorganz/StyLua).
-  - Format all Lua: `stylua .`
-- **Testing**:
-  - No explicit test runner is configured in this repo.
-  - For plugin or Lua code, use `:luafile %` or write tests in `.test.lua` and run with `nvim -l .test.lua`.
-  - **Always make sure there are no syntax errors. Test by running Neovim commands.**
+## OVERVIEW
 
-## Code Style Guidelines
+LunarVim-inspired personal Neovim config built on LazyVim. 89 Lua files, 105
+plugins (56 custom + 30 LazyVim extras).
 
-- **Indentation**: 2 spaces (see `stylua.toml` and options).
-- **Line width**: 120 characters.
-- **Line endings**: Unix (`\n`).
-- **Quotes**: Prefer double quotes, but auto-detect.
-- **Parentheses**: Omit call parentheses when possible in Lua.
-- **Naming**:
-  - Use `snake_case` for variables and functions.
-  - Use `CamelCase` for plugin/class-like tables.
-- **Imports/Requires**:
-  - Use `require("module")` for Lua modules.
-  - Group related requires at the top of files.
-- **Error Handling**:
-  - Use `pcall` for optional/unsafe requires.
-  - Prefer explicit error messages for user-facing errors.
-- **Keymaps/Autocmds**:
-  - For plugin keymaps, prefer lazy.nvim's `keys` table in plugin specs.
-  - Only use `vim.keymap.set()` for global keymaps in `lua/config/keymaps.lua`.
-  - Place custom autocmds in `lua/config/autocmds.lua`.
+## STRUCTURE
 
-## Development References
+```text
+nvim/
+├── init.lua              # Entry: requires config.lazy
+├── lua/
+│   ├── config/           # Core settings (4 files)
+│   │   ├── lazy.lua      # Plugin bootstrap + imports
+│   │   ├── options.lua   # Vim options (VeryLazy)
+│   │   ├── keymaps.lua   # Global keymaps (VeryLazy)
+│   │   └── autocmds.lua  # Custom autocmds (VeryLazy)
+│   ├── plugins/          # Plugin specs (51 files) - see plugins/AGENTS.md
+│   │   ├── core/         # LazyVim overrides (20 files)
+│   │   └── lang/         # Language configs (12 files)
+│   └── snippets/         # Custom snippets (empty)
+├── stylua.toml           # Lua formatter config
+├── lazyvim.json          # LazyVim extras manifest
+└── lazy-lock.json        # Plugin version lock
+```
 
-- **Config Search Order**:
-  When searching for existing configuration, always check in this order:
-  1. Your local config at `~/.config/nvim`
-  2. Then `~/.local/share/nvim/lazy/LazyVim`
-  3. Then the [LazyVim GitHub repo](https://github.com/LazyVim/LazyVim) or [LazyVim docs](https://www.lazyvim.org/)
+## WHERE TO LOOK
 
-- **Neovim Best Practices**:
-  - Follow `:help lua-guide` for Lua in Neovim.
-  - Use `:help api` for Neovim API documentation.
-- **Plugin Development**:
-  - Follow [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin specs.
-  - Use lazy-loading with appropriate events or commands.
-  - Structure new plugins in `lua/plugins/` directory.
-  - Define keymaps using the `keys` table with proper descriptions for which-key integration.
-- **LazyVim Standards**:
-  - Reference [LazyVim docs](https://www.lazyvim.org/) for configuration patterns.
-  - Check [LazyVim source](https://github.com/LazyVim/LazyVim) for implementation examples.
-  - Extend LazyVim plugins in `lua/plugins/` following existing patterns.
-- **FOSS Best Practices**:
-  - Document all configuration options and functions.
-  - Keep backward compatibility where possible.
-  - Respect existing config patterns and structures.
-  - Add TODO comments for future improvements.
+| Task | Location | Notes |
+|------|----------|-------|
+| Add new plugin | `lua/plugins/{name}.lua` | Return lazy.nvim spec table |
+| Override LazyVim plugin | `lua/plugins/core/{name}.lua` | Merge via `opts` |
+| Add language support | `lua/plugins/lang/{lang}.lua` | See existing patterns |
+| Global keymaps | `lua/config/keymaps.lua` | Use `vim.keymap.set()` |
+| Plugin keymaps | Plugin spec `keys = {}` table | Preferred for lazy-loading |
+| Autocmds | `lua/config/autocmds.lua` | Use `vim.api.nvim_create_autocmd` |
+| Vim options | `lua/config/options.lua` | Applied before lazy.nvim |
+| Enable LazyVim extra | `lazyvim.json` or import in lazy.lua | Prefer lazyvim.json |
+| Disable plugin | `lua/plugins/core/disabled.lua` | `{ "plugin", enabled = false }` |
+
+## CONVENTIONS
+
+### Code Style (stylua.toml enforces)
+
+- **Indent**: 2 spaces
+- **Line width**: 120 chars
+- **Quotes**: Double preferred
+- **Call parens**: Omit when possible (`require "module"` not
+  `require("module")`)
+
+### Naming
+
+- `snake_case` for variables/functions
+- `CamelCase` for plugin/class tables
+- Plugin files: `{plugin-name}.lua` (kebab-case)
+
+### Plugin Spec Pattern
+
+```lua
+return {
+  {
+    "author/plugin-name",
+    event = "VeryLazy",  -- or ft, cmd, keys for lazy-loading
+    opts = { ... },      -- merged with upstream
+    config = function(_, opts) ... end,  -- for complex setup
+  },
+}
+```
+
+### Override Pattern (LazyVim plugins)
+
+```lua
+return {
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      -- Modify opts table
+      opts.servers.lua_ls = { ... }
+    end,
+  },
+}
+```
+
+### Conditional Loading
+
+```lua
+if vim.g.vscode then return {} end  -- Guard non-VSCode features
+```
+
+## ANTI-PATTERNS (THIS PROJECT)
+
+- **DO NOT** put keymaps in config/keymaps.lua if they're plugin-specific - use
+  `keys` table
+- **DO NOT** disable LazyVim extras by commenting imports - use `lazyvim.json`
+  or `enabled = false`
+- **DO NOT** add LSP servers outside lsp.lua or lang/*.lua files
+- **NEVER** use `vim.cmd` for keymaps - use `vim.keymap.set()`
+- **NEVER** modify lazy-lock.json manually
+
+## COMMANDS
+
+```bash
+# Format Lua
+stylua .
+
+# Lint (in Neovim)
+:lua require("lint").try_lint()
+
+# Syntax check
+nvim -l file.lua
+
+# Check for errors
+nvim --headless -c "qa"
+```
+
+## ACTIVE TODOs IN CODEBASE
+
+| File | Issue | Priority |
+|------|-------|----------|
+| supermaven.lua:36 | "doesn't work" | High |
+| minuet-ai.lua:123 | "doesn't work" | High |
+| debugmaster.lua:31,51 | Remap + FIXME | Medium |
+| obsidian.lua | 3 incomplete features | Medium |
+| lualine.lua:163,200 | Config duplication | Low |
+
+## NOTES
+
+- **Config search order**: Local config → `~/.local/share/nvim/lazy/LazyVim` →
+  LazyVim GitHub
+- **Python LSP**: Uses `basedpyright` (set in options.lua)
+- **Colorscheme**: Kanagawa (with tokyonight available)
+- **Transparent mode**: Enabled in tokyonight config
+- LazyVim extras in `lazyvim.json` - 30 enabled including copilot, DAP, and
+  language packs
