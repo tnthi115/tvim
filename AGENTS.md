@@ -1,7 +1,7 @@
 # TVIM - NEOVIM CONFIG KNOWLEDGE BASE
 
 **Generated:** 2026-02-06
-**Commit:** d1ee6a1
+**Commit:** f8a9206
 **Branch:** main
 
 > **AGENT INSTRUCTION**: When modifying this config, check if this file or
@@ -11,8 +11,8 @@
 
 ## OVERVIEW
 
-LunarVim-inspired personal Neovim config built on LazyVim. 89 Lua files, 105
-plugins (56 custom + 30 LazyVim extras).
+LunarVim-inspired personal Neovim config built on LazyVim. 89 Lua files, ~7400
+lines. 56 custom plugins + 30 LazyVim extras.
 
 ## STRUCTURE
 
@@ -22,7 +22,7 @@ nvim/
 ├── lua/
 │   ├── config/           # Core settings (4 files)
 │   │   ├── lazy.lua      # Plugin bootstrap + imports
-│   │   ├── options.lua   # Vim options (VeryLazy)
+│   │   ├── options.lua   # Vim options (pre-lazy)
 │   │   ├── keymaps.lua   # Global keymaps (VeryLazy)
 │   │   └── autocmds.lua  # Custom autocmds (VeryLazy)
 │   ├── plugins/          # Plugin specs (51 files) - see plugins/AGENTS.md
@@ -30,7 +30,7 @@ nvim/
 │   │   └── lang/         # Language configs (12 files)
 │   └── snippets/         # Custom snippets (empty)
 ├── stylua.toml           # Lua formatter config
-├── lazyvim.json          # LazyVim extras manifest
+├── lazyvim.json          # LazyVim extras manifest (30 enabled)
 └── lazy-lock.json        # Plugin version lock
 ```
 
@@ -45,7 +45,7 @@ nvim/
 | Plugin keymaps | Plugin spec `keys = {}` table | Preferred for lazy-loading |
 | Autocmds | `lua/config/autocmds.lua` | Use `vim.api.nvim_create_autocmd` |
 | Vim options | `lua/config/options.lua` | Applied before lazy.nvim |
-| Enable LazyVim extra | `lazyvim.json` or import in lazy.lua | Prefer lazyvim.json |
+| Enable LazyVim extra | `lazyvim.json` | Preferred over import in lazy.lua |
 | Disable plugin | `lua/plugins/core/disabled.lua` | `{ "plugin", enabled = false }` |
 
 ## CONVENTIONS
@@ -130,15 +130,19 @@ nvim --headless -c "qa"
 | supermaven.lua:36 | "doesn't work" | High |
 | minuet-ai.lua:123 | "doesn't work" | High |
 | debugmaster.lua:31,51 | Remap + FIXME | Medium |
-| obsidian.lua | 3 incomplete features | Medium |
+| obsidian.lua:41,60,146 | 3 incomplete features | Medium |
 | lualine.lua:163,200 | Config duplication | Low |
+| gitlab-ci.lua:27 | Not working as expected | Medium |
+| python.lua:20 | Setup ruff with rules | Low |
+| markdown.lua:13 | Open issue/PR in LazyVim | Low |
 
 ## NOTES
 
 - **Config search order**: Local config → `~/.local/share/nvim/lazy/LazyVim` →
   LazyVim GitHub
 - **Python LSP**: Uses `basedpyright` (set in options.lua)
-- **Colorscheme**: Kanagawa (with tokyonight available)
+- **Colorscheme**: Kanagawa primary (tokyonight, catppuccin fallbacks)
 - **Transparent mode**: Enabled in tokyonight config
-- LazyVim extras in `lazyvim.json` - 30 enabled including copilot, DAP, and
-  language packs
+- **Neovim 0.11+**: Uses `vim.lsp.enable()` API for some LSPs (markdown.lua)
+- LazyVim extras in `lazyvim.json` - 30 enabled including copilot, DAP, blink,
+  and language packs

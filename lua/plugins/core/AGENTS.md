@@ -15,7 +15,7 @@ merging.
 | `bufferline.lua` | Tab bar | Minimal changes |
 | `cmp.lua` | nvim-cmp | Cmdline completion, sources |
 | `dashboard-nvim.lua` | Dashboard | Custom ASCII art, shortcuts |
-| `disabled.lua` | — | Plugin disabling (currently empty) |
+| `disabled.lua` | — | Plugin disabling (centralized) |
 | `flash.lua` | Motion | Jump labels config |
 | `gitsigns.lua` | Git signs | Blame, hunk actions |
 | `indent-blankline.lua` | Indent guides | Scope highlighting |

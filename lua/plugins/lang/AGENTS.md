@@ -15,7 +15,7 @@ treesitter).
 | `help.lua` | Vim help | — | — | — |
 | `jsonnet.lua` | Jsonnet | jsonnet_ls | jsonnetfmt | — |
 | `lua.lua` | Lua | lua_ls | stylua | — |
-| `markdown.lua` | Markdown | markdown_oxide | prettier, injected | markdownlint |
+| `markdown.lua` | Markdown | rumdl | — | — |
 | `python.lua` | Python | basedpyright | black, isort | ruff |
 | `rust.lua` | Rust | rust_analyzer | rustfmt | — |
 | `yaml.lua` | YAML | yamlls | prettier | — |
@@ -62,14 +62,6 @@ return {
     "mfussenegger/nvim-dap",
     opts = { ... },
   },
-
-  -- Which-key groups (filetype-triggered)
-  {
-    "folke/which-key.nvim",
-    opts = function(_, opts)
-      -- Add <leader>cg for Go-specific commands
-    end,
-  },
 }
 ```
 
@@ -88,6 +80,12 @@ return {
 - File named after primary language/filetype
 - Include ALL language tooling: LSP, formatter, linter, DAP, treesitter
 - Use `ft = { ... }` or FileType autocmd for lazy loading
+
+## NOTES
+
+- **markdown.lua**: Uses rumdl LSP (new Neovim 0.11+ `vim.lsp.enable()` API),
+  formatters disabled intentionally
+- **python.lua**: basedpyright set globally in options.lua, ruff rules TODO
 
 ## ANTI-PATTERNS
 

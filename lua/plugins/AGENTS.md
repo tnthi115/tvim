@@ -8,8 +8,8 @@ Plugin specifications for tvim. 51 files across 3 subdirectories.
 plugins/
 ├── core/           # LazyVim overrides (20 files) - see core/AGENTS.md
 ├── lang/           # Language configs (12 files) - see lang/AGENTS.md
-├── ai/             # AI plugins (empty - AI configs in root)
-└── *.lua           # Custom plugins (51 files)
+├── ai/             # Empty - AI configs live at root level
+└── *.lua           # Custom plugins (51 files total)
 ```
 
 ## WHERE TO LOOK
@@ -24,34 +24,39 @@ plugins/
 
 ## PLUGIN CATEGORIES
 
-### AI/Completion (7)
+### AI/Completion (8)
 
-`avante.lua`, `codecompanion.lua`, `copilot.lua`, `minuet-ai.lua`, `ogpt.lua`,
-`sidekick.lua`, `supermaven.lua`
+`avante.lua`, `codecompanion.lua`, `copilot.lua`, `gen.lua`, `minuet-ai.lua`,
+`ogpt.lua`, `sidekick.lua`, `supermaven.lua`
 
-### Git Integration (8)
+### Git Integration (9)
 
 `diffview.lua`, `git-blame.lua`, `git-conflict.lua`, `git-worktree.lua`,
-`gitlinker.lua`, `gitlab-*.lua`, `neogit.lua`, `vim-fugative.lua`
+`gitlinker.lua`, `gitlab-duo-code-suggestions.lua`, `gitlab-mrs.lua`,
+`neogit.lua`, `vim-fugative.lua`
 
-### UI Enhancements (9)
+### UI Enhancements (10)
 
-`barbecue.lua`, `colorscheme.lua`, `dropbar.lua`, `fidget.lua`, `heirline.lua`,
-`image.lua`, `nvim-colorizer.lua`, `zen-mode.lua`, `yazi.lua`
+`barbecue.lua`, `colorscheme.lua`, `dropbar.lua`, `fidget.lua`, `fzf.lua`,
+`heirline.lua`, `image.lua`, `nvim-colorizer.lua`, `yazi.lua`, `zen-mode.lua`
 
-### Coding Tools (8)
+### Coding Tools (9)
 
-`codesnap.lua`, `debugmaster.lua`, `leetcode.lua`, `litee.lua`, `neogen.lua`,
-`nvim-coverage.lua`, `refactoring.lua`, `nvim-bqf.lua`
+`codesnap.lua`, `debugmaster.lua`, `leetcode.lua`, `litee.lua`, `makeit.lua`,
+`neogen.lua`, `nvim-bqf.lua`, `nvim-coverage.lua`, `refactoring.lua`
 
 ### Remote/Special (6)
 
 `distant.lua`, `godot.lua`, `navigator.lua`, `obsidian.lua`, `opencode.lua`,
 `remote-nvim.lua`
 
+### Utility (5)
+
+`bigfile.lua`, `example.lua`, `mini-splitjoin.lua`, `rabbit.lua`, `vscode.lua`
+
 ### Fun/Practice (4)
 
-`cellular-automaton.lua`, `typr.lua`, `vim-be-good.lua`, `hardtime.lua`
+`cellular-automaton.lua`, `hardtime.lua`, `typr.lua`, `vim-be-good.lua`
 
 ## LAZY-LOADING PATTERNS
 
