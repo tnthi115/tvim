@@ -2,6 +2,48 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+-- macOS Sequoia: Auto-sign .so files after treesitter/mason installs to prevent crashes
+-- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/5877
+if vim.fn.has "mac" == 1 then
+  local codesign_group = vim.api.nvim_create_augroup("CodesignPlugins", { clear = true })
+
+  -- Sign treesitter parsers after TSUpdate/TSInstall
+  vim.api.nvim_create_autocmd("User", {
+    group = codesign_group,
+    pattern = { "TSUpdate", "TSInstallPost" },
+    callback = function()
+      local parser_dir = vim.fn.stdpath "data" .. "/lazy/nvim-treesitter/parser"
+      vim.fn.jobstart(string.format('find "%s" -name "*.so" -exec codesign -f -s - {} \\;', parser_dir), {
+        detach = true,
+        on_exit = function(_, code)
+          if code == 0 then
+            vim.notify("Signed treesitter parsers", vim.log.levels.INFO)
+          end
+        end,
+      })
+    end,
+    desc = "Sign treesitter parsers for macOS Sequoia",
+  })
+
+  -- Sign mason packages after MasonInstall
+  vim.api.nvim_create_autocmd("User", {
+    group = codesign_group,
+    pattern = "MasonInstallAllComplete",
+    callback = function()
+      local mason_dir = vim.fn.stdpath "data" .. "/mason"
+      vim.fn.jobstart(string.format('find "%s" -name "*.so" -exec codesign -f -s - {} \\;', mason_dir), {
+        detach = true,
+        on_exit = function(_, code)
+          if code == 0 then
+            vim.notify("Signed mason packages", vim.log.levels.INFO)
+          end
+        end,
+      })
+    end,
+    desc = "Sign mason packages for macOS Sequoia",
+  })
+end
+
 -- Turn off auto comment after hitting 'o' or 'O' in Normal mode.
 -- See :help fo-table
 vim.api.nvim_create_autocmd("BufEnter", {
