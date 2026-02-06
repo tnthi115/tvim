@@ -4,6 +4,11 @@
 **Commit:** d1ee6a1
 **Branch:** main
 
+> **AGENT INSTRUCTION**: When modifying this config, check if this file or
+> child AGENTS.md files (`lua/plugins/AGENTS.md`, `lua/plugins/core/AGENTS.md`,
+> `lua/plugins/lang/AGENTS.md`) need updates. Update file counts, plugin lists,
+> or TODOs if your changes affect them.
+
 ## OVERVIEW
 
 LunarVim-inspired personal Neovim config built on LazyVim. 89 Lua files, 105
