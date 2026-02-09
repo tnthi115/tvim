@@ -120,7 +120,18 @@ return {
         nerd_font_variant = "normal",
         kind_icons = kind_icons,
       },
-      -- TODO: doesn't work
+      -- ISSUE: Custom blink.cmp menu columns don't render source_icon
+      -- The completion.menu.draw.columns config below attempts to add a source_icon
+      -- column to show which completion source provided each item.
+      -- However, blink.cmp's draw.components API doesn't support custom components
+      -- the way this config expects. The source_icon component is not built-in.
+      --
+      -- To fix this, would need to:
+      --   1. Check if blink.cmp supports custom draw components (may need PR)
+      --   2. Or use a different approach like highlight groups per source
+      --
+      -- Note: This config uses work-specific f5ai.pd.f5net.com endpoint.
+      -- Disabled until blink.cmp custom draw components are supported.
       -- completion = {
       --   menu = {
       --     draw = {
