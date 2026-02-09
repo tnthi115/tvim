@@ -30,15 +30,46 @@ return {
       servers = {
         -- pyright = {},
         basedpyright = {},
-        -- ruff_lsp = {
-        --   init_options = {
-        --     settings = {
-        --       -- Any extra CLI arguments for `ruff` go here.
-        --       -- See https://beta.ruff.rs/docs/rules/
-        --       args = { "--extend-select=W,N,D,UP,S,A,C4,ISC,ICN,PT,RET,SIM,TID,TCH,PL,TRY,AIR,PERF,FURB,RUF" },
-        --     },
-        --   },
-        -- },
+        ruff = {
+          -- Ruff LSP provides linting + formatting. Since we already use black for
+          -- formatting, disable ruff's formatter to avoid conflicts.
+          init_options = {
+            settings = {
+              lint = {
+                select = {
+                  "W",
+                  "N",
+                  "D",
+                  "UP",
+                  "S",
+                  "A",
+                  "C4",
+                  "ISC",
+                  "ICN",
+                  "PT",
+                  "RET",
+                  "SIM",
+                  "TID",
+                  "TCH",
+                  "PL",
+                  "TRY",
+                  "AIR",
+                  "PERF",
+                  "FURB",
+                  "RUF",
+                },
+              },
+              -- Disable ruff formatting since black is primary formatter
+              format = {
+                preview = false,
+              },
+            },
+          },
+          -- Disable hover to avoid conflicts with basedpyright
+          on_attach = function(client, _)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
       },
     },
   },
