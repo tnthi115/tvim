@@ -2,7 +2,10 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.opt.updatetime = 100
+-- updatetime: Time in ms before CursorHold triggers and swap file writes.
+-- Lower = faster gitgutter/diagnostics updates but more CPU overhead.
+-- 100ms was aggressive; 250ms balances responsiveness with efficiency.
+vim.opt.updatetime = 250
 vim.opt.pumblend = 0
 vim.opt.scrolloff = 8
 vim.opt.swapfile = false
