@@ -159,15 +159,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "COMMIT_EDITMSG",
   callback = function()
     local commit_win = vim.api.nvim_get_current_win()
-    local diff = vim.fn.systemlist "git diff --cached"
-    if not (diff and #diff > 0) then
-      -- If no staged diff, try to show the current commit diff (reword case)
-      diff = vim.fn.systemlist "git show HEAD --no-color --pretty=format:"
-      if not (diff and #diff > 0) then
-        return -- Still no diff, do nothing
-      end
-    end
 
+    -- Set up window/buffer first (sync part)
     local wins = vim.api.nvim_list_wins()
     local diff_win
 
@@ -191,9 +184,57 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
     local diff_buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_win_set_buf(diff_win, diff_buf)
-    vim.api.nvim_buf_set_lines(diff_buf, 0, -1, false, diff)
-    vim.bo[diff_buf].filetype = "diff"
     vim.api.nvim_set_current_win(commit_win)
+
+    -- Async git operations
+    local function populate_diff(lines)
+      if vim.api.nvim_buf_is_valid(diff_buf) and #lines > 0 then
+        vim.schedule(function()
+          vim.api.nvim_buf_set_lines(diff_buf, 0, -1, false, lines)
+          vim.bo[diff_buf].filetype = "diff"
+        end)
+      end
+    end
+
+    -- Try git diff --cached first
+    local diff_lines = {}
+    vim.fn.jobstart("git diff --cached", {
+      stdout_buffered = true,
+      on_stdout = function(_, data)
+        if data then
+          for _, line in ipairs(data) do
+            if line ~= "" then
+              table.insert(diff_lines, line)
+            end
+          end
+        end
+      end,
+      on_exit = function(_, code)
+        if code == 0 and #diff_lines > 0 then
+          populate_diff(diff_lines)
+        else
+          -- Fallback: try git show HEAD (reword case)
+          diff_lines = {}
+          vim.fn.jobstart("git show HEAD --no-color --pretty=format:", {
+            stdout_buffered = true,
+            on_stdout = function(_, data)
+              if data then
+                for _, line in ipairs(data) do
+                  if line ~= "" then
+                    table.insert(diff_lines, line)
+                  end
+                end
+              end
+            end,
+            on_exit = function(_, fallback_code)
+              if fallback_code == 0 then
+                populate_diff(diff_lines)
+              end
+            end,
+          })
+        end
+      end,
+    })
   end,
   desc = "Show staged diff in split when editing commit message",
 })
