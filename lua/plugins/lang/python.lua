@@ -16,8 +16,6 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "basedpyright",
-        -- "ruff-lsp",
-        -- TODO: setup ruff with rules and server mode
         "ruff",
         "pylint",
       })
