@@ -33,10 +33,16 @@ return {
     },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
-      -- TODO: this doesn't work
-      -- insert supermaven icon into this table
+      -- ISSUE: Adding custom kind icon to blink.cmp doesn't work
+      -- LazyVim.config.icons.kinds is a static table defined in LazyVim's config.
+      -- It cannot be extended via table.insert() - this is a no-op.
+      -- To fix this, would need to:
+      --   1. Override LazyVim.config.icons.kinds entirely, OR
+      --   2. Configure blink.cmp's appearance.kind_icons directly
+      -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua
+      -- Disabled until blink.cmp custom source icons are properly supported.
       table.insert(LazyVim.config.icons.kinds, {
-        Supermaven = " ",
+        Supermaven = " ",
       })
 
       table.insert(opts.sources, 1, {
