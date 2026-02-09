@@ -2,45 +2,58 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
--- macOS Sequoia: Auto-sign .so files after treesitter/mason installs to prevent crashes
--- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/5877
+-- macOS Sequoia (15.x+): Auto-sign .so/.dylib files to prevent SIGKILL crashes
+-- See README.md "Known Issues / Workarounds" for removal conditions.
+--
 if vim.fn.has "mac" == 1 then
   local codesign_group = vim.api.nvim_create_augroup("CodesignPlugins", { clear = true })
 
-  -- Sign treesitter parsers after TSUpdate/TSInstall
+  local function sign_all_nvim_libs()
+    local data_dir = vim.fn.stdpath "data"
+    local exclude_paths = {
+      "*/codesnap.nvim/*", -- ships pre-signed binaries
+    }
+    local exclude_args = ""
+    for _, path in ipairs(exclude_paths) do
+      exclude_args = exclude_args .. string.format(' -not -path "%s"', path)
+    end
+    local cmd = string.format(
+      'find "%s" \\( -name "*.so" -o -name "*.dylib" \\)%s -exec codesign -f -s - {} \\;',
+      data_dir,
+      exclude_args
+    )
+    vim.fn.jobstart(cmd, {
+      detach = true,
+      on_exit = function(_, code)
+        if code == 0 then
+          vim.notify("Signed nvim .so/.dylib files", vim.log.levels.INFO)
+        end
+      end,
+    })
+  end
+
+  -- Sign after treesitter operations
   vim.api.nvim_create_autocmd("User", {
     group = codesign_group,
     pattern = { "TSUpdate", "TSInstallPost" },
-    callback = function()
-      local parser_dir = vim.fn.stdpath "data" .. "/lazy/nvim-treesitter/parser"
-      vim.fn.jobstart(string.format('find "%s" -name "*.so" -exec codesign -f -s - {} \\;', parser_dir), {
-        detach = true,
-        on_exit = function(_, code)
-          if code == 0 then
-            vim.notify("Signed treesitter parsers", vim.log.levels.INFO)
-          end
-        end,
-      })
-    end,
-    desc = "Sign treesitter parsers for macOS Sequoia",
+    callback = sign_all_nvim_libs,
+    desc = "Sign .so/.dylib files for macOS Sequoia",
   })
 
-  -- Sign mason packages after MasonInstall
+  -- Sign after mason operations
   vim.api.nvim_create_autocmd("User", {
     group = codesign_group,
     pattern = "MasonInstallAllComplete",
-    callback = function()
-      local mason_dir = vim.fn.stdpath "data" .. "/mason"
-      vim.fn.jobstart(string.format('find "%s" -name "*.so" -exec codesign -f -s - {} \\;', mason_dir), {
-        detach = true,
-        on_exit = function(_, code)
-          if code == 0 then
-            vim.notify("Signed mason packages", vim.log.levels.INFO)
-          end
-        end,
-      })
-    end,
-    desc = "Sign mason packages for macOS Sequoia",
+    callback = sign_all_nvim_libs,
+    desc = "Sign .so/.dylib files for macOS Sequoia",
+  })
+
+  -- Sign after ANY lazy.nvim operation (catches rebuilds that don't fire TS events)
+  vim.api.nvim_create_autocmd("User", {
+    group = codesign_group,
+    pattern = { "LazySync", "LazyUpdate", "LazyInstall" },
+    callback = sign_all_nvim_libs,
+    desc = "Sign .so/.dylib files for macOS Sequoia",
   })
 end
 

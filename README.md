@@ -73,3 +73,32 @@ git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
   update packages
 - [ ] use quartz for publishing markdown notes
   - see <https://www.youtube.com/watch?v=DgKI4hZ4EEI>
+
+## Known Issues / Workarounds
+
+### macOS Sequoia Code Signing (TEMPORARY)
+
+**Status**: Active workaround in `lua/config/autocmds.lua`
+
+**Problem**: macOS Sequoia (15.x+, released Sept 2024) enforces strict code
+signature validation. Locally compiled `.so`/`.dylib` files (treesitter parsers,
+blink.cmp, fzf-native, mason packages) are unsigned and cause nvim to crash with
+SIGKILL (exit code 137).
+
+**Solution**: Auto-sign all `.so`/`.dylib` files after plugin operations
+(TSUpdate, MasonInstall, Lazy sync/update/install).
+
+**When to remove**: This workaround can be removed when ANY of these happen:
+
+- [ ] Neovim ships notarized releases
+  ([neovim/neovim#11011](https://github.com/neovim/neovim/issues/11011) - open
+  since 2019, no ETA)
+- [ ] nvim-treesitter ships pre-signed parsers (unlikely - increases
+  distribution complexity)
+- [ ] Apple reverts this security enforcement (very unlikely)
+
+**Last verified**: Feb 2026 on macOS 15.7.3
+
+**Files involved**:
+
+- `lua/config/autocmds.lua` - CodesignPlugins augroup
