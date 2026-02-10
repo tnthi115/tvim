@@ -1,7 +1,7 @@
 # TVIM - NEOVIM CONFIG KNOWLEDGE BASE
 
-**Generated:** 2026-02-06
-**Commit:** f8a9206
+**Generated:** 2026-02-09
+**Commit:** fef3f2a
 **Branch:** main
 
 > **AGENT INSTRUCTION**: When modifying this config, check if this file or
@@ -11,8 +11,8 @@
 
 ## OVERVIEW
 
-LunarVim-inspired personal Neovim config built on LazyVim. 89 Lua files, ~7400
-lines. 56 custom plugins + 30 LazyVim extras.
+LunarVim-inspired personal Neovim config built on LazyVim. 87 Lua files, ~7500
+lines. 51 custom plugins + 30 LazyVim extras.
 
 ## STRUCTURE
 

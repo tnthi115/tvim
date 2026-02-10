@@ -9,8 +9,18 @@
 
 -- navigate commandline tab completion with <c-j> and <c-k>
 -- runs conditionally
-vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
-vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
+vim.keymap.set(
+  "c",
+  "<C-j>",
+  'pumvisible() ? "\\<C-n>" : "\\<C-j>"',
+  { expr = true, noremap = true, desc = "Next cmdline completion" }
+)
+vim.keymap.set(
+  "c",
+  "<C-k>",
+  'pumvisible() ? "\\<C-p>" : "\\<C-k>"',
+  { expr = true, noremap = true, desc = "Prev cmdline completion" }
+)
 
 -- remove git status keybind
 -- vim.keymap.del("n", "<leader>gs")
@@ -23,13 +33,13 @@ vim.keymap.set({ "n", "i", "s" }, "<c-d>", function()
   if not require("noice.lsp").scroll(4) then
     return "<c-d>"
   end
-end, { silent = true, expr = true })
+end, { silent = true, expr = true, desc = "Scroll down (LSP hover or normal)" })
 
 vim.keymap.set({ "n", "i", "s" }, "<c-u>", function()
   if not require("noice.lsp").scroll(-4) then
     return "<c-u>"
   end
-end, { silent = true, expr = true })
+end, { silent = true, expr = true, desc = "Scroll up (LSP hover or normal)" })
 
 -- TODO: add <leader>s/ as search current buffer
 
