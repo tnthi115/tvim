@@ -71,12 +71,20 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
--- Set indent size to 4 for csharp files.
+-- Set indent size to 4 for fish files.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "fish",
   callback = function()
     local indent_size = 4
     vim.cmd(string.format("setlocal shiftwidth=%s softtabstop=%s expandtab", indent_size, indent_size))
+  end,
+})
+
+-- Disable wrap for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = false
   end,
 })
 
