@@ -5,7 +5,7 @@ return {
     "NickvanDyke/opencode.nvim",
     dependencies = {
       -- Recommended for `ask()` and `select()`.
-      -- Required for default `toggle()` implementation.
+      -- Required for `snacks` provider.
       { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
     },
     config = function()
@@ -14,25 +14,28 @@ return {
       ---@type opencode.Opts
       vim.g.opencode_opts = {
         provider = {
-          name = "snacks",
-          ---@type opencode.provider.Snacks
+          enabled = "snacks",
           snacks = {
-            env = {
-              OPENCODE_THEME = "tymon-kanagawa",
-            },
+            auto_close = true,
             win = {
               position = "right",
+              enter = false,
+              wo = {
+                winbar = "",
+              },
+              bo = {
+                filetype = "opencode_terminal",
+              },
             },
           },
         },
       }
 
-      -- Required for `vim.g.opencode_opts.auto_reload`
+      -- Required for `opts.events.reload`
       vim.opt.autoread = true
     end,
     keys = {
-      -- Recommended keymaps
-      { "<leader>o", "opencode", desc = "opencode", mode = { "n", "x" } },
+      { "<leader>o", "", desc = "opencode", mode = { "n", "x" } },
       {
         "<leader>oa",
         function()
@@ -62,7 +65,7 @@ return {
         function()
           require("opencode").select()
         end,
-        desc = "Execute opencode action...",
+        desc = "Select action...",
         mode = { "n", "x" },
       },
       {
@@ -70,37 +73,37 @@ return {
         function()
           require("opencode").toggle()
         end,
-        desc = "Toggle embedded",
+        desc = "Toggle terminal",
+        mode = { "n", "t" },
       },
       {
         "<leader>on",
         function()
-          require("opencode").command "session_new"
+          require("opencode").command "session.new"
         end,
         desc = "New session",
       },
       {
         "<leader>oi",
         function()
-          require("opencode").command "session_interrupt"
+          require("opencode").command "session.interrupt"
         end,
         desc = "Interrupt session",
-        mode = "n",
       },
       {
         "<S-C-u>",
         function()
-          require("opencode").command "messages_half_page_up"
+          require("opencode").command "session.half.page.up"
         end,
-        desc = "Messages half page up",
+        desc = "Scroll opencode up",
         mode = "n",
       },
       {
         "<S-C-d>",
         function()
-          require("opencode").command "messages_half_page_down"
+          require("opencode").command "session.half.page.down"
         end,
-        desc = "Messages half page down",
+        desc = "Scroll opencode down",
         mode = "n",
       },
     },
