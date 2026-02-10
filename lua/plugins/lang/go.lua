@@ -131,6 +131,7 @@ return {
         return
       end
 
+      ---@diagnostic disable-next-line: missing-fields
       gopher.setup {
         -- log level, you might consider using DEBUG or TRACE for debugging the plugin
         ---@type number
