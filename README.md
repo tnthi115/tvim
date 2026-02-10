@@ -1,104 +1,128 @@
 # 💤 tvim
 
-This is my [Lunarvim](https://www.lunarvim.org/)-inspired config for
-[LazyVim](https://github.com/LazyVim/LazyVim).
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Neovim](https://img.shields.io/badge/Neovim-0.10+-green.svg)](https://neovim.io)
+[![LazyVim](https://img.shields.io/badge/LazyVim-based-purple.svg)](https://lazyvim.org)
 
-## Installation
+Personal Neovim config built on [LazyVim](https://lazyvim.org).
+[LunarVim](https://lunarvim.org/) was my first config distro, and the lualine
+theme is inspired by its statusline.
 
-Follow the LazyVim Installation instructions, but clone this repo instead of the
-LazyVim starter repo.
-Hello test sentence.
+![Dashboard Screenshot](assets/dashboard.png)
+
+![OpenCode](assets/opencode.png)
+
+## ✨ Features
+
+- **🤖 AI-Powered Coding** - Copilot (inline), Copilot NES via Sidekick, OpenCode
+- **🌐 Multi-Language Support** - Go, Python, Rust, TypeScript, Lua, Markdown + 6
+  more
+- **📝 Note-Taking** - Deep Obsidian.nvim integration
+- **🎨 Beautiful UI** - Kanagawa colorscheme with Tokyo Night & Catppuccin
+  fallbacks
+- **⚡ Fast & Lazy** - 51 custom plugins + 30 LazyVim extras, all lazy-loaded
+
+## ⚡ Requirements
+
+- Neovim >= 0.10.0
+- Git
+- A [Nerd Font](https://www.nerdfonts.com/) (optional but recommended)
+- For telescope: `ripgrep`, `fd`
+- For clipboard: `xclip`/`xsel` (Linux) or `pbcopy` (macOS)
+
+## 🚀 Installation
+
+### Backup existing config
 
 ```sh
-mv $HOME/.config/nvim/ $HOME/.config/nvim.bak
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
 ```
+
+### Clone tvim
 
 ```sh
-git clone git@github.com:tnthi115/lazyvim.git $HOME/.config/nvim
+git clone https://github.com/tnthi115/lazyvim.git ~/.config/nvim
 ```
 
-## TODO
+### Start Neovim
 
-- [ ] flesh out README
-- [ ] screenshots
-- [x] add more treesitter textobjects
-- [x] use conform.nvim and nvim-lint
-- [x] refactor work mode if structure for `lang/go.lua`
-  - [ ] use <https://stackoverflow.com/a/72021612>
-- [ ] figure out how to show all messages in noice.nvim
-- [ ] figure out how to ignore gitlab codesuggestions lsp messages
-- [x] add tmux navigator
-- [ ] tmux sessionX plugin <https://github.com/omerxx/tmux-sessionx>
-- [ ] steal plugins from quarto-nvim-kickstarter
-  - [x] <https://youtu.be/iNe88IZplYM?si=CENBMEgi64OdXrSQ>
-  - [ ] <https://github.com/jmbuhr/quarto-nvim-kickstarter>
-  - [x] <https://github.com/3rd/image.nvim/>
-- [x] update obsidian.nvim config after all the updates
-- [x] configure image.nvim more
-- [ ] figure out why hardtime.nvim doesn't work immediately when opening a file
-  on the commandline (i.e `nvim <file>` or `vf`) and only works after opening
-  another file
-- [x] look at updates for [ogpt.nvim](https://github.com/huynle/ogpt.nvim)
-- [ ] create custom snippets
-  - [ ] lazy.nvim keys table
-  - [ ] whichkey register mapping
-- [ ] look at more plugins from <https://github.com/rockerBOO/awesome-neovim>
-  - [x] <https://github.com/kawre/leetcode.nvim>
-  - [x] look at <https://github.com/soulis-1256/hoverhints.nvim>
-    - doesn't work
-- [x] look at [nvim-navic](https://github.com/SmiteshP/nvim-navic) without
-  breadcrumbs
-  - [x] using <https://github.com/utilyre/barbecue.nvim> for now
-- [ ] look at <https://github.com/ibhagwan/fzf-lua>
-- [x] configure cmp to give cmdline completion
-  - [x] done, but fix the selection confirmation
-- [x] add <https://github.com/LunarVim/bigfile.nvim> or manual
-  <https://youtu.be/pf50INuhY-c?si=5deIZ9MMVE-8ycFI>
-- [x] update leetcode.nvim keybinds with new commands and update config if
-  needed
-- [ ] checkout [`markdown-oxide`](https://github.com/Feel-ix-343/markdown-oxide)
-- [ ] change tokyonight highlights for git diffs in diffview
-- [x] figure out why breadcrumbs don't work for
-  [codesnap.nvim](https://github.com/mistricky/codesnap.nvim)
-- [ ] figure out why obsidian.nvim syntax highlight doesn't work anymore
-- [ ] figure out why image.nvim doesn't work anymore
-- [ ] replace nvim-colorizer with mini.hipatterns
-- [x] figure out why the file icon in barbecue.nvim is no longer working for
-  some filetypes
-  - switched to dropbar.lua
-- [ ] consider <https://github.com/rachartier/tiny-inline-diagnostic.nvim> or
-  <https://github.com/sontungexpt/better-diagnostic-virtual-text>
-  - using <https://git.sr.ht/~whynothugo/lsp_lines.nvim>
-- [ ] use <https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim> to auto
-  update packages
-- [ ] use quartz for publishing markdown notes
-  - see <https://www.youtube.com/watch?v=DgKI4hZ4EEI>
+```sh
+nvim
+```
+
+Lazy.nvim will auto-install plugins on first launch.
+
+### macOS Sequoia Users
+
+See [Known Issues](#known-issues--workarounds) for code signing workaround.
+
+## 📂 Structure
+
+```text
+nvim/
+├── init.lua              # Entry point
+├── lua/
+│   ├── config/           # Core settings (options, keymaps, autocmds)
+│   ├── plugins/          # 51 custom plugins
+│   │   ├── core/         # 20 LazyVim overrides
+│   │   └── lang/         # 12 language configs
+│   └── snippets/         # Custom snippets
+├── lazyvim.json          # LazyVim extras (30 enabled)
+└── stylua.toml           # Lua formatter config
+```
+
+## 🔌 Plugins
+
+See [PLUGINS.md](PLUGINS.md) for complete list.
+
+### Highlights
+
+| Category | Notable Plugins |
+|----------|-----------------|
+| AI/LLM | Copilot, Sidekick, OpenCode |
+| Languages | Go, Python (basedpyright), Rust, TypeScript |
+| Productivity | Obsidian, LeetCode, Harpoon |
+| Git | Diffview, Neogit, Fugitive, git-worktree |
+| UI | Kanagawa, Lualine, Dropbar |
+
+## ⚙️ Configuration
+
+This config uses LazyVim as a base. To customize:
+
+1. **Add plugins:** Create `lua/plugins/your-plugin.lua`
+2. **Override LazyVim:** Modify files in `lua/plugins/core/`
+3. **Language support:** Add to `lua/plugins/lang/`
+4. **Keymaps:** Edit `lua/config/keymaps.lua` or use plugin `keys` table
+5. **Options:** Edit `lua/config/options.lua`
 
 ## Known Issues / Workarounds
 
-### macOS Sequoia Code Signing (TEMPORARY)
+### macOS Sequoia Code Signing
 
-**Status**: Active workaround in `lua/config/autocmds.lua`
+**Status:** Active workaround in `lua/config/autocmds.lua`
 
-**Problem**: macOS Sequoia (15.x+, released Sept 2024) enforces strict code
-signature validation. Locally compiled `.so`/`.dylib` files (treesitter parsers,
-blink.cmp, fzf-native, mason packages) are unsigned and cause nvim to crash with
-SIGKILL (exit code 137).
+macOS Sequoia (15.x+) enforces code signature validation. Locally compiled
+`.so`/`.dylib` files are unsigned and cause crashes (SIGKILL, exit 137).
 
-**Solution**: Auto-sign all `.so`/`.dylib` files after plugin operations
-(TSUpdate, MasonInstall, Lazy sync/update/install).
+**Solution:** Auto-signs all binaries after plugin operations.
 
-**When to remove**: This workaround can be removed when ANY of these happen:
+**Last verified:** Feb 2026 on macOS 15.7.3
 
-- [ ] Neovim ships notarized releases
-  ([neovim/neovim#11011](https://github.com/neovim/neovim/issues/11011) - open
-  since 2019, no ETA)
-- [ ] nvim-treesitter ships pre-signed parsers (unlikely - increases
-  distribution complexity)
-- [ ] Apple reverts this security enforcement (very unlikely)
+## 🤝 Contributing
 
-**Last verified**: Feb 2026 on macOS 15.7.3
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-**Files involved**:
+## 📋 Development
 
-- `lua/config/autocmds.lua` - CodesignPlugins augroup
+See [TODO.md](TODO.md) for planned improvements.
+
+## 📄 License
+
+[Apache 2.0](LICENSE)
+
+## 🙏 Acknowledgements
+
+- [LazyVim](https://lazyvim.org) - Base configuration framework
+- [LunarVim](https://lunarvim.org) - Inspiration for lualine theme
+- [folke](https://github.com/folke) - lazy.nvim and many essential plugins
