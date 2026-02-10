@@ -20,6 +20,23 @@ LazyVim.on_very_lazy(function()
   }
 end)
 return {
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      local wk = require "which-key"
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "markdown", "markdown.mdx" },
+        callback = function()
+          wk.add {
+            "<leader>m",
+            mode = { "n", "v" },
+            group = "markdown",
+            icon = { icon = require("mini.icons").get("filetype", "markdown"), color = "cyan" },
+          }
+        end,
+      })
+    end,
+  },
   -- {
   --   "nvim-treesitter/nvim-treesitter",
   --   opts = function(_, opts)
@@ -262,10 +279,23 @@ return {
   --
   -- CURRENTLY ACTIVE - Testing rumdl LSP
 
-  -- Disable prettier for markdown (from LazyVim prettier extra)
+  -- Disable default formatters for markdown (from LazyVim prettier extra)
+  -- rumdl LSP handles formatting, but prettier available via <leader>mp for frontmatter-safe formatting
   {
     "stevearc/conform.nvim",
     optional = true,
+    ft = { "markdown", "markdown.mdx" },
+    keys = {
+      {
+        "<leader>mp",
+        mode = { "n", "v" },
+        ft = { "markdown", "markdown.mdx" },
+        function()
+          require("conform").format { formatters = { "prettier" } }
+        end,
+        desc = "Format with prettier",
+      },
+    },
     opts = {
       formatters_by_ft = {
         markdown = {},
