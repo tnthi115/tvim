@@ -11,23 +11,37 @@ return {
     config = function()
       -- see https://github.com/NickvanDyke/opencode.nvim/blob/main/lua/opencode/config.lua
       -- `opencode.nvim` passes options via a global variable instead of `setup()` for faster startup
+      local opencode_cmd = "opencode --port"
+      ---@type snacks.terminal.Opts
+      local snacks_terminal_opts = {
+        auto_close = true,
+        win = {
+          position = "right",
+          enter = false,
+          wo = {
+            winbar = "",
+          },
+          bo = {
+            filetype = "opencode_terminal",
+          },
+          on_win = function(win)
+            -- Set up keymaps and cleanup for an arbitrary terminal
+            require("opencode.terminal").setup(win.win)
+          end,
+        },
+      }
       ---@type opencode.Opts
       vim.g.opencode_opts = {
-        provider = {
-          enabled = "snacks",
-          snacks = {
-            auto_close = true,
-            win = {
-              position = "right",
-              enter = false,
-              wo = {
-                winbar = "",
-              },
-              bo = {
-                filetype = "opencode_terminal",
-              },
-            },
-          },
+        server = {
+          start = function()
+            require("snacks.terminal").open(opencode_cmd, snacks_terminal_opts)
+          end,
+          stop = function()
+            require("snacks.terminal").get(opencode_cmd, snacks_terminal_opts):close()
+          end,
+          toggle = function()
+            require("snacks.terminal").toggle(opencode_cmd, snacks_terminal_opts)
+          end,
         },
       }
 
@@ -89,6 +103,17 @@ return {
           require("opencode").command "session.interrupt"
         end,
         desc = "Interrupt session",
+      },
+      {
+        "<leader>oS",
+        function()
+          -- Disconnect from current server and prompt to select a new one
+          require("opencode.events").disconnect()
+          require("opencode.cli.server").get():next(function(server)
+            vim.notify("Connected to opencode on port " .. server.port, vim.log.levels.INFO)
+          end)
+        end,
+        desc = "Switch server",
       },
       {
         "<S-C-u>",

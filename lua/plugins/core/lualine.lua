@@ -256,6 +256,14 @@ return {
       }
       -- Remove diff section in LazyVim config: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/ui.lua?plain=1#L168-L185
       table.remove(opts.sections.lualine_x)
+      -- Insert opencode statusline before copilot (which is at position 2)
+      table.insert(opts.sections.lualine_x, 1, {
+        require("opencode").statusline,
+        padding = 2,
+        cond = function()
+          return package.loaded["opencode"] ~= nil
+        end,
+      })
       vim.list_extend(opts.sections.lualine_x, {
         -- {
         --   "diagnostics",
