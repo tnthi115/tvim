@@ -3,14 +3,32 @@
 return {
   {
     "NickvanDyke/opencode.nvim",
+    version = "*",
     dependencies = {
-      -- Recommended for `ask()` and `select()`.
-      -- Required for `snacks` provider.
-      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+      {
+        "folke/snacks.nvim",
+        optional = true,
+        opts = {
+          input = {}, -- Enhances `ask()`
+          picker = { -- Enhances `select()`
+            actions = {
+              opencode_send = function(...)
+                return require("opencode").snacks_picker_send(...)
+              end,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+                },
+              },
+            },
+          },
+        },
+      },
     },
     config = function()
-      -- see https://github.com/NickvanDyke/opencode.nvim/blob/main/lua/opencode/config.lua
-      -- `opencode.nvim` passes options via a global variable instead of `setup()` for faster startup
+      ---@diagnostic disable-next-line: missing-fields
       local opencode_cmd = "opencode --port"
       ---@type snacks.terminal.Opts
       local snacks_terminal_opts = {
@@ -79,7 +97,7 @@ return {
         function()
           require("opencode").select()
         end,
-        desc = "Select action...",
+        desc = "Select action…",
         mode = { "n", "x" },
       },
       {
@@ -107,11 +125,8 @@ return {
       {
         "<leader>oS",
         function()
-          -- Disconnect from current server and prompt to select a new one
-          require("opencode.events").disconnect()
-          require("opencode.cli.server").get():next(function(server)
-            vim.notify("Connected to opencode on port " .. server.port, vim.log.levels.INFO)
-          end)
+          -- Show the server picker to switch active opencode server
+          require("opencode").select_server()
         end,
         desc = "Switch server",
       },
