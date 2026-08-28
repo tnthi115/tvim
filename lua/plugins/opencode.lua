@@ -26,20 +26,7 @@ return {
         optional = true,
         opts = {
           input = {}, -- Enhances `ask()`
-          picker = { -- Enhances `select()`
-            actions = {
-              opencode_send = function(...)
-                return require("opencode").snacks_picker_send(...)
-              end,
-            },
-            win = {
-              input = {
-                keys = {
-                  ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
-                },
-              },
-            },
-          },
+          picker = {}, -- Enhances `select()`
         },
       },
     },
@@ -115,8 +102,7 @@ return {
       {
         "<leader>oS",
         function()
-          -- Show the server picker to switch active opencode server
-          require("opencode").select_server()
+          require("opencode").select { prompts = false, commands = false }
         end,
         desc = "Switch server",
       },
