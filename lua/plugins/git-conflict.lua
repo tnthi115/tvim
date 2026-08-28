@@ -3,7 +3,7 @@ return {
     "akinsho/git-conflict.nvim",
     event = "VeryLazy",
     version = "*",
-    command = {
+    cmd = {
       "GitConflictChooseOurs",
       "GitConflictChooseTheirs",
       "GitConflictChooseBoth",
@@ -13,7 +13,7 @@ return {
       "GitConflictListQf",
     },
     keys = {
-      { "<leader>ghc", "<cmd>GitConflictListQf", desc = "Git Conflict List" },
+      { "<leader>ghc", "<cmd>GitConflictListQf<CR>", desc = "Git Conflict List" },
     },
     config = function()
       require("git-conflict").setup {}
@@ -22,10 +22,6 @@ return {
         pattern = "GitConflictDetected",
         callback = function()
           vim.notify("Conflict detected in " .. vim.fn.expand "<afile>")
-          vim.keymap.set("n", "cww", function()
-            engage.conflict_buster()
-            create_buffer_local_mappings()
-          end)
         end,
       })
     end,
