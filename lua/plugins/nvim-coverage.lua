@@ -6,7 +6,7 @@ return {
   {
     "andythigpen/nvim-coverage",
     ft = filetypes,
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     -- Optional: needed for PHP when using the cobertura parser
     rocks = { "lua-xmlreader" },
     cmd = {
