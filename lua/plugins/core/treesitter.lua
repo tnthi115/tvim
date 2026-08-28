@@ -23,12 +23,6 @@ local function swap(method, query)
 end
 
 return {
-  -- Treesitter is a new parser generator tool that we can
-  -- use in Neovim to power faster and more accurate
-  -- syntax highlighting.
-  {
-    "nvim-treesitter/nvim-treesitter",
-  },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     opts = function()
