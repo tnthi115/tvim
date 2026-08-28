@@ -87,16 +87,6 @@ return {
       },
       linters = {
         mypy = {
-          -- Cache the Python path for performance
-          -- The Python path is determined during plugin setup rather than during config load
-          setup = function(linter)
-            -- Set python path during setup (runs only when linter is actually used)
-            if not linter.args_python_path_set then
-              local python_path = vim.fn.exepath "python"
-              table.insert(linter.args, "--python-executable=" .. python_path)
-              linter.args_python_path_set = true
-            end
-          end,
           args = {
             "--show-column-numbers",
             "--show-error-end",
@@ -106,7 +96,9 @@ return {
             "--no-error-summary",
             "--no-pretty",
             "--strict",
-            -- Python executable path moved to setup function for better performance
+            function()
+              return "--python-executable=" .. vim.fn.exepath "python"
+            end,
           },
         },
       },
