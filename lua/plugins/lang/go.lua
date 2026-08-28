@@ -119,7 +119,7 @@ return {
         "<leader>md",
         ft = go_filetypes,
         function()
-          require("gopher.dap").debug_test()
+          require("dap-go").debug_test()
         end,
         desc = "Debug Go Test",
       },
@@ -177,8 +177,6 @@ return {
           message = nil,
         },
       }
-
-      -- require("gopher.dap").setup()
     end,
     -- build = function()
     --   vim.cmd [[silent! GoInstallDeps]]
@@ -193,7 +191,7 @@ return {
       "MunifTanjim/nui.nvim",
       -- "m00qek/baleia.nvim",
     },
-    cmd = { "QuicktestRunLine", "QuicktestRunFile", "QuicktestRunDir", "QuicktestrunAll" },
+    cmd = { "QuicktestRunLine", "QuicktestRunFile", "QuicktestRunDir", "QuicktestRunAll" },
     keys = {
       {
         "<leader>tR",
@@ -228,8 +226,8 @@ return {
         },
         -- split or popup mode, when argument not specified
         default_win_mode = "split",
-        -- Baleia make coloured output. Requires baleia package. Can cause crashes https://github.com/quolpr/quicktest.nvim/issues/11
-        use_baleia = false,
+        -- Use quicktest's built-in ANSI colorizer for test output.
+        use_builtin_colorizer = true,
       }
     end,
   },
@@ -262,10 +260,10 @@ return {
   {
     "maxandron/goplements.nvim",
     ft = "go",
-    cmd = { "GoplementEnable", "GoplementDisable", "GoplementToggle" },
+    cmd = { "GoplementsEnable", "GoplementsDisable", "GoplementsToggle" },
     keys = {
       { "<leader>mu", ft = go_filetypes, "", desc = "ui/toggles" },
-      { "<leader>mug", ft = go_filetypes, "<cmd>GoplementToggle<CR>", desc = "Toggle Goplements" },
+      { "<leader>mug", ft = go_filetypes, "<cmd>GoplementsToggle<CR>", desc = "Toggle Goplements" },
     },
     opts = {
       -- your configuration comes here
